@@ -34,7 +34,7 @@ export default function Home() {
     const ctx = gsap.context(() => {
       // Reveal logic for elements NOT handled by components
       // Using a more specific selector
-      gsap.utils.toArray('.main-reveal').forEach((el: any) => {
+      gsap.utils.toArray('.reveal, .main-reveal').forEach((el: any) => {
         gsap.from(el, {
           y: 60,
           opacity: 0,

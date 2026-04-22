@@ -24,7 +24,19 @@ body {
   color: white;
 }
 
-.gsap-reveal {
-  opacity: 0;
-  visibility: hidden;
+/* Animations handled by GSAP */
+.reveal, .gsap-reveal {
+  will-change: transform, opacity;
+}
+
+@utility text-premium {
+  background: linear-gradient(to right, #0071e3, #ff3b30, #34c759, #ffcc00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility line-cmyk {
+  height: 4px;
+  background: linear-gradient(to right, #0071e3 25%, #ff3b30 25%, #ff3b30 50%, #34c759 50%, #34c759 75%, #ffcc00 75%);
 }

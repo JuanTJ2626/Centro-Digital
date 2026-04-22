@@ -106,9 +106,15 @@ export default function Gallery({ photos }: GalleryProps) {
             </div>
           </div>
         </div>
-        <h2 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter italic leading-[0.95]">
-          GALERÍA DE <span className="gradient-brand">ÉXITOS.</span>
+        <h2 className="text-4xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter italic leading-[0.95]">
+          GALERÍA DE <span className="text-premium">ÉXITOS.</span>
         </h2>
+        <div className="flex gap-1 mt-6">
+          <div className="w-12 h-1 bg-[#0071e3]" />
+          <div className="w-12 h-1 bg-[#ff3b30]" />
+          <div className="w-12 h-1 bg-[#34c759]" />
+          <div className="w-12 h-1 bg-[#ffcc00]" />
+        </div>
       </div>
 
       <div className="relative w-full h-[65vh]">
