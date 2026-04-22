@@ -1,7 +1,7 @@
 'use client';
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
-import { ArrowRight, Zap } from 'lucide-react';
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
@@ -11,6 +11,18 @@ interface HeroProps {
 
 export default function Hero({ photos }: HeroProps) {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [particles, setParticles] = useState<{ top: string; left: string; color: string }[]>([]);
+
+  // Generate random positions only on the client to avoid hydration mismatch
+  useEffect(() => {
+    const colors = ['#0071e3', '#ff3b30', '#34c759', '#ffcc00'];
+    const newParticles = [...Array(6)].map((_, i) => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      color: colors[i % 4]
+    }));
+    setParticles(newParticles);
+  }, []);
 
   useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -60,8 +72,8 @@ export default function Hero({ photos }: HeroProps) {
       });
 
       // 3. Floating "Ink Drops" (Particles)
-      const particles = gsap.utils.toArray('.hero-particle');
-      particles.forEach((p: any, i: number) => {
+      const particleEls = gsap.utils.toArray('.hero-particle');
+      particleEls.forEach((p: any) => {
         gsap.to(p, {
           y: 'random(-100, 100)',
           x: 'random(-100, 100)',
@@ -93,7 +105,7 @@ export default function Hero({ photos }: HeroProps) {
     }, heroRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [particles]); // Re-run GSAP when particles are generated
 
   return (
     <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
@@ -107,14 +119,14 @@ export default function Hero({ photos }: HeroProps) {
       <div className="absolute top-1/4 right-0 w-[450px] h-[450px] bg-yellow-400/10 blur-[150px] rounded-full pointer-events-none" />
 
       {/* Floating Ink drops (Particles) */}
-      {[...Array(6)].map((_, i) => (
+      {particles.map((p, i) => (
         <div 
           key={i} 
           className="hero-particle absolute w-3 h-3 rounded-full opacity-20 pointer-events-none"
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            backgroundColor: i % 4 === 0 ? '#0071e3' : i % 4 === 1 ? '#ff3b30' : i % 4 === 2 ? '#34c759' : '#ffcc00',
+            top: p.top,
+            left: p.left,
+            backgroundColor: p.color,
             filter: 'blur(2px)'
           }}
         />
@@ -139,14 +151,11 @@ export default function Hero({ photos }: HeroProps) {
       </div>
 
       <div className="max-w-6xl mx-auto text-center px-6 relative z-10 hero-content">
-        <div className="hero-tag inline-flex items-center gap-2 px-5 py-2 bg-white/80 backdrop-blur-md shadow-xl rounded-full text-[10px] font-black uppercase tracking-[0.4em] mb-12 border border-white/50">
-          {/* <Zap className="w-3.5 h-3.5 text-yellow-500 fill-current" /> */}
-          {/* <span className="text-[#0071e3]">Elite Digital SLP</span> */}
-        </div>
+        <div className="hero-tag inline-flex items-center gap-2 px-5 py-2 bg-white/80 backdrop-blur-md shadow-xl rounded-full text-[10px] font-black uppercase tracking-[0.4em] mb-12 border border-white/50" />
 
         <h1 className="hero-title text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.95] mb-8 flex flex-col items-center">
-          <span className="block overflow-hidden"><span className="block">IMPRESIÓN</span></span>
-          <span className="block overflow-hidden"><span className="block text-premium italic">DIGITAL.</span></span>
+          <span className="block overflow-hidden"><span className="block italic">IMPRESIÓN</span></span>
+          <span className="block overflow-hidden"><span className="block text-premium italic uppercase">Digital.</span></span>
         </h1>
 
         <p className="hero-p text-xl md:text-3xl text-[#1d1d1f]/60 max-w-4xl mx-auto font-medium leading-tight mb-20 italic">

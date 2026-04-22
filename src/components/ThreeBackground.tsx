@@ -36,22 +36,26 @@ function BrandSpheres() {
     { 
       color: "#0055ff", 
       pos: isMobile ? [-w * 0.4, h * 0.5, -2] : [-w * 0.7, h * 0.4, -5], 
-      size: isMobile ? 1.2 : 2.5 
+      size: isMobile ? 1.2 : 2.5,
+      speed: 2
     },
     { 
       color: "#ff0000", 
       pos: isMobile ? [w * 0.4, h * 0.1, -3] : [w * 0.7, -h * 0.2, -6], 
-      size: isMobile ? 1.0 : 2.0 
+      size: isMobile ? 1.0 : 2.0,
+      speed: 1.5
     },
     { 
       color: "#00ff44", 
       pos: isMobile ? [-w * 0.3, -h * 0.4, -2] : [-w * 0.3, -h * 0.6, -4], 
-      size: isMobile ? 0.8 : 1.8 
+      size: isMobile ? 0.8 : 1.8,
+      speed: 2.5
     },
     { 
       color: "#ffdd00", 
       pos: isMobile ? [w * 0.3, h * 0.7, -4] : [w * 0.5, h * 0.6, -5], 
-      size: isMobile ? 0.7 : 1.6 
+      size: isMobile ? 0.7 : 1.6,
+      speed: 1.8
     },
   ];
 
