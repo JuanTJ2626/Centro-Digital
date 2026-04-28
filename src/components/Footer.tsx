@@ -70,12 +70,18 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center gap-6 opacity-50 hover:opacity-100 transition-all cursor-pointer">
             <img src="/LOGO PUBLIDEAS.jpeg" alt="Logo" className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-white/10 grayscale" />
             <div className="text-center md:text-left">
-              <span className="block font-black italic tracking-tighter text-xl md:text-2xl text-white uppercase">Miguel Premium Print</span>
+              <span className="block font-black italic tracking-tighter text-xl md:text-2xl text-white uppercase">Publideas</span>
             </div>
           </div>
           <div className="text-center md:text-right">
             <span className="block text-lg font-bold italic text-white/50 uppercase">CMYK Digital en SLP</span>
-            <span className="block text-xs text-white/20 font-medium mt-1">© {new Date().getFullYear()} Garantía de Fidelidad Total</span>
+            <div className="flex flex-col md:flex-row gap-2 md:gap-6 mt-1 text-[10px] font-black uppercase tracking-widest text-white/20">
+              <span>© {new Date().getFullYear()} Garantía de Fidelidad Total</span>
+              <div className="flex gap-4">
+                <a href="/legales" className="hover:text-blue-400 transition-colors underline decoration-white/10">Privacidad</a>
+                <a href="/legales" className="hover:text-red-400 transition-colors underline decoration-white/10">Términos</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
