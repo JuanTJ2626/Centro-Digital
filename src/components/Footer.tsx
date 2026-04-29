@@ -1,91 +1,158 @@
 'use client';
-import { ArrowRight, Zap, Gem, MessageCircle } from 'lucide-react';
+import { ArrowRight, Zap, Gem, Phone, Mail } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <section id="quote" className="py-24 md:py-40 px-4 md:px-6 bg-[#0a0a0b] relative overflow-hidden">
-      {/* Subtle Color Glows in background */}
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/5 blur-[150px] rounded-full pointer-events-none -ml-48 -mb-48 opacity-40" />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/5 blur-[150px] rounded-full pointer-events-none -mr-48 -mt-48 opacity-40" />
-      <div className="reveal max-w-7xl mx-auto relative z-10">
-        
-        {/* Glow Effects */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] md:blur-[150px] pointer-events-none -mr-48 -mt-48" />
+    <footer id="quote" className="bg-[#0a0a0b] relative overflow-hidden">
+      {/* Background glows */}
+      <div className="absolute top-0 left-1/4 w-[700px] h-[700px] bg-blue-600/8 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-red-600/5 blur-[100px] rounded-full pointer-events-none" />
 
-        <div className="mb-14 px-2 flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-          <div className="flex flex-col items-start text-left relative z-10">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-10 h-10 bg-[#0071e3]/20 rounded-2xl flex items-center justify-center border border-[#0071e3]/30 shrink-0">
-                <Gem className="w-5 h-5 text-[#0071e3]" />
-              </div>
-              <div className="text-left">
-                <span className="block text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3] mb-1">Empieza tu proyecto</span>
-                <div className="flex items-center gap-2">
-                  <Zap className="w-3 h-3 text-yellow-500 fill-current" />
-                  <span className="text-xs font-bold italic text-slate-400">Cotización Inmediata</span>
-                </div>
-              </div>
+      {/* ── MAIN CTA ─────────────────────────────────── */}
+      <div className="px-4 md:px-6 pt-20 md:pt-28 pb-14 relative z-10">
+        <div className="max-w-7xl mx-auto">
+
+          {/* Badge row */}
+          <div className="flex flex-wrap items-center gap-3 mb-8">
+            <div className="w-8 h-8 bg-[#0071e3]/20 border border-[#0071e3]/30 rounded-xl flex items-center justify-center">
+              <Gem className="w-4 h-4 text-[#0071e3]" />
             </div>
-            <h2 className="text-5xl md:text-7xl lg:text-[7rem] font-bold tracking-tighter mb-4 italic leading-[0.95] text-white">
-              HAGÁMOSLO <br className="hidden md:block"/> <span className="text-premium">REALIDAD.</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Empieza tu proyecto</span>
+            <div className="flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 text-yellow-400 fill-current" />
+              <span className="text-xs font-bold italic text-slate-500">Cotización inmediata</span>
+            </div>
+          </div>
+
+          {/* Headline + WhatsApp button */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-10">
+            <h2 className="text-6xl md:text-8xl lg:text-[9rem] font-bold tracking-tighter italic leading-[0.9] text-white">
+              HAGÁMOSLO<br />
+              <span className="text-premium">REALIDAD.</span>
             </h2>
-            <p className="text-xl md:text-2xl font-medium text-slate-400 italic max-w-2xl px-2 md:px-0">
-              La más alta precisión CMYK y acabados premium están a un mensaje de distancia.
-            </p>
-            <div className="flex gap-1 mt-8">
-              <div className="w-12 h-0.5 bg-[#0071e3]/50" />
-              <div className="w-12 h-0.5 bg-[#ff3b30]/50" />
-              <div className="w-12 h-0.5 bg-[#34c759]/50" />
-              <div className="w-12 h-0.5 bg-[#ffcc00]/50" />
-            </div>
+            <a
+              href="/cotizar"
+              className="group flex-shrink-0 flex items-center gap-4 px-10 py-6 bg-[#0071e3] text-white rounded-[2rem] font-bold text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_20px_40px_rgba(0,113,227,0.25)]"
+            >
+              Cotizar
+              <ArrowRight className="w-5 h-5 opacity-60 group-hover:translate-x-1 transition-transform" />
+            </a>
           </div>
-          
-          <button className="relative z-10 w-full md:w-auto px-10 md:px-12 py-6 md:py-8 bg-[#25D366] text-white rounded-[2rem] md:rounded-full font-bold text-2xl md:text-3xl hover:scale-105 active:scale-95 transition-all shadow-[0_20px_40px_rgba(37,211,102,0.3)] flex items-center justify-center gap-4 group mt-6 md:mt-0">
-            <MessageCircle className="w-8 h-8 md:w-10 md:h-10" />
-            WhatsApp <ArrowRight className="group-hover:translate-x-4 transition-transform w-8 h-8 opacity-50" />
-          </button>
-        </div>
 
-        {/* Info Blocks */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24 mt-16 px-2 relative z-10">
-          <div className="md:col-span-2 bg-white/5 backdrop-blur-xl p-8 md:p-14 rounded-[2.5rem] md:rounded-[3rem] border border-white/10 flex flex-col justify-center">
-             <h4 className="text-xl md:text-2xl font-bold italic text-white mb-8">Para tu cotización exacta:</h4>
-             <ul className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-10 text-slate-300 font-medium italic text-lg lg:text-xl">
-               <li className="flex items-center gap-4"><div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs md:text-sm font-black ring-1 ring-blue-500/50">1</div> Tamaño final</li>
-               <li className="flex items-center gap-4"><div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs md:text-sm font-black ring-1 ring-blue-500/50">2</div> Tipo de Papel</li>
-               <li className="flex items-center gap-4"><div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs md:text-sm font-black ring-1 ring-blue-500/50">3</div> Cantidad exacta</li>
-               <li className="flex items-center gap-4"><div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs md:text-sm font-black ring-1 ring-blue-500/50">4</div> Acabados Extra</li>
-             </ul>
+          {/* CMYK line */}
+          <div className="flex gap-1 mb-12">
+            <div className="w-12 h-1 bg-[#0071e3]" />
+            <div className="w-12 h-1 bg-[#ff3b30]" />
+            <div className="w-12 h-1 bg-[#34c759]" />
+            <div className="w-12 h-1 bg-[#ffcc00]" />
           </div>
-          
-          <div className="bg-gradient-to-br from-[#0071e3]/20 to-purple-600/20 p-8 md:p-14 rounded-[2.5rem] md:rounded-[3rem] border border-[#0071e3]/20 flex flex-col justify-center relative overflow-hidden">
-             <Zap className="absolute -right-5 -top-5 w-48 h-48 text-[#0071e3]/20 fill-current" />
-             <span className="block text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 mb-6">Logística</span>
-             <h4 className="text-3xl md:text-5xl font-black tracking-tighter text-white mb-4 leading-none italic uppercase">Entregas <br /> Express</h4>
-             <p className="text-slate-400 font-medium italic mt-2 text-lg">Mismo día o siguiente.</p>
-          </div>
-        </div>
 
-        <div className="w-full flex flex-col md:flex-row justify-between items-center gap-10 border-t border-white/10 pt-16 px-2 relative z-10">
-          <div className="flex flex-col md:flex-row items-center gap-6 opacity-50 hover:opacity-100 transition-all cursor-pointer">
-            <img src="/LOGO PUBLIDEAS.jpeg" alt="Logo" className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-white/10 grayscale" />
-            <div className="text-center md:text-left">
-              <span className="block font-black italic tracking-tighter text-xl md:text-2xl text-white uppercase">Publideas</span>
+          {/* Info cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {/* Cotización */}
+            <div className="md:col-span-2 bg-white/[0.04] border border-white/[0.08] rounded-[2rem] p-8 md:p-10">
+              <h4 className="text-xs font-black uppercase tracking-widest text-white/30 mb-6">Para cotizar exacto:</h4>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  'Tamaño final',
+                  'Tipo de Papel',
+                  'Cantidad exacta',
+                  'Acabados Extra',
+                  'Simplex (4×0) o Dúplex (4×4)',
+                ].map((item, i) => (
+                  <li key={i} className={`flex items-center gap-3 ${i === 4 ? 'sm:col-span-2' : ''}`}>
+                    <div className="w-7 h-7 shrink-0 rounded-full bg-[#0071e3]/20 border border-[#0071e3]/40 flex items-center justify-center text-[11px] font-black text-[#0071e3]">
+                      {i + 1}
+                    </div>
+                    <span className="text-base font-medium italic text-slate-300">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-          <div className="text-center md:text-right">
-            <span className="block text-lg font-bold italic text-white/50 uppercase">CMYK Digital en SLP</span>
-            <div className="flex flex-col md:flex-row gap-2 md:gap-6 mt-1 text-[10px] font-black uppercase tracking-widest text-white/20">
-              <span>© {new Date().getFullYear()} Garantía de Fidelidad Total</span>
-              <div className="flex gap-4">
-                <a href="/legales" className="hover:text-blue-400 transition-colors underline decoration-white/10">Privacidad</a>
-                <a href="/legales" className="hover:text-red-400 transition-colors underline decoration-white/10">Términos</a>
-              </div>
+            {/* Entrega */}
+            <div className="bg-gradient-to-br from-[#0071e3]/20 to-blue-900/20 border border-[#0071e3]/20 rounded-[2rem] p-8 relative overflow-hidden">
+              <Zap className="absolute -right-4 -top-4 w-40 h-40 text-[#0071e3]/10 fill-current pointer-events-none" />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 block mb-5">Entrega Express</span>
+              <p className="text-white font-bold italic text-lg leading-loose">
+                Antes 12:00 → mismo día<br />
+                Después 12:00 → día siguiente
+              </p>
+              <span className="block text-[#0071e3] font-bold italic text-sm mt-3">Horario: 8:30 – 6:00 pm</span>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-full mt-24 line-cmyk opacity-20" />
-    </section>
+
+      {/* ── BIG WORDMARK ─────────────────────────────── */}
+      <div className="overflow-hidden select-none pointer-events-none">
+        <div className="text-[120px] md:text-[210px] font-black tracking-tighter italic text-white/[0.028] text-center leading-none whitespace-nowrap py-2">
+          PUBLIDEAS
+        </div>
+      </div>
+
+      {/* ── BOTTOM BAR ───────────────────────────────── */}
+      <div className="border-t border-white/[0.06] px-4 md:px-6 py-8">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          {/* Logo + brand */}
+          <div className="flex items-center gap-4">
+            <img
+              src="/LOGO PUBLIDEAS.jpeg"
+              alt="Logo Publideas"
+              className="w-11 h-11 rounded-xl border border-white/10 object-cover grayscale opacity-50"
+            />
+            <div>
+              <span className="block font-black italic tracking-tighter text-lg text-white/50 uppercase">Publideas</span>
+              <span className="block text-[9px] font-bold text-white/20 uppercase tracking-widest">Impresión Digital CMYK</span>
+            </div>
+          </div>
+          {/* Contact */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 text-sm">
+            <a
+              href="tel:+5568081606"
+              className="flex items-center gap-2 text-white/30 hover:text-white transition-colors font-bold"
+            >
+              <Phone className="w-3.5 h-3.5" /> 55 6808 1606
+            </a>
+            <span className="hidden sm:block text-white/10">|</span>
+            <a
+              href="mailto:publideas.impresiondigital@gmail.com"
+              className="flex items-center gap-2 text-white/30 hover:text-blue-400 transition-colors font-bold"
+            >
+              <Mail className="w-3.5 h-3.5" /> publideas.impresiondigital@gmail.com
+            </a>
+          </div>
+          {/* Social + copyright */}
+          <div className="flex flex-col items-center md:items-end gap-2">
+            <div className="flex gap-5">
+              <a
+                href="https://www.facebook.com/profile.php?id=61573867649251"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/20 hover:text-[#1877F2] transition-colors text-[10px] font-black uppercase tracking-widest"
+              >
+                Facebook
+              </a>
+              <a
+                href="https://www.instagram.com/publideas.impresiondigital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/20 hover:text-pink-400 transition-colors text-[10px] font-black uppercase tracking-widest"
+              >
+                Instagram
+              </a>
+            </div>
+            <a
+              href="/aviso-de-privacidad"
+              className="text-[9px] font-bold text-white/20 hover:text-white/50 uppercase tracking-widest transition-colors"
+            >
+              Aviso de Privacidad
+            </a>
+            <span className="text-[9px] font-bold text-white/15 uppercase tracking-widest">
+              © {new Date().getFullYear()} Publideas
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }

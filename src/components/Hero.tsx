@@ -151,21 +151,24 @@ export default function Hero({ photos }: HeroProps) {
       </div>
 
       <div className="max-w-6xl mx-auto text-center px-6 relative z-10 hero-content">
-        <div className="hero-tag inline-flex items-center gap-2 px-5 py-2 bg-white/80 backdrop-blur-md shadow-xl rounded-full text-[10px] font-black uppercase tracking-[0.4em] mb-12 border border-white/50" />
+        <div className="hero-tag inline-flex items-center gap-2 px-5 py-2 bg-white/80 backdrop-blur-md shadow-xl rounded-full text-[10px] font-black uppercase tracking-[0.4em] mb-12 border border-white/50">
+          <span className="w-2 h-2 rounded-full bg-[#0071e3]" />
+          Impresión Digital CMYK
+        </div>
 
         <h1 className="hero-title text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.95] mb-8 flex flex-col items-center">
-          <span className="block overflow-hidden"><span className="block italic">IMPRESIÓN</span></span>
-          <span className="block overflow-hidden"><span className="block text-premium italic uppercase">Digital.</span></span>
+          <span className="block overflow-hidden"><span className="block italic">PUBLIDEAS</span></span>
+          <span className="block overflow-hidden"><span className="block text-premium italic uppercase">Impresión Digital.</span></span>
         </h1>
 
         <p className="hero-p text-xl md:text-3xl text-[#1d1d1f]/60 max-w-4xl mx-auto font-medium leading-tight mb-20 italic">
-          Donde la precisión se encuentra con la pasión. <br />
-          <span className="text-[#1d1d1f] font-bold">Impresiones que no solo se ven, se viven.</span>
+          Calidad CMYK que transforma tus ideas en piezas reales. <br />
+          <span className="text-[#1d1d1f] font-bold">Entrega express &mdash; mismo día o siguiente.</span>
         </p>
 
         <div className="hero-btns flex flex-col md:flex-row gap-6 justify-center items-center">
-          <a href="#services" className="px-12 py-5 bg-[#1d1d1f] text-white rounded-full font-black text-xs md:text-sm tracking-[0.2em] uppercase hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-black/20 flex items-center gap-4 group">
-             Explorar Catálogo <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+          <a href="/materiales" className="px-12 py-5 bg-[#1d1d1f] text-white rounded-full font-black text-xs md:text-sm tracking-[0.2em] uppercase hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-black/20 flex items-center gap-4 group">
+             Ver Catálogo <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </a>
 
           <div className="flex items-center gap-4 bg-white/40 backdrop-blur-xl px-6 py-4 rounded-full border border-white/60 shadow-sm">

@@ -22,9 +22,9 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Materiales", href: "#services" },
-    { name: "Galería", href: "#gallery-section" },
-    { name: "Procesos", href: "#services" }, // Shared with materials for now or pointing to specific section
+    { name: "Materiales", href: "/materiales" },
+    { name: "Acabados", href: "/acabados" },
+    { name: "Galería", href: "/galeria" },
   ];
 
   return (
@@ -34,13 +34,13 @@ export default function Navbar() {
           {/* Scroll Progress Line */}
           <div className="absolute bottom-0 left-0 h-1 line-cmyk transition-all duration-200" style={{ width: '0%', opacity: scrolled ? 1 : 0 }} id="scroll-progress" />
           
-          <div className="flex items-center gap-3">
+          <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <img src="/LOGO PUBLIDEAS.jpeg" alt="Logo" className="h-8 md:h-10 w-auto rounded-lg shadow-sm" />
             <div className="flex flex-col">
-               <span className="text-xl md:text-2xl font-black tracking-tighter leading-none text-[#1d1d1f]">MIGUEL</span>
-               <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#0071e3]">Elite Print</span>
+               <span className="text-xl md:text-2xl font-black tracking-tighter leading-none text-[#1d1d1f]">PUBLIDEAS</span>
+               <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#0071e3]">Impresión Digital</span>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-10 text-[11px] font-black text-[#1d1d1f]/60 uppercase tracking-[0.2em]">
@@ -49,7 +49,7 @@ export default function Navbar() {
                 {link.name}
               </a>
             ))}
-            <a href="#quote" className="px-8 py-3 bg-[#1d1d1f] text-white rounded-full hover:scale-110 active:scale-95 transition-all text-[10px] font-black shadow-lg shadow-black/10">
+            <a href="/cotizar" className="px-8 py-3 bg-[#1d1d1f] text-white rounded-full hover:scale-110 active:scale-95 transition-all text-[10px] font-black shadow-lg shadow-black/10">
               COTIZAR
             </a>
           </div>
@@ -83,7 +83,7 @@ export default function Navbar() {
           
           <div className={`transition-all duration-700 delay-400 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <a 
-              href="#quote" 
+              href="/cotizar" 
               onClick={() => setIsOpen(false)}
               className="inline-flex items-center gap-4 px-12 py-8 bg-[#0071e3] text-white rounded-[2rem] text-2xl font-bold shadow-2xl shadow-blue-500/30"
             >
@@ -94,7 +94,7 @@ export default function Navbar() {
 
           {/* Footer of mobile menu */}
           <div className="mt-12">
-             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 italic">Miguel Premium Print SLP</span>
+             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 italic">Publideas — SLP</span>
           </div>
         </div>
       </div>

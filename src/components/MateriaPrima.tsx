@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { FileText, StickyNote, Box, Zap, ScrollText, Image as ImageIcon } from 'lucide-react';
+import { FileText, StickyNote, Box, Zap, ScrollText, Layers, ArrowRight } from 'lucide-react';
 
 export default function MateriaPrima() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -48,7 +48,7 @@ export default function MateriaPrima() {
             </div>
           </div>
           <h2 className="text-4xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter mb-4 italic leading-[0.95]">
-            MATERIA <br className="hidden md:block" /> <span className="text-premium">PRIMA.</span>
+            MATERIALES <br className="hidden md:block" /> <span className="text-premium">& SUSTRATOS.</span>
           </h2>
           <p className="text-xl md:text-2xl font-medium text-[#86868b] italic max-w-2xl px-4 md:px-0">
             Sustratos que transforman el diseño en realidad. Calidad digital inigualable para cada una de tus ideas.
@@ -65,7 +65,7 @@ export default function MateriaPrima() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           
           {/* Card 1: Couché */}
-          <div className="reveal materia-card lg:col-span-2 rounded-[2.5rem] md:rounded-[3.5rem] bg-white p-8 md:p-12 flex flex-col justify-between shadow-2xl relative overflow-hidden group border border-slate-100 min-h-[450px]">
+          <div className="reveal materia-card lg:col-span-2 rounded-[2.5rem] md:rounded-[3.5rem] bg-white p-8 md:p-12 flex flex-col justify-between shadow-2xl relative overflow-hidden group border border-slate-100 min-h-[420px]">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50/50 rounded-full blur-[100px] -mr-48 -mt-48 transition-colors group-hover:bg-blue-100/50" />
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-start gap-8 mb-10">
               <div>
@@ -75,16 +75,19 @@ export default function MateriaPrima() {
               <FileText className="w-10 h-10 md:w-12 md:h-12 text-[#0071e3] opacity-10 shrink-0" />
             </div>
             
-            <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 border-t border-slate-50 pt-8">
+            <div className="relative z-10 grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 border-t border-slate-50 pt-8">
               {[
-                { g: "130 a 150 grs", p: "$7" },
-                { g: "200 grs aprox", p: "$8" },
+                { g: "135 grs", p: null },
+                { g: "150 grs", p: "$7" },
+                { g: "200 grs", p: "$8" },
+                { g: "250 grs", p: null },
                 { g: "300 grs", p: "$8.50" },
-                { g: "Hasta 350 grs", p: "$9.50" }
               ].map((item, idx) => (
                 <div key={idx} className="flex flex-col gap-1 md:gap-2 p-4 rounded-3xl bg-[#fbfbfd]">
                   <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-[#86868b]">{item.g}</span>
-                  <div className="text-2xl md:text-3xl font-black tracking-tighter text-[#1d1d1f]">{item.p}</div>
+                  <div className="text-xl md:text-3xl font-black tracking-tighter text-[#1d1d1f]">
+                    {item.p ?? <span className="text-sm text-slate-300 italic font-medium">Consultar</span>}
+                  </div>
                 </div>
               ))}
             </div>
@@ -96,7 +99,7 @@ export default function MateriaPrima() {
             <div className="relative z-10 mb-8">
               <StickyNote className="w-10 h-10 text-[#ff3b30] mb-8 shadow-3xl" />
               <h3 className="text-3xl md:text-4xl font-bold tracking-tighter italic text-white mb-4 uppercase">Adhesivos</h3>
-              <p className="text-white/40 text-lg font-medium leading-tight italic">Opciones de medio corte o forma exacta.</p>
+              <p className="text-white/40 text-lg font-medium leading-tight italic">Corte de forma o medio corte exacto.</p>
             </div>
             
             <div className="relative z-10 flex flex-col gap-4">
@@ -114,21 +117,22 @@ export default function MateriaPrima() {
             </div>
           </div>
 
-          {/* Card 3: Cartulinas Especiales */}
-          <div className="reveal materia-card rounded-[2.5rem] md:rounded-[3.5rem] bg-gradient-to-br from-yellow-50 to-orange-50 p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden border border-yellow-100/50 min-h-[400px]">
+          {/* Card 3: Bond, Sulfatada, Opalina, Vinyl */}
+          <div className="reveal materia-card rounded-[2.5rem] md:rounded-[3.5rem] bg-gradient-to-br from-slate-50 to-slate-100 p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden border border-slate-100 min-h-[400px]">
             <div className="relative z-10 mb-8">
-              <ScrollText className="w-10 h-10 text-yellow-600 mb-8" />
-              <h3 className="text-3xl md:text-4xl font-bold tracking-tighter italic text-[#1d1d1f] mb-4 uppercase">Cartulinas</h3>
-              <p className="text-slate-500 text-lg font-medium leading-tight italic">Para invitaciones, tarjetas y presentaciones.</p>
+              <ScrollText className="w-10 h-10 text-slate-500 mb-8" />
+              <h3 className="text-3xl md:text-4xl font-bold tracking-tighter italic text-[#1d1d1f] mb-4 uppercase">Otros Sustratos</h3>
+              <p className="text-slate-500 text-lg font-medium leading-tight italic">Bond, Sulfatada, Opalina y Vinyl.</p>
             </div>
             
             <div className="relative z-10 flex flex-col gap-4">
               {[
-                { n: "Opalina 120/350g", p: "Desde $7" },
-                { n: "Bristol (Inkjet)", p: "Desde $2" },
-                { n: "Kraft / Lino", p: "Aprox $10" }
+                { n: "Bond 90 / 120 grs", p: "Consultar" },
+                { n: "Sulfatada 8, 10, 12 pts", p: "Consultar" },
+                { n: "Opalina 225 grs", p: "$7" },
+                { n: "Vinyl", p: "Consultar" },
               ].map((item, idx) => (
-                <div key={idx} className="flex justify-between items-center border-b border-yellow-900/5 pb-2">
+                <div key={idx} className="flex justify-between items-center border-b border-slate-200/50 pb-2">
                    <span className="text-sm font-bold text-[#1d1d1f]/60">{item.n}</span>
                    <span className="text-xl font-black text-[#1d1d1f] italic">{item.p}</span>
                 </div>
@@ -136,21 +140,21 @@ export default function MateriaPrima() {
             </div>
           </div>
 
-          {/* Card 4: Banners & Exteriores */}
-          <div className="reveal materia-card lg:col-span-2 rounded-[2.5rem] md:rounded-[3.5rem] bg-white p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden border border-slate-100 min-h-[400px]">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-50/30 rounded-full blur-[100px] -mr-32 -mt-32 transition-colors group-hover:bg-yellow-50/50" />
+          {/* Card 4: Banners */}
+          <div className="reveal materia-card lg:col-span-2 rounded-[2.5rem] md:rounded-[3.5rem] bg-white p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden border border-slate-100 min-h-[360px]">
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-50/30 rounded-full blur-[100px] -mr-32 -mt-32 transition-colors group-hover:bg-green-50/50" />
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
               <div>
-                <h3 className="text-4xl md:text-5xl font-bold tracking-tighter italic text-[#1d1d1f] mb-2 uppercase">Lonas & Banners</h3>
+                <h3 className="text-4xl md:text-5xl font-bold tracking-tighter italic text-[#1d1d1f] mb-2 uppercase">Banners</h3>
                 <p className="text-slate-500 text-lg md:text-xl font-medium leading-tight italic">Formatos amplios para máxima visibilidad.</p>
               </div>
-              <ImageIcon className="w-10 h-10 md:w-12 md:h-12 text-green-600 opacity-20" />
+              <Layers className="w-10 h-10 md:w-12 md:h-12 text-green-600 opacity-20" />
             </div>
             
              <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-50 pt-8">
               {[
-                { size: "Banner 30x70 cm", p: "Desde $19" },
-                { size: "Banner 33x95 cm", p: "Desde $24" }
+                { size: "30 × 70 cm", p: "Desde $19" },
+                { size: "33 × 95 cm", p: "Desde $24" }
               ].map((item, idx) => (
                 <div key={idx} className="flex flex-col gap-1 p-5 rounded-3xl bg-[#fbfbfd]">
                   <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-[#86868b]">{item.size}</span>
@@ -158,6 +162,18 @@ export default function MateriaPrima() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* CTA Card */}
+          <div className="reveal materia-card rounded-[2.5rem] md:rounded-[3.5rem] bg-[#0071e3] p-8 md:p-12 flex flex-col justify-between shadow-2xl min-h-[360px]">
+            <div>
+              <Zap className="w-10 h-10 text-white/30 mb-8 fill-current" />
+              <h3 className="text-3xl md:text-4xl font-bold tracking-tighter italic text-white mb-4 uppercase">Ver todo el catálogo</h3>
+              <p className="text-white/60 text-lg font-medium leading-tight italic">Consulta todos los materiales, medidas y tipos de impresión disponibles.</p>
+            </div>
+            <a href="/materiales" className="mt-8 flex items-center gap-3 text-white font-black text-sm uppercase tracking-widest group hover:gap-5 transition-all">
+              Ver catálogo completo <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+            </a>
           </div>
 
         </div>

@@ -6,8 +6,8 @@ import './globals.css';
 const outfit = Outfit({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Miguel Impresiones Digitales | Centro de Copiado',
-  description: 'Impresión digital en CMYK: couché, opalina, kraft, adhesivos y sintéticos con la mejor calidad.',
+  title: 'Publideas | Impresión Digital CMYK en SLP',
+  description: 'Publideas — Impresión digital en CMYK: couché, bond, opalina, adhesivos y sintéticos. Entrega express mismo día.',
 };
 
 export default function RootLayout({

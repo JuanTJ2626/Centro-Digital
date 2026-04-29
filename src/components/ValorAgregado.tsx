@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { Droplets, Wand2, Sparkles, Star, Zap, Layers, Scissors, ArrowRight } from 'lucide-react';
+import { Droplets, Layers, Star, Zap, Scissors, ArrowRight } from 'lucide-react';
 
 export default function ValorAgregado() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -44,10 +44,10 @@ export default function ValorAgregado() {
   }, []);
 
   const features = [
-    { name: "Laminado Pro", price: "$2", desc: "Disponible en mate o brillante. Un toque premium instantáneo de alta resistencia.", icon: Droplets, accent: "#0071e3", label: "Acabado Continuo" },
-    { name: "Soft Touch", price: "$8", desc: "La experiencia táctil suprema. Una textura aterciopelada incomparable.", icon: Wand2, accent: "#ff3b30", label: "Textura Élite" },
-    { name: "Impacto Visual", price: "Desde $7", desc: "Destellos de Glitter o efectos Holográficos que interactúan con la luz.", icon: Star, accent: "#ffcc00", label: "Efectos" },
-    { name: "Realce 3D", price: "Aprox $48", desc: "Barniz y Foil metalizado con relieve. El estándar más alto del lujo.", icon: Sparkles, accent: "#34c759", label: "Premium" }
+    { name: "Laminado Brillante", price: "$2", desc: "Acabado brillante que intensifica los colores y protege la impresión. Alta resistencia al desgaste.", icon: Droplets, accent: "#0071e3", label: "Por hoja" },
+    { name: "Laminado Mate", price: "$2", desc: "Acabado suave y opaco. Elegante y sin reflejos, perfecto para tarjetas y presentaciones premium.", icon: Layers, accent: "#1d1d1f", label: "Por hoja" },
+    { name: "Medio Corte", price: null, desc: "Corte parcial del adhesivo para fácil desprendimiento sin cortar el respaldo. Ideal para stickers.", icon: Scissors, accent: "#ff3b30", label: "Para Adhesivos" },
+    { name: "Guillotina", price: null, desc: "Corte recto de precisión milimétrica para formatos estándar y personalizados.", icon: Star, accent: "#34c759", label: "Corte" }
   ];
 
   return (
@@ -67,10 +67,10 @@ export default function ValorAgregado() {
             </div>
           </div>
           <h2 className="text-4xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter mb-4 italic leading-[0.95] text-[#1d1d1f]">
-            VALOR <br className="hidden md:block"/> <span className="text-premium">AGREGADO.</span>
+            ACABADOS <br className="hidden md:block"/> <span className="text-premium">PREMIUM.</span>
           </h2>
           <p className="text-xl md:text-2xl font-medium text-[#86868b] italic max-w-2xl px-4 md:px-0">
-            Acabados tridimensionales y procesos especiales que transforman una impresión ordinaria en una pieza de colección.
+            Terminaciones que elevan la calidad y durabilidad de cada impresión.
           </p>
           <div className="flex gap-1 mt-8">
             <div className="w-12 h-1 bg-[#0071e3]" />
@@ -101,10 +101,16 @@ export default function ValorAgregado() {
 
                 <div className="mt-12 md:mt-16 pt-8 md:pt-12 border-t border-slate-50 flex items-end justify-between">
                   <div className="flex flex-col">
-                    <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-[#86868b] mb-1.5 md:mb-2 opacity-50">Desde</span>
-                    <div className="text-5xl md:text-7xl font-black tracking-tighter text-[#1d1d1f] flex items-baseline gap-2">
-                       {f.price} <span className="text-[10px] opacity-20 tracking-normal font-bold italic">MXN</span>
-                    </div>
+                    {f.price ? (
+                      <>
+                        <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-[#86868b] mb-1.5 md:mb-2 opacity-50">Por hoja</span>
+                        <div className="text-5xl md:text-7xl font-black tracking-tighter text-[#1d1d1f] flex items-baseline gap-2">
+                           {f.price} <span className="text-[10px] opacity-20 tracking-normal font-bold italic">MXN</span>
+                        </div>
+                      </>
+                    ) : (
+                      <span className="text-lg text-slate-400 italic font-medium">Precio según trabajo<br />Consultar</span>
+                    )}
                   </div>
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-slate-100 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-500">
                     <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-[#1d1d1f]" />
