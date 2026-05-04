@@ -84,11 +84,11 @@ export default function Home() {
       ]} />
 
       {/* PRODUCTOS */}
-      <section className="py-14 md:py-20 px-4 md:px-6 bg-[#1d1d1f] relative overflow-hidden">
+      <section className="py-8 md:py-12 px-4 md:px-6 bg-[#1d1d1f] relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 0)', backgroundSize: '28px 28px' }} />
         <div className="absolute top-0 left-1/3 w-96 h-96 bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
+          <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6 md:mb-8">
             <div>
               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#ffcc00]">Que imprimimos</span>
               <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic leading-[0.95] mt-2 text-white">
@@ -116,9 +116,9 @@ export default function Home() {
       </section>
 
       {/* CATALOGO DE PRECIOS */}
-      <section id="precios" className="py-14 md:py-20 px-4 md:px-6 bg-[#f5f5f7]">
+      <section id="precios" className="py-10 md:py-14 px-4 md:px-6 bg-[#f5f5f7]">
         <div className="max-w-7xl mx-auto">
-          <div className="reveal mb-10 md:mb-14">
+          <div className="reveal mb-6 md:mb-8">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Catalogo</span>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic leading-[0.95] mt-2">
               PRECIOS POR PIEZA.
@@ -189,9 +189,9 @@ export default function Home() {
       </section>
 
       {/* MEDIDAS + IMPRESION + FORMATOS */}
-      <section className="py-14 md:py-20 px-4 md:px-6 bg-white">
+      <section className="py-10 md:py-14 px-4 md:px-6 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="reveal mb-10 md:mb-14">
+          <div className="reveal mb-6 md:mb-8">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Especificaciones</span>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic leading-[0.95] mt-2">
               MEDIDAS & FORMATOS.
@@ -273,9 +273,9 @@ export default function Home() {
       </section>
 
       {/* ACABADOS + MAQUILA */}
-      <section id="acabados" className="py-14 md:py-20 px-4 md:px-6 bg-[#f5f5f7]">
+      <section id="acabados" className="py-10 md:py-14 px-4 md:px-6 bg-[#f5f5f7]">
         <div className="max-w-7xl mx-auto">
-          <div className="reveal mb-10 md:mb-14">
+          <div className="reveal mb-6 md:mb-8">
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Extras</span>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic leading-[0.95] mt-2">
               ACABADOS & MAQUILA.
@@ -357,13 +357,13 @@ export default function Home() {
       </section>
 
       {/* TIEMPOS DE ENTREGA */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-[#111113] relative overflow-hidden">
+      <section className="py-10 md:py-16 px-4 md:px-6 bg-[#111113] relative overflow-hidden">
         <div className="absolute right-0 inset-y-0 flex items-center pointer-events-none select-none overflow-hidden">
           <span className="text-[240px] md:text-[380px] font-black tracking-tighter text-white/[0.025] italic leading-none pr-6">24h</span>
         </div>
         <div className="absolute top-0 left-0 w-80 h-80 bg-yellow-500/5 blur-[120px] rounded-full pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="mb-12">
+          <div className="mb-8">
             <div className="inline-flex items-center gap-3 bg-[#ffcc00]/10 border border-[#ffcc00]/20 rounded-full px-5 py-2 mb-6">
               <Clock className="w-4 h-4 text-[#ffcc00]" />
               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#ffcc00]">Tiempos de Entrega</span>
