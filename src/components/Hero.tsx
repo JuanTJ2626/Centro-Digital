@@ -167,8 +167,8 @@ export default function Hero({ photos }: HeroProps) {
         </p>
 
         <div className="hero-btns flex flex-col md:flex-row gap-6 justify-center items-center">
-          <a href="/materiales" className="px-12 py-5 bg-[#1d1d1f] text-white rounded-full font-black text-xs md:text-sm tracking-[0.2em] uppercase hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-black/20 flex items-center gap-4 group">
-             Ver Catálogo <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+          <a href="#precios" className="px-12 py-5 bg-[#1d1d1f] text-white rounded-full font-black text-xs md:text-sm tracking-[0.2em] uppercase hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-black/20 flex items-center gap-4 group">
+             Ver Precios <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </a>
 
           <div className="flex items-center gap-4 bg-white/40 backdrop-blur-xl px-6 py-4 rounded-full border border-white/60 shadow-sm">

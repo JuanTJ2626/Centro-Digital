@@ -22,9 +22,9 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Materiales", href: "/materiales" },
-    { name: "Acabados", href: "/acabados" },
-    { name: "Galería", href: "/galeria" },
+    { name: "Precios", href: "#precios" },
+    { name: "Acabados", href: "#acabados" },
+    { name: "Contacto", href: "#contacto" },
   ];
 
   return (
