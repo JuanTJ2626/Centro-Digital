@@ -8,6 +8,9 @@ const outfit = Outfit({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Publideas | Impresión Digital CMYK en SLP',
   description: 'Publideas — Impresión digital en CMYK: couché, bond, opalina, adhesivos y sintéticos. Entrega express mismo día.',
+  icons: {
+    icon: '/logo mejorado.png',
+  }
 };
 
 export default function RootLayout({
