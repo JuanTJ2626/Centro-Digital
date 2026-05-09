@@ -375,10 +375,12 @@ export default function Home() {
                   </div>
                   <h3 className="text-2xl font-black italic tracking-tight text-white">Servicio de Maquila</h3>
                 </div>
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-blue-300/60">Desde</span>
+                <div className="flex items-baseline gap-2 mb-2">
+                  {/* <span className="text-[10px] font-black uppercase tracking-widest text-blue-300/60">Desde</span> */}
                   <span className="text-5xl font-black text-white tracking-tighter ml-1">$5.00</span>
-                  <span className="text-lg text-white/40 font-medium">/ pieza</span>
+                </div>
+                <div className="mb-4 inline-block bg-[#0071e3]/20 border border-[#0071e3]/40 rounded-full px-3 py-1">
+                  <span className="text-[11px] font-black text-blue-300 uppercase tracking-widest">A partir de 100 piezas</span>
                 </div>
                 <p className="text-white/50 text-sm italic mb-4">El costo varia segun:</p>
                 <ul className="space-y-2 mb-6">
