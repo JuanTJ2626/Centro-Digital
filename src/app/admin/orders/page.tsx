@@ -113,6 +113,7 @@ export default function OrdersDashboard() {
       medida: '',
       material: '',
       gramaje: '',
+      impresion: '',
       cantidad: '',
       acabados: '',
       precio: '',
@@ -308,32 +309,31 @@ export default function OrdersDashboard() {
                   {/* Header de la Tarjeta */}
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex gap-2">
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${order.status === 'Finalizado' ? 'bg-green-50 text-green-500' :
-                            order.status === 'Rechazado' ? 'bg-red-50 text-red-500' : 
-                            order.status.includes('WhatsApp') ? 'bg-emerald-50 text-emerald-500' : 'bg-amber-50 text-amber-500'
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${order.status === 'Finalizado' ? 'bg-green-50 text-green-500' :
+                        order.status === 'Rechazado' ? 'bg-red-50 text-red-500' :
+                          order.status.includes('WhatsApp') ? 'bg-emerald-50 text-emerald-500' : 'bg-amber-50 text-amber-500'
                         }`}>
                         {order.status === 'Finalizado' ? <CheckCircle size={20} /> :
-                            order.status === 'Rechazado' ? <XCircle size={20} /> : <Clock size={20} className="animate-pulse" />}
-                        </div>
-                        <button 
-                            onClick={() => openEditModal(order)}
-                            className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-brand-blue hover:text-white transition-all flex items-center justify-center"
-                            title="Editar Pedido"
-                        >
-                            <Edit2 size={16} />
-                        </button>
+                          order.status === 'Rechazado' ? <XCircle size={20} /> : <Clock size={20} className="animate-pulse" />}
+                      </div>
+                      <button
+                        onClick={() => openEditModal(order)}
+                        className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-brand-blue hover:text-white transition-all flex items-center justify-center"
+                        title="Editar Pedido"
+                      >
+                        <Edit2 size={16} />
+                      </button>
                     </div>
                     <div className="flex flex-col items-end gap-1">
-                        <span className="text-[9px] font-black bg-brand-blue/10 text-brand-blue px-2 py-1 rounded-lg uppercase tracking-tighter">
+                      <span className="text-[9px] font-black bg-brand-blue/10 text-brand-blue px-2 py-1 rounded-lg uppercase tracking-tighter">
                         {order.orderNumber}
-                        </span>
-                        <span className={`text-[8px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest ${
-                            order.status === 'Finalizado' ? 'bg-green-500 text-white' :
-                            order.status === 'Rechazado' ? 'bg-red-500 text-white' :
-                            order.status.includes('WhatsApp') ? 'bg-emerald-500 text-white' : 'bg-amber-500 text-white'
+                      </span>
+                      <span className={`text-[8px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest ${order.status === 'Finalizado' ? 'bg-green-500 text-white' :
+                        order.status === 'Rechazado' ? 'bg-red-500 text-white' :
+                          order.status.includes('WhatsApp') ? 'bg-emerald-500 text-white' : 'bg-amber-500 text-white'
                         }`}>
-                            {order.status}
-                        </span>
+                        {order.status}
+                      </span>
                     </div>
                   </div>
 
@@ -446,22 +446,22 @@ export default function OrdersDashboard() {
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsModalOpen(false)}
               className="absolute inset-0 bg-slate-900/40 backdrop-blur-md"
             />
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               className="relative w-full max-w-2xl bg-white rounded-[3rem] shadow-2xl overflow-hidden"
             >
               <div className="absolute top-0 left-0 w-full h-2 line-cmyk" />
-              
+
               <div className="p-8 md:p-12">
                 <div className="flex justify-between items-center mb-8">
                   <div>
@@ -472,7 +472,7 @@ export default function OrdersDashboard() {
                       {editingOrder ? `Pedido #${editingOrder.orderNumber}` : 'Captura de Venta'}
                     </p>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setIsModalOpen(false)}
                     className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition-all"
                   >
@@ -484,92 +484,92 @@ export default function OrdersDashboard() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Nombre del Cliente</label>
-                      <input 
+                      <input
                         required
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
                         value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Teléfono</label>
-                      <input 
+                      <input
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
                         value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Producto</label>
-                      <input 
+                      <input
                         required
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
                         value={formData.producto}
-                        onChange={(e) => setFormData({...formData, producto: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, producto: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Medida</label>
-                      <input 
+                      <input
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
                         value={formData.medida}
-                        onChange={(e) => setFormData({...formData, medida: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, medida: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Material</label>
-                      <input 
+                      <input
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
                         value={formData.material}
-                        onChange={(e) => setFormData({...formData, material: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, material: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Gramaje</label>
-                      <input 
+                      <input
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
                         value={formData.gramaje}
-                        onChange={(e) => setFormData({...formData, gramaje: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, gramaje: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Impresión</label>
-                      <input 
+                      <input
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
                         value={formData.impresion}
-                        onChange={(e) => setFormData({...formData, impresion: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, impresion: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Cantidad</label>
-                      <input 
+                      <input
                         required
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
                         value={formData.cantidad}
-                        onChange={(e) => setFormData({...formData, cantidad: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, cantidad: e.target.value })}
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Precio ($)</label>
-                      <input 
+                      <input
                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
                         value={formData.precio}
-                        onChange={(e) => setFormData({...formData, precio: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, precio: e.target.value })}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Acabados / Notas</label>
-                    <textarea 
+                    <textarea
                       rows={2}
                       className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all resize-none"
                       value={formData.acabados}
-                      onChange={(e) => setFormData({...formData, acabados: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, acabados: e.target.value })}
                     />
                   </div>
 
-                  <button 
+                  <button
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full bg-slate-900 text-white rounded-3xl py-6 font-black text-[11px] uppercase tracking-[0.4em] flex items-center justify-center gap-4 hover:bg-brand-blue transition-all active:scale-95 disabled:opacity-50"
