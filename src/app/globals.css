@@ -25,7 +25,8 @@ body {
 }
 
 /* Animations handled by GSAP */
-.reveal, .gsap-reveal {
+.reveal,
+.gsap-reveal {
   will-change: transform, opacity;
 }
 

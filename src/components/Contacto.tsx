@@ -58,7 +58,7 @@ export default function Contacto() {
               <p className="text-white/30 text-xs font-medium italic mt-1">A menos de 5 min del Metro Pino Suárez (L1-L2) y La Merced (L1)</p>
             </div>
             <a
-              href="https://maps.google.com/?q=19.4225,-99.1298"
+              href="https://maps.google.com/?q=Manuel+Caballero+131,+La+Obrera,+Cuauhtémoc,+06800+Ciudad+de+México,+CDMX"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 px-8 py-4 bg-white text-[#1d1d1f] rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-black/30"

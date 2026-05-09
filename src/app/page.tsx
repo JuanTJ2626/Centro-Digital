@@ -45,12 +45,15 @@ export default function Home() {
 
   const couche = [
     { gramaje: '130 g', precio: '$8.00', desc: 'Brilloso y resistente', popular: false },
+    { gramaje: '135 g', precio: '$8.00', desc: 'Estandar ligero', popular: false },
     { gramaje: '150 g', precio: '$8.50', desc: 'El mas solicitado', popular: true },
+    { gramaje: '200 g', precio: '$8.50', desc: 'Grosor intermedio', popular: false },
     { gramaje: '250 g', precio: '$8.50', desc: 'Grosor profesional', popular: false },
     { gramaje: '300 g', precio: '$9.00', desc: 'Premium y rigido', popular: false },
   ];
 
   const otros = [
+    { material: 'Opalina 225 g', precio: '$10.00', desc: 'Textura mate elegante' },
     { material: 'Adhesivo Dimasa', precio: '$9.00', desc: 'Pega en cualquier superficie' },
     { material: 'Sulfatada 12 pts', precio: '$10.00', desc: 'Ideal para empaques' },
     { material: 'Bond 90 g', precio: '$8.00', desc: 'Documentos y escritura' },
@@ -58,16 +61,19 @@ export default function Home() {
   ];
 
   const productos = [
-    { Icon: FileText, label: 'Flyers', color: '#0071e3' },
-    { Icon: CreditCard, label: 'Tarjetas', color: '#ff3b30' },
-    { Icon: Mail, label: 'Postales', color: '#34c759' },
-    { Icon: ImageIcon, label: 'Posters', color: '#ffcc00' },
-    { Icon: BookOpen, label: 'Manuales', color: '#0071e3' },
-    { Icon: Tag, label: 'Etiquetas', color: '#ff3b30' },
-    { Icon: LayoutGrid, label: 'Tripticos', color: '#34c759' },
-    { Icon: Clipboard, label: 'Blocks', color: '#ffcc00' },
-    { Icon: BookMarked, label: 'Revistas', color: '#0071e3' },
-    { Icon: Package, label: 'Y mas...', color: '#86868b' },
+    { Icon: FileText, label: 'Impresión en papel', color: '#0071e3' },
+    { Icon: Tag, label: 'Adhesivos', color: '#ff3b30' },
+    { Icon: ImageIcon, label: 'Posters', color: '#34c759' },
+    { Icon: Package, label: 'Maquila', color: '#ffcc00' },
+    { Icon: CreditCard, label: 'Tarjetas', color: '#0071e3' },
+    { Icon: LayoutGrid, label: 'Trípticos', color: '#ff3b30' },
+    { Icon: BookOpen, label: 'Dípticos', color: '#34c759' },
+    { Icon: FileText, label: 'Constancias', color: '#ffcc00' },
+    { Icon: BookMarked, label: 'Manuales', color: '#0071e3' },
+    { Icon: Clipboard, label: 'Blocs', color: '#ff3b30' },
+    { Icon: FileText, label: 'Certificados', color: '#34c759' },
+    { Icon: Tag, label: 'Etiquetas', color: '#ffcc00' },
+    { Icon: Mail, label: 'Postales', color: '#0071e3' },
   ];
 
   return (
@@ -81,6 +87,18 @@ export default function Home() {
         'WhatsApp Image 2026-04-21 at 12.43.31 PM.jpeg',
         'WhatsApp Image 2026-04-21 at 12.43.31 PM (1).jpeg',
         'WhatsApp Image 2026-04-21 at 12.43.32 PM.jpeg',
+        'Image to PDF 20260509 15.12.58_1.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_2.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_3.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_4.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_5.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_6.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_7.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_8.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_9.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_10.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_11.jpg.jpeg',
+        'Image to PDF 20260509 15.12.58_12.jpg.jpeg',
       ]} />
 
       {/* PRODUCTOS */}
@@ -124,7 +142,7 @@ export default function Home() {
               PRECIOS POR PIEZA.
             </h2>
             <p className="text-[#86868b] text-base italic mt-3">
-              Simplex (4x0) o Duplex (4x4). Sin cargos ocultos.
+              Precios base para impresion Simplex (4x0). Impresion Duplex (4x4) al doble de precio.
             </p>
             <div className="flex gap-1 mt-5">
               <div className="w-12 h-1 bg-[#0071e3]" />
@@ -139,7 +157,7 @@ export default function Home() {
               <span className="text-[10px] font-black uppercase tracking-[0.35em] text-[#86868b]">Papel Couche</span>
               <div className="h-px flex-1 bg-slate-200" />
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
               {couche.map((item) => (
                 <div
                   key={item.gramaje}
@@ -166,7 +184,7 @@ export default function Home() {
               <span className="text-[10px] font-black uppercase tracking-[0.35em] text-[#86868b]">Otros Materiales</span>
               <div className="h-px flex-1 bg-slate-200" />
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {otros.map((item) => (
                 <div key={item.material} className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm flex flex-col gap-1 hover:shadow-md transition-shadow">
                   <span className="text-[10px] font-black uppercase tracking-widest text-[#86868b] leading-snug">{item.material}</span>
@@ -174,6 +192,30 @@ export default function Home() {
                   <span className="text-[10px] text-[#86868b] italic">{item.desc}</span>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className="reveal mb-8">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-[10px] font-black uppercase tracking-[0.35em] text-[#86868b]">Tarjetas de Presentación (Millar)</span>
+              <div className="h-px flex-1 bg-slate-200" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm flex flex-col gap-1">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#0071e3]">Couché 350g (4x1)</span>
+                <span className="text-4xl font-black tracking-tighter text-[#1d1d1f]">$250</span>
+                <span className="text-[10px] text-[#86868b] italic">Entrega: 3 a 5 días hábiles</span>
+              </div>
+              <div className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm flex flex-col gap-1">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#ff3b30]">Laminadas (4x4)</span>
+                <span className="text-4xl font-black tracking-tighter text-[#1d1d1f]">$380</span>
+                <span className="text-[10px] text-[#86868b] italic">Entrega: 3 a 5 días hábiles</span>
+              </div>
+              <div className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm flex flex-col gap-1">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#34c759]">Barniz a registro (4x4)</span>
+                <span className="text-4xl font-black tracking-tighter text-[#1d1d1f]">$580</span>
+                <span className="text-[10px] text-[#86868b] italic">Entrega: 3 a 5 días hábiles</span>
+              </div>
             </div>
           </div>
 
@@ -245,7 +287,7 @@ export default function Home() {
                     <span className="text-[10px] font-bold text-[#86868b] bg-slate-100 px-2 py-0.5 rounded-full">2 caras</span>
                   </div>
                   <span className="text-3xl font-black text-[#1d1d1f]">4 x 4</span>
-                  <p className="text-xs text-[#86868b] italic mt-1">Frente y reverso a color</p>
+                  <p className="text-xs text-[#86868b] italic mt-1">Frente y reverso a color (doble costo)</p>
                 </div>
               </div>
             </div>
@@ -301,10 +343,10 @@ export default function Home() {
               </div>
               <ul className="space-y-2">
                 {[
-                  { label: 'Laminado Mate', extra: '+$2 / pieza', desc: 'Acabado suave y elegante', accent: true },
-                  { label: 'Laminado Brillante', extra: '+$2 / pieza', desc: 'Colores mas vibrantes', accent: true },
+                  { label: 'Laminado Mate', extra: '+$3.50 / lado', desc: 'Acabado suave y elegante', accent: true },
+                  { label: 'Laminado Brillante', extra: '+$3.50 / lado', desc: 'Colores mas vibrantes', accent: true },
                   { label: 'Medio Corte', extra: 'Consultar', desc: 'Para etiquetas troqueladas', accent: false },
-                  { label: 'Sin acabado', extra: 'Estandar', desc: 'Incluido en el precio base', accent: false },
+                  { label: 'Guillotina', extra: 'Consultar', desc: 'Cortes rectos precisos', accent: false },
                 ].map((row) => (
                   <li key={row.label} className="flex items-center gap-4 bg-[#f5f5f7] rounded-2xl px-4 py-3">
                     <div className={`w-2 h-2 rounded-full shrink-0 ${row.accent ? 'bg-[#0071e3]' : 'bg-slate-300'}`} />
