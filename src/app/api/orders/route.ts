@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyXQmFDwqES8QKs1yg-2DX8cSEsOBx0tA3nT_Oed_s9DBDYtcRtKFYmZUFWbj_8QX4q/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyaoKezbC1bxMz6K5kAhygzBS7aKk9JNYA2QGn2bsS9Bqt2tfoYZAY0diS4EDJAuwlZ/exec';
 
 export async function GET() {
   try {
@@ -39,22 +39,26 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { rowId, status } = await request.json();
+    const payload = await request.json();
     
-    // Enviamos los datos con los nombres que tu Script de Google espera: 'row' y 'estado'
+    // Si viene 'action', enviamos todo el payload al Apps Script
+    // Si no viene 'action' pero sí 'status', mantenemos compatibilidad con el cambio de estado rápido
+    const finalPayload = payload.action ? payload : {
+        row: payload.rowId,
+        estado: payload.status,
+        action: 'STATUS'
+    };
+
     const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          row: rowId, 
-          estado: status 
-        }),
+        body: JSON.stringify(finalPayload),
     });
 
     if (!response.ok) {
-      throw new Error('Fallo al actualizar en Google Sheets');
+      throw new Error('Fallo al procesar en Google Sheets');
     }
 
     return NextResponse.json({ success: true });

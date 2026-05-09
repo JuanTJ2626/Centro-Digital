@@ -5,7 +5,7 @@ import {
   CheckCircle, XCircle, Clock, RefreshCw, Phone,
   Search, Filter, ChevronLeft, ChevronRight,
   ShoppingBag, Calendar, ExternalLink, DollarSign,
-  Package, Layout, ArrowRight, LogOut
+  Package, Layout, ArrowRight, LogOut, Plus, Edit2, X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -37,6 +37,24 @@ export default function OrdersDashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('Todos');
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Estados para el Modal de Agregar/Editar
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingOrder, setEditingOrder] = useState<Order | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    producto: '',
+    medida: '',
+    material: '',
+    gramaje: '',
+    impresion: '',
+    cantidad: '',
+    acabados: '',
+    precio: '',
+    status: 'Pendiente'
+  });
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -86,6 +104,68 @@ export default function OrdersDashboard() {
     }
   };
 
+  const openAddModal = () => {
+    setEditingOrder(null);
+    setFormData({
+      name: '',
+      phone: '',
+      producto: '',
+      medida: '',
+      material: '',
+      gramaje: '',
+      cantidad: '',
+      acabados: '',
+      precio: '',
+      status: 'Pendiente'
+    });
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (order: Order) => {
+    setEditingOrder(order);
+    setFormData({
+      name: order.name,
+      phone: order.phone,
+      producto: order.producto,
+      medida: order.medida,
+      material: order.material,
+      gramaje: order.gramaje,
+      impresion: order.impresion,
+      cantidad: order.cantidad.toString(),
+      acabados: order.acabados,
+      precio: order.precio.toString(),
+      status: order.status
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const payload = {
+        ...formData,
+        rowId: editingOrder?.id || null, // Si es null, el API creará uno nuevo
+        action: editingOrder ? 'UPDATE' : 'CREATE'
+      };
+
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setIsModalOpen(false);
+        fetchOrders(); // Recargamos para ver los cambios
+      }
+    } catch (error) {
+      console.error('Error saving order:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const filteredOrders = useMemo(() => {
     return orders.filter(order => {
       const searchStr = `${order.name} ${order.orderNumber} ${order.phone} ${order.details}`.toLowerCase();
@@ -119,6 +199,15 @@ export default function OrdersDashboard() {
           </div>
 
           <div className="flex items-center gap-4">
+            {/* 
+            <button
+              onClick={openAddModal}
+              className="flex items-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-full text-[10px] font-black tracking-widest hover:bg-brand-blue transition-all shadow-xl shadow-black/10 active:scale-95"
+            >
+              <Plus size={14} />
+              NUEVO PEDIDO
+            </button> 
+            */}
             <button
               onClick={fetchOrders}
               className="p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors group"
@@ -133,10 +222,6 @@ export default function OrdersDashboard() {
             >
               <LogOut className="w-4 h-4 text-red-400 group-hover:text-red-600 transition-colors" />
             </button>
-            <div className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-5 py-2 rounded-full text-[10px] font-black tracking-widest shadow-lg shadow-black/10">
-              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-              LIVE
-            </div>
           </div>
         </div>
       </nav>
@@ -157,8 +242,8 @@ export default function OrdersDashboard() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {[
             { label: 'Entrantes', value: orders.length, icon: ShoppingBag, color: 'text-slate-900' },
-            { label: 'Pendientes', value: orders.filter(o => o.status !== 'Completado' && o.status !== 'Rechazado').length, icon: Clock, color: 'text-amber-500' },
-            { label: 'Listos', value: orders.filter(o => o.status === 'Completado').length, icon: CheckCircle, color: 'text-green-500' },
+            { label: 'Pendientes', value: orders.filter(o => o.status !== 'Finalizado' && o.status !== 'Rechazado').length, icon: Clock, color: 'text-amber-500' },
+            { label: 'Listos', value: orders.filter(o => o.status === 'Finalizado').length, icon: CheckCircle, color: 'text-green-500' },
             { label: 'Ventas Est.', value: `$${orders.reduce((acc, o) => acc + (parseFloat(String(o.precio).replace(/[^0-9.]/g, '')) || 0), 0).toLocaleString()}`, icon: DollarSign, color: 'text-brand-blue' },
           ].map((stat, i) => (
             <motion.div
@@ -188,12 +273,12 @@ export default function OrdersDashboard() {
             />
           </div>
 
-          <div className="flex items-center p-1 bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
-            {['Todos', 'Pendiente', 'Completado', 'Rechazado'].map((f) => (
+          <div className="flex items-center p-1 bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm overflow-x-auto max-w-full">
+            {['Todos', 'Pendiente', 'Finalizado', 'Rechazado', 'Cotización WhatsApp'].map((f) => (
               <button
                 key={f}
                 onClick={() => setStatusFilter(f)}
-                className={`px-6 py-3 rounded-[1.2rem] text-[10px] font-black tracking-widest uppercase transition-all ${statusFilter === f ? 'bg-slate-900 text-white shadow-lg' : 'text-slate-400 hover:text-slate-900'
+                className={`px-6 py-3 rounded-[1.2rem] text-[10px] font-black tracking-widest uppercase whitespace-nowrap transition-all ${statusFilter === f ? 'bg-slate-900 text-white shadow-lg' : 'text-slate-400 hover:text-slate-900'
                   }`}
               >
                 {f}
@@ -222,23 +307,42 @@ export default function OrdersDashboard() {
                 <div>
                   {/* Header de la Tarjeta */}
                   <div className="flex justify-between items-start mb-4">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${order.status === 'Completado' ? 'bg-green-50 text-green-500' :
-                        order.status === 'Rechazado' ? 'bg-red-50 text-red-500' : 'bg-amber-50 text-amber-500'
-                      }`}>
-                      {order.status === 'Completado' ? <CheckCircle size={20} /> :
-                        order.status === 'Rechazado' ? <XCircle size={20} /> : <Clock size={20} className="animate-pulse" />}
+                    <div className="flex gap-2">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${order.status === 'Finalizado' ? 'bg-green-50 text-green-500' :
+                            order.status === 'Rechazado' ? 'bg-red-50 text-red-500' : 
+                            order.status.includes('WhatsApp') ? 'bg-emerald-50 text-emerald-500' : 'bg-amber-50 text-amber-500'
+                        }`}>
+                        {order.status === 'Finalizado' ? <CheckCircle size={20} /> :
+                            order.status === 'Rechazado' ? <XCircle size={20} /> : <Clock size={20} className="animate-pulse" />}
+                        </div>
+                        <button 
+                            onClick={() => openEditModal(order)}
+                            className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-brand-blue hover:text-white transition-all flex items-center justify-center"
+                            title="Editar Pedido"
+                        >
+                            <Edit2 size={16} />
+                        </button>
                     </div>
-                    <span className="text-[9px] font-black bg-brand-blue/10 text-brand-blue px-2 py-1 rounded-lg uppercase tracking-tighter">
-                      {order.orderNumber}
-                    </span>
+                    <div className="flex flex-col items-end gap-1">
+                        <span className="text-[9px] font-black bg-brand-blue/10 text-brand-blue px-2 py-1 rounded-lg uppercase tracking-tighter">
+                        {order.orderNumber}
+                        </span>
+                        <span className={`text-[8px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest ${
+                            order.status === 'Finalizado' ? 'bg-green-500 text-white' :
+                            order.status === 'Rechazado' ? 'bg-red-500 text-white' :
+                            order.status.includes('WhatsApp') ? 'bg-emerald-500 text-white' : 'bg-amber-500 text-white'
+                        }`}>
+                            {order.status}
+                        </span>
+                    </div>
                   </div>
 
                   {/* Cliente e Info básica */}
                   <div className="mb-4">
                     <h4 className="text-lg font-black tracking-tighter truncate">{order.name}</h4>
                     <div className="flex items-center gap-3 text-[10px] font-bold text-slate-400 mt-1">
-                      <span className="flex items-center gap-1"><Calendar size={12} /> {order.timestamp.split(',')[0]}</span>
-                      <span className="text-brand-green font-black">{order.precio}</span>
+                      <span className="flex items-center gap-1"><Calendar size={12} /> {order.timestamp}</span>
+                      <span className="text-brand-green font-black">${order.precio}</span>
                     </div>
                   </div>
 
@@ -266,12 +370,12 @@ export default function OrdersDashboard() {
                 {/* Botones de Acción compactos */}
                 <div className="flex gap-2 pt-2 border-t border-slate-100">
                   <button
-                    onClick={() => updateStatus(order.id, 'Completado')}
-                    disabled={updatingId === order.id || order.status === 'Completado'}
-                    className={`flex-1 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${order.status === 'Completado' ? 'bg-green-500 text-white' : 'bg-slate-100 text-slate-400 hover:bg-green-500 hover:text-white'
+                    onClick={() => updateStatus(order.id, 'Finalizado')}
+                    disabled={updatingId === order.id || order.status === 'Finalizado'}
+                    className={`flex-1 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${order.status === 'Finalizado' ? 'bg-green-500 text-white' : 'bg-slate-100 text-slate-400 hover:bg-green-500 hover:text-white'
                       }`}
                   >
-                    {updatingId === order.id ? <RefreshCw size={12} className="animate-spin" /> : 'Listo'}
+                    {updatingId === order.id ? <RefreshCw size={12} className="animate-spin" /> : 'Finalizado'}
                   </button>
                   <button
                     onClick={() => updateStatus(order.id, 'Rechazado')}
@@ -337,6 +441,147 @@ export default function OrdersDashboard() {
           </div>
         </footer>
       </main>
+
+      {/* Modal Formulario de Pedido */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="absolute inset-0 bg-slate-900/40 backdrop-blur-md"
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-2xl bg-white rounded-[3rem] shadow-2xl overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-2 line-cmyk" />
+              
+              <div className="p-8 md:p-12">
+                <div className="flex justify-between items-center mb-8">
+                  <div>
+                    <h3 className="text-3xl font-black tracking-tighter uppercase italic">
+                      {editingOrder ? 'Editar Pedido' : 'Nuevo Pedido'}
+                    </h3>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">
+                      {editingOrder ? `Pedido #${editingOrder.orderNumber}` : 'Captura de Venta'}
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => setIsModalOpen(false)}
+                    className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition-all"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Nombre del Cliente</label>
+                      <input 
+                        required
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Teléfono</label>
+                      <input 
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Producto</label>
+                      <input 
+                        required
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.producto}
+                        onChange={(e) => setFormData({...formData, producto: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Medida</label>
+                      <input 
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.medida}
+                        onChange={(e) => setFormData({...formData, medida: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Material</label>
+                      <input 
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.material}
+                        onChange={(e) => setFormData({...formData, material: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Gramaje</label>
+                      <input 
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.gramaje}
+                        onChange={(e) => setFormData({...formData, gramaje: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Impresión</label>
+                      <input 
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.impresion}
+                        onChange={(e) => setFormData({...formData, impresion: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Cantidad</label>
+                      <input 
+                        required
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.cantidad}
+                        onChange={(e) => setFormData({...formData, cantidad: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Precio ($)</label>
+                      <input 
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.precio}
+                        onChange={(e) => setFormData({...formData, precio: e.target.value})}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Acabados / Notas</label>
+                    <textarea 
+                      rows={2}
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all resize-none"
+                      value={formData.acabados}
+                      onChange={(e) => setFormData({...formData, acabados: e.target.value})}
+                    />
+                  </div>
+
+                  <button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-slate-900 text-white rounded-3xl py-6 font-black text-[11px] uppercase tracking-[0.4em] flex items-center justify-center gap-4 hover:bg-brand-blue transition-all active:scale-95 disabled:opacity-50"
+                  >
+                    {isSubmitting ? <RefreshCw className="animate-spin" size={16} /> : (editingOrder ? 'Actualizar Pedido' : 'Crear Pedido')}
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
