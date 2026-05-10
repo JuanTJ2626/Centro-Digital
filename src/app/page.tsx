@@ -202,7 +202,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white rounded-[1.5rem] p-5 border border-slate-100 shadow-sm flex flex-col gap-1">
-                <span className="text-[10px] font-black uppercase tracking-widest text-[#0071e3]">Couché 350g (4x1)</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#0071e3]">Couché 300g (4x1)</span>
                 <span className="text-4xl font-black tracking-tighter text-[#1d1d1f]">$250</span>
                 <span className="text-[10px] text-[#86868b] italic">Entrega: 3 a 5 días hábiles</span>
               </div>
@@ -254,9 +254,9 @@ export default function Home() {
               <h3 className="text-xl font-black italic tracking-tight mb-5 text-[#1d1d1f]">Medidas Disponibles</h3>
               <ul className="space-y-3">
                 {[
-                  { label: 'Carta', dim: '21.6 x 27.9 cm' },
-                  { label: 'Tabloide', dim: '27.9 x 43.2 cm' },
-                  { label: 'Tabloide Rebasado', dim: '33 x 47 cm' },
+                  { label: 'Carta', dim: '21.5 x 28 cm' },
+                  { label: 'Tabloide', dim: '33 x 47.5 cm' },
+                  { label: 'Tabloide Rebasado', dim: '33 x 48 cm' },
                   { label: 'Adhesivo', dim: '33 x 48 cm' },
                 ].map((m) => (
                   <li key={m.label} className="flex items-center justify-between bg-white rounded-xl px-4 py-3 border border-slate-100">
