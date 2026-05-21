@@ -5,7 +5,8 @@ import {
   CheckCircle, XCircle, Clock, RefreshCw, Phone,
   Search, Filter, ChevronLeft, ChevronRight,
   ShoppingBag, Calendar, ExternalLink, DollarSign,
-  Package, Layout, ArrowRight, LogOut, Plus, Edit2, X
+  Package, Layout, ArrowRight, LogOut, Plus, Edit2, X, HelpCircle,
+  TrendingUp, BarChart3, PieChart, Activity
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -26,6 +27,7 @@ interface Order {
   impresion: string;
   cantidad: string | number;
   acabados: string;
+  raw?: any;
 }
 
 const ITEMS_PER_PAGE = 12;
@@ -37,6 +39,10 @@ export default function OrdersDashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('Todos');
   const [currentPage, setCurrentPage] = useState(1);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [hoveredSegment, setHoveredSegment] = useState<{label: string, count: number, pct: number, color: string} | null>(null);
 
   // Estados para el Modal de Agregar/Editar
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -172,9 +178,144 @@ export default function OrdersDashboard() {
       const searchStr = `${order.name} ${order.orderNumber} ${order.phone} ${order.details}`.toLowerCase();
       const matchesSearch = searchStr.includes(searchTerm.toLowerCase());
       const matchesStatus = statusFilter === 'Todos' || order.status === statusFilter;
-      return matchesSearch && matchesStatus;
+
+      let matchesDates = true;
+      if (startDate || endDate) {
+        const orderDateStr = order.raw?.Fecha || order.timestamp;
+        const orderTime = new Date(orderDateStr).getTime();
+
+        if (startDate) {
+          const start = new Date(startDate + 'T00:00:00').getTime();
+          if (isNaN(orderTime) || orderTime < start) {
+            matchesDates = false;
+          }
+        }
+        if (endDate) {
+          const end = new Date(endDate + 'T23:59:59').getTime();
+          if (isNaN(orderTime) || orderTime > end) {
+            matchesDates = false;
+          }
+        }
+      }
+
+      return matchesSearch && matchesStatus && matchesDates;
     });
-  }, [orders, searchTerm, statusFilter]);
+  }, [orders, searchTerm, statusFilter, startDate, endDate]);
+
+  // Desglose por canal de origen
+  const channelBreakdown = useMemo(() => {
+    let asesor = 0;
+    let whatsapp = 0;
+    let directo = 0;
+
+    filteredOrders.forEach(o => {
+      const status = o.status || '';
+      if (status === 'Asesor solicitado') {
+        asesor++;
+      } else if (status.includes('WhatsApp')) {
+        whatsapp++;
+      } else {
+        directo++;
+      }
+    });
+
+    return { asesor, whatsapp, directo, total: filteredOrders.length };
+  }, [filteredOrders]);
+
+  // Desglose por estado de pedido
+  const statusBreakdown = useMemo(() => {
+    let pendiente = 0;
+    let finalizado = 0;
+    let rechazado = 0;
+    let whatsapp = 0;
+    let asesor = 0;
+
+    filteredOrders.forEach(o => {
+      const status = o.status || 'Pendiente';
+      if (status === 'Finalizado') finalizado++;
+      else if (status === 'Rechazado') rechazado++;
+      else if (status === 'Asesor solicitado') asesor++;
+      else if (status.includes('WhatsApp')) whatsapp++;
+      else pendiente++;
+    });
+
+    const total = filteredOrders.length || 1;
+    return {
+      pendiente,
+      finalizado,
+      rechazado,
+      whatsapp,
+      asesor,
+      total,
+      pendientePct: (pendiente / total) * 100,
+      finalizadoPct: (finalizado / total) * 100,
+      rechazadoPct: (rechazado / total) * 100,
+      whatsappPct: (whatsapp / total) * 100,
+      asesorPct: (asesor / total) * 100,
+    };
+  }, [filteredOrders]);
+
+  // Datos para el donut chart de estado
+  const donutData = useMemo(() => {
+    const { pendiente, finalizado, rechazado, whatsapp, asesor, total } = statusBreakdown;
+    if (total === 0) return [];
+
+    const segments = [
+      { label: 'Pendiente', count: pendiente, color: '#f59e0b', pct: ((pendiente / total) * 100) },
+      { label: 'Finalizado', count: finalizado, color: '#22c55e', pct: ((finalizado / total) * 100) },
+      { label: 'Rechazado', count: rechazado, color: '#ef4444', pct: ((rechazado / total) * 100) },
+      { label: 'Cotización WhatsApp', count: whatsapp, color: '#34d399', pct: ((whatsapp / total) * 100) },
+      { label: 'Asesor', count: asesor, color: '#a855f7', pct: ((asesor / total) * 100) },
+    ].filter(s => s.count > 0);
+
+    // Calcular arcos SVG
+    const cx = 90, cy = 90, r = 70, innerR = 45;
+    let cumAngle = -90; // start at top
+
+    return segments.map(seg => {
+      const angle = (seg.count / total) * 360;
+      const startAngle = cumAngle;
+      const endAngle = cumAngle + angle;
+      cumAngle = endAngle;
+
+      const startRad = (startAngle * Math.PI) / 180;
+      const endRad = (endAngle * Math.PI) / 180;
+
+      const x1Outer = cx + r * Math.cos(startRad);
+      const y1Outer = cy + r * Math.sin(startRad);
+      const x2Outer = cx + r * Math.cos(endRad);
+      const y2Outer = cy + r * Math.sin(endRad);
+      const x1Inner = cx + innerR * Math.cos(endRad);
+      const y1Inner = cy + innerR * Math.sin(endRad);
+      const x2Inner = cx + innerR * Math.cos(startRad);
+      const y2Inner = cy + innerR * Math.sin(startRad);
+
+      const largeArc = angle > 180 ? 1 : 0;
+
+      const path = [
+        `M ${x1Outer} ${y1Outer}`,
+        `A ${r} ${r} 0 ${largeArc} 1 ${x2Outer} ${y2Outer}`,
+        `L ${x1Inner} ${y1Inner}`,
+        `A ${innerR} ${innerR} 0 ${largeArc} 0 ${x2Inner} ${y2Inner}`,
+        'Z'
+      ].join(' ');
+
+      return { ...seg, path };
+    });
+  }, [statusBreakdown]);
+
+  const analyticsKPIs = useMemo(() => {
+    const totalOrders = filteredOrders.length;
+    const { asesor, whatsapp } = channelBreakdown;
+
+    return {
+      totalOrders,
+      asesor,
+      whatsapp,
+      asesorPct: totalOrders > 0 ? ((asesor / totalOrders) * 100).toFixed(1) : '0.0',
+      whatsappPct: totalOrders > 0 ? ((whatsapp / totalOrders) * 100).toFixed(1) : '0.0',
+    };
+  }, [filteredOrders, channelBreakdown]);
 
   const totalPages = Math.ceil(filteredOrders.length / ITEMS_PER_PAGE);
   const paginatedOrders = filteredOrders.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
@@ -228,15 +369,24 @@ export default function OrdersDashboard() {
       </nav>
 
       <main className="max-w-6xl mx-auto px-4 md:px-8 pt-32 pb-20">
-        <header className="mb-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-black tracking-tighter mb-4 italic"
+        <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-5xl md:text-7xl font-black tracking-tighter mb-4 italic"
+            >
+              Gestión de <span className="text-premium">Pedidos.</span>
+            </motion.h2>
+            <div className="line-cmyk w-48 rounded-full" />
+          </div>
+          <button
+            onClick={() => setShowAnalytics(!showAnalytics)}
+            className="flex items-center gap-2 bg-white hover:bg-slate-900 border border-slate-200 hover:text-white px-6 py-4 rounded-3xl text-[10px] font-black tracking-widest uppercase transition-all shadow-sm active:scale-95 z-10 self-start md:self-auto cursor-pointer"
           >
-            Gestión de <span className="text-premium">Pedidos.</span>
-          </motion.h2>
-          <div className="line-cmyk w-48 rounded-full mb-8" />
+            <TrendingUp size={14} className={showAnalytics ? 'rotate-180 transition-transform' : 'transition-transform'} />
+            {showAnalytics ? 'Ocultar Analíticas' : 'Ver Analíticas'}
+          </button>
         </header>
 
         {/* Métrica Cards Grid */}
@@ -261,6 +411,229 @@ export default function OrdersDashboard() {
           ))}
         </div>
 
+        {/* Panel de Analíticas Colapsable */}
+        <AnimatePresence>
+          {showAnalytics && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+              animate={{ opacity: 1, height: 'auto', marginBottom: 32 }}
+              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+              className="overflow-hidden bg-white border border-slate-200 rounded-[3rem] shadow-sm z-10 relative"
+            >
+              <div className="p-6 md:p-8 space-y-8">
+                {/* Header interna de Analíticas */}
+                <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                  <div className="w-10 h-10 bg-brand-blue/10 rounded-xl flex items-center justify-center text-brand-blue">
+                    <BarChart3 size={20} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-black uppercase tracking-tight">Módulo de Business Intelligence</h3>
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Información calculada en tiempo real según filtros activos</p>
+                  </div>
+                </div>
+
+                {/* KPIs: Total Pedidos, Vía Asesor, Vía WhatsApp */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-brand-blue">
+                      <ShoppingBag size={18} />
+                    </div>
+                    <div>
+                      <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Total Pedidos</p>
+                      <h4 className="text-lg font-black tracking-tight">{analyticsKPIs.totalOrders}</h4>
+                    </div>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center text-violet-500">
+                      <HelpCircle size={18} />
+                    </div>
+                    <div>
+                      <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Vía Asesor</p>
+                      <h4 className="text-lg font-black tracking-tight">{analyticsKPIs.asesor} <span className="text-xs font-bold text-slate-400">({analyticsKPIs.asesorPct}%)</span></h4>
+                    </div>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center text-green-500">
+                      <Phone size={18} />
+                    </div>
+                    <div>
+                      <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Vía WhatsApp</p>
+                      <h4 className="text-lg font-black tracking-tight">{analyticsKPIs.whatsapp} <span className="text-xs font-bold text-slate-400">({analyticsKPIs.whatsappPct}%)</span></h4>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Gráficos */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Gráfico 1: Pedidos por Canal (Donut) */}
+                  <div className="border border-slate-100 rounded-2xl p-6 bg-slate-50 flex flex-col">
+                    <div>
+                      <h4 className="text-sm font-black uppercase tracking-tight mb-1 flex items-center gap-2">
+                        <PieChart size={16} className="text-brand-blue" />
+                        Pedidos por Canal
+                      </h4>
+                      <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4">Origen de cada pedido</p>
+                    </div>
+
+                    <div className="flex-1 flex flex-col sm:flex-row items-center justify-center gap-6">
+                      {donutData.length === 0 ? (
+                        <p className="text-xs font-bold text-slate-400 italic">No hay pedidos en este período</p>
+                      ) : (
+                        <>
+                          {/* SVG Donut */}
+                          <div className="w-[180px] h-[180px] flex-shrink-0 relative">
+                            <svg viewBox="0 0 180 180" className="w-full h-full group">
+                              {donutData.map((seg, idx) => (
+                                <path
+                                  key={idx}
+                                  d={seg.path}
+                                  fill={seg.color}
+                                  className="hover:opacity-80 transition-all duration-300 cursor-pointer hover:scale-[1.02] origin-center"
+                                  stroke="#f8fafc"
+                                  strokeWidth="2"
+                                  onMouseEnter={() => setHoveredSegment(seg)}
+                                  onMouseLeave={() => setHoveredSegment(null)}
+                                >
+                                  <title>{seg.label}: {seg.count} pedidos ({seg.pct.toFixed(1)}%)</title>
+                                </path>
+                              ))}
+                              {/* Center text */}
+                              <text x="90" y="85" textAnchor="middle" fill={hoveredSegment ? hoveredSegment.color : "#1e293b"} fontSize={hoveredSegment ? "22" : "24"} fontWeight="900" className="font-sans transition-colors duration-300">
+                                {hoveredSegment ? hoveredSegment.count : statusBreakdown.total}
+                              </text>
+                              <text x="90" y="102" textAnchor="middle" fill="#94a3b8" fontSize={hoveredSegment ? "8" : "8"} fontWeight="800" letterSpacing="1.5" className="font-sans uppercase">
+                                {hoveredSegment ? hoveredSegment.label : 'PEDIDOS'}
+                              </text>
+                              {hoveredSegment && (
+                                <text x="90" y="115" textAnchor="middle" fill={hoveredSegment.color} fontSize="9" fontWeight="bold" className="font-sans">
+                                  {hoveredSegment.pct.toFixed(1)}%
+                                </text>
+                              )}
+                            </svg>
+                          </div>
+
+                          {/* Leyenda interactiva */}
+                          <div className="flex flex-col gap-3">
+                            {donutData.map((seg, idx) => (
+                              <div 
+                                key={idx} 
+                                className={`flex items-center gap-3 transition-opacity duration-300 cursor-pointer ${hoveredSegment && hoveredSegment.label !== seg.label ? 'opacity-30' : 'opacity-100'}`}
+                                onMouseEnter={() => setHoveredSegment(seg)}
+                                onMouseLeave={() => setHoveredSegment(null)}
+                              >
+                                <div className="w-3.5 h-3.5 rounded-md flex-shrink-0" style={{ backgroundColor: seg.color }} />
+                                <div>
+                                  <p className="text-[11px] font-bold text-slate-700 leading-tight">{seg.label}</p>
+                                  <p className="text-[9px] font-black text-slate-400">{seg.count} pedidos · {seg.pct.toFixed(1)}%</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Gráfico 2: Estado de Pedidos (Barras) */}
+                  <div className="border border-slate-100 rounded-2xl p-6 bg-slate-50 flex flex-col">
+                    <div>
+                      <h4 className="text-sm font-black uppercase tracking-tight mb-1 flex items-center gap-2">
+                        <BarChart3 size={16} className="text-brand-blue" />
+                        Estado de Pedidos
+                      </h4>
+                      <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-6">Distribución actual por estado</p>
+                    </div>
+
+                    <div className="flex-1 flex flex-col justify-center gap-5">
+                      {/* Barra Pendiente */}
+                      <div className="space-y-1.5 group p-1.5 -m-1.5 rounded-xl hover:bg-slate-100/80 transition-colors cursor-pointer" title={`Pendiente: ${statusBreakdown.pendiente} pedidos (${statusBreakdown.pendientePct.toFixed(1)}%)`}>
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center gap-2">
+                            <Clock size={14} className="text-amber-500" />
+                            <span className="text-[11px] font-bold text-slate-700">Pendiente</span>
+                          </div>
+                          <span className="text-[11px] font-black text-amber-500">{statusBreakdown.pendiente} <span className="text-slate-400 font-bold text-[9px] opacity-0 group-hover:opacity-100 transition-opacity">({statusBreakdown.pendientePct.toFixed(1)}%)</span></span>
+                        </div>
+                        <div className="w-full h-3 bg-slate-200/60 rounded-full overflow-hidden">
+                          <div className="h-full bg-amber-400 rounded-full transition-all duration-1000 group-hover:brightness-110" style={{ width: `${statusBreakdown.pendientePct}%` }} />
+                        </div>
+                      </div>
+
+                      {/* Barra finalizado */}
+                      <div className="space-y-1.5 group p-1.5 -m-1.5 rounded-xl hover:bg-slate-100/80 transition-colors cursor-pointer" title={`Finalizado: ${statusBreakdown.finalizado} pedidos (${statusBreakdown.finalizadoPct.toFixed(1)}%)`}>
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center gap-2">
+                            <CheckCircle size={14} className="text-green-500" />
+                            <span className="text-[11px] font-bold text-slate-700">Finalizado</span>
+                          </div>
+                          <span className="text-[11px] font-black text-green-500">{statusBreakdown.finalizado} <span className="text-slate-400 font-bold text-[9px] opacity-0 group-hover:opacity-100 transition-opacity">({statusBreakdown.finalizadoPct.toFixed(1)}%)</span></span>
+                        </div>
+                        <div className="w-full h-3 bg-slate-200/60 rounded-full overflow-hidden">
+                          <div className="h-full bg-green-500 rounded-full transition-all duration-1000 group-hover:brightness-110" style={{ width: `${statusBreakdown.finalizadoPct}%` }} />
+                        </div>
+                      </div>
+
+                      {/* Barra Rechazado */}
+                      <div className="space-y-1.5 group p-1.5 -m-1.5 rounded-xl hover:bg-slate-100/80 transition-colors cursor-pointer" title={`Rechazado: ${statusBreakdown.rechazado} pedidos (${statusBreakdown.rechazadoPct.toFixed(1)}%)`}>
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center gap-2">
+                            <XCircle size={14} className="text-red-500" />
+                            <span className="text-[11px] font-bold text-slate-700">Rechazado</span>
+                          </div>
+                          <span className="text-[11px] font-black text-red-500">{statusBreakdown.rechazado} <span className="text-slate-400 font-bold text-[9px] opacity-0 group-hover:opacity-100 transition-opacity">({statusBreakdown.rechazadoPct.toFixed(1)}%)</span></span>
+                        </div>
+                        <div className="w-full h-3 bg-slate-200/60 rounded-full overflow-hidden">
+                          <div className="h-full bg-red-500 rounded-full transition-all duration-1000 group-hover:brightness-110" style={{ width: `${statusBreakdown.rechazadoPct}%` }} />
+                        </div>
+                      </div>
+
+                      {/* Barra Cotización WhatsApp */}
+                      <div className="space-y-1.5 group p-1.5 -m-1.5 rounded-xl hover:bg-slate-100/80 transition-colors cursor-pointer" title={`WhatsApp: ${statusBreakdown.whatsapp} pedidos (${statusBreakdown.whatsappPct.toFixed(1)}%)`}>
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center gap-2">
+                            <Phone size={14} className="text-emerald-400" />
+                            <span className="text-[11px] font-bold text-slate-700">WhatsApp</span>
+                          </div>
+                          <span className="text-[11px] font-black text-emerald-400">{statusBreakdown.whatsapp} <span className="text-slate-400 font-bold text-[9px] opacity-0 group-hover:opacity-100 transition-opacity">({statusBreakdown.whatsappPct.toFixed(1)}%)</span></span>
+                        </div>
+                        <div className="w-full h-3 bg-slate-200/60 rounded-full overflow-hidden">
+                          <div className="h-full bg-emerald-400 rounded-full transition-all duration-1000 group-hover:brightness-110" style={{ width: `${statusBreakdown.whatsappPct}%` }} />
+                        </div>
+                      </div>
+
+                      {/* Barra Asesor Solicitado */}
+                      <div className="space-y-1.5 group p-1.5 -m-1.5 rounded-xl hover:bg-slate-100/80 transition-colors cursor-pointer" title={`Asesor: ${statusBreakdown.asesor} pedidos (${statusBreakdown.asesorPct.toFixed(1)}%)`}>
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center gap-2">
+                            <HelpCircle size={14} className="text-purple-500" />
+                            <span className="text-[11px] font-bold text-slate-700">Asesor Solicitado</span>
+                          </div>
+                          <span className="text-[11px] font-black text-purple-500">{statusBreakdown.asesor} <span className="text-slate-400 font-bold text-[9px] opacity-0 group-hover:opacity-100 transition-opacity">({statusBreakdown.asesorPct.toFixed(1)}%)</span></span>
+                        </div>
+                        <div className="w-full h-3 bg-slate-200/60 rounded-full overflow-hidden">
+                          <div className="h-full bg-purple-500 rounded-full transition-all duration-1000 group-hover:brightness-110" style={{ width: `${statusBreakdown.asesorPct}%` }} />
+                        </div>
+                      </div>
+
+                      {/* Barra visual combinada */}
+                      <div className="mt-2 pt-4 border-t border-slate-200/50 group cursor-pointer" title="Vista combinada">
+                        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2 group-hover:text-slate-700 transition-colors">Vista general</p>
+                        <div className="w-full h-4 bg-slate-200/60 rounded-full overflow-hidden flex transform transition-transform group-hover:scale-[1.01]">
+                          <div className="h-full bg-amber-400 transition-all duration-1000 hover:opacity-80" style={{ width: `${statusBreakdown.pendientePct}%` }} title={`Pendiente: ${statusBreakdown.pendientePct.toFixed(1)}%`} />
+                          <div className="h-full bg-green-500 transition-all duration-1000 hover:opacity-80" style={{ width: `${statusBreakdown.finalizadoPct}%` }} title={`Finalizado: ${statusBreakdown.finalizadoPct.toFixed(1)}%`} />
+                          <div className="h-full bg-red-500 transition-all duration-1000 hover:opacity-80" style={{ width: `${statusBreakdown.rechazadoPct}%` }} title={`Rechazado: ${statusBreakdown.rechazadoPct.toFixed(1)}%`} />
+                          <div className="h-full bg-emerald-400 transition-all duration-1000 hover:opacity-80" style={{ width: `${statusBreakdown.whatsappPct}%` }} title={`WhatsApp: ${statusBreakdown.whatsappPct.toFixed(1)}%`} />
+                          <div className="h-full bg-purple-500 transition-all duration-1000 hover:opacity-80" style={{ width: `${statusBreakdown.asesorPct}%` }} title={`Asesor: ${statusBreakdown.asesorPct.toFixed(1)}%`} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Toolbar Interactivo */}
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="relative flex-1 group">
@@ -275,7 +648,7 @@ export default function OrdersDashboard() {
           </div>
 
           <div className="flex items-center p-1 bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm overflow-x-auto max-w-full">
-            {['Todos', 'Pendiente', 'Finalizado', 'Rechazado', 'Cotización WhatsApp'].map((f) => (
+            {['Todos', 'Pendiente', 'Finalizado', 'Rechazado', 'Cotización WhatsApp', 'Asesor solicitado'].map((f) => (
               <button
                 key={f}
                 onClick={() => setStatusFilter(f)}
@@ -285,6 +658,56 @@ export default function OrdersDashboard() {
                 {f}
               </button>
             ))}
+          </div>
+        </div>
+
+        {/* Filtros de Fecha */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-8 bg-white border border-slate-200 rounded-[2rem] p-5 shadow-sm items-center z-10 relative">
+          <div className="flex items-center gap-2 text-slate-400 pl-2">
+            <Filter size={16} />
+            <span className="text-[10px] font-black uppercase tracking-widest">Filtrar por fecha:</span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:flex items-center gap-3 flex-1 w-full">
+            <div className="relative flex-1">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[9px] font-black text-slate-400 uppercase tracking-widest pointer-events-none">Inicio</span>
+              <input
+                type="date"
+                className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-16 pr-4 py-3 text-xs font-semibold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                value={startDate}
+                onChange={(e) => {
+                  setStartDate(e.target.value);
+                  setCurrentPage(1);
+                }}
+              />
+            </div>
+
+            <div className="relative flex-1">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[9px] font-black text-slate-400 uppercase tracking-widest pointer-events-none">Fin</span>
+              <input
+                type="date"
+                className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-16 pr-4 py-3 text-xs font-semibold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                value={endDate}
+                onChange={(e) => {
+                  setEndDate(e.target.value);
+                  setCurrentPage(1);
+                }}
+              />
+            </div>
+
+            {(startDate || endDate) && (
+              <button
+                onClick={() => {
+                  setStartDate('');
+                  setEndDate('');
+                  setCurrentPage(1);
+                }}
+                className="col-span-2 sm:col-span-1 px-4 py-3 bg-red-50 hover:bg-red-100 text-red-500 rounded-xl text-[10px] font-black tracking-widest uppercase transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <X size={12} />
+                Limpiar Fechas
+              </button>
+            )}
           </div>
         </div>
 
@@ -311,10 +734,12 @@ export default function OrdersDashboard() {
                     <div className="flex gap-2">
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${order.status === 'Finalizado' ? 'bg-green-50 text-green-500' :
                         order.status === 'Rechazado' ? 'bg-red-50 text-red-500' :
-                          order.status.includes('WhatsApp') ? 'bg-emerald-50 text-emerald-500' : 'bg-amber-50 text-amber-500'
+                          order.status === 'Asesor solicitado' ? 'bg-violet-50 text-violet-500' :
+                            order.status.includes('WhatsApp') ? 'bg-emerald-50 text-emerald-500' : 'bg-amber-50 text-amber-500'
                         }`}>
                         {order.status === 'Finalizado' ? <CheckCircle size={20} /> :
-                          order.status === 'Rechazado' ? <XCircle size={20} /> : <Clock size={20} className="animate-pulse" />}
+                          order.status === 'Rechazado' ? <XCircle size={20} /> :
+                            order.status === 'Asesor solicitado' ? <HelpCircle size={20} /> : <Clock size={20} className="animate-pulse" />}
                       </div>
                       <button
                         onClick={() => openEditModal(order)}
@@ -330,7 +755,8 @@ export default function OrdersDashboard() {
                       </span>
                       <span className={`text-[8px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest ${order.status === 'Finalizado' ? 'bg-green-500 text-white' :
                         order.status === 'Rechazado' ? 'bg-red-500 text-white' :
-                          order.status.includes('WhatsApp') ? 'bg-emerald-500 text-white' : 'bg-amber-500 text-white'
+                          order.status === 'Asesor solicitado' ? 'bg-violet-600 text-white' :
+                            order.status.includes('WhatsApp') ? 'bg-emerald-500 text-white' : 'bg-amber-500 text-white'
                         }`}>
                         {order.status}
                       </span>
@@ -556,6 +982,20 @@ export default function OrdersDashboard() {
                         value={formData.precio}
                         onChange={(e) => setFormData({ ...formData, precio: e.target.value })}
                       />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Estado</label>
+                      <select
+                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-brand-blue/5 focus:border-brand-blue transition-all"
+                        value={formData.status}
+                        onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                      >
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Finalizado">Finalizado</option>
+                        <option value="Rechazado">Rechazado</option>
+                        <option value="Cotización WhatsApp">Cotización WhatsApp</option>
+                        <option value="Asesor solicitado">Asesor solicitado</option>
+                      </select>
                     </div>
                   </div>
 
