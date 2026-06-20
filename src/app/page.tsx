@@ -76,6 +76,11 @@ export default function Home() {
     { Icon: Mail, label: 'Postales', color: '#0071e3' },
   ];
 
+  const impresion3D = [
+    { src: '/img/impresion 3d1.png', alt: 'Impresión 3D 1' },
+    { src: '/img/impresion 3d2.png', alt: 'Impresión 3D 2' },
+  ];
+
   return (
     <main ref={containerRef} className="relative min-h-screen bg-[#fbfbfd] text-[#1d1d1f] font-sans selection:bg-[#0071e3] selection:text-white overflow-x-hidden">
       <ThreeBackground />
@@ -100,6 +105,57 @@ export default function Home() {
         'Image to PDF 20260509 15.12.58_11.jpg.jpeg',
         'Image to PDF 20260509 15.12.58_12.jpg.jpeg',
       ]} />
+
+      {/* NUEVO PRODUCTO IMPRESION 3D */}
+      <section className="py-16 md:py-24 px-4 md:px-6 relative overflow-hidden bg-transparent text-center flex flex-col justify-center items-center z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0071e3]/10 blur-[150px] rounded-full pointer-events-none" />
+        
+        <div className="relative z-10 reveal max-w-5xl mx-auto">
+          <span className="inline-block py-1 px-4 rounded-full border border-[#0071e3]/30 bg-[#0071e3]/10 text-[#0071e3] text-[10px] font-black uppercase tracking-[0.4em] mb-6 backdrop-blur-md">
+            Nuevo Servicio
+          </span>
+          <h2 className="text-5xl md:text-8xl lg:text-9xl font-bold tracking-tighter italic text-[#1d1d1f] leading-[0.9]">
+            IMPRESIÓN<br/>3D.
+          </h2>
+          <p className="mt-8 text-lg md:text-xl text-[#86868b] max-w-2xl mx-auto italic font-medium">
+            Da vida a tus ideas con nuestra nueva tecnología de impresión 3D.
+          </p>
+
+          <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-6">
+            <div className="bg-white/60 backdrop-blur-xl border border-white/50 shadow-sm hover:shadow-md hover:bg-white/80 rounded-3xl p-6 flex flex-col items-center max-w-xs w-full transition-all">
+              <div className="w-12 h-12 bg-[#0071e3]/10 rounded-xl flex items-center justify-center mb-4">
+                <Package className="w-6 h-6 text-[#0071e3]" />
+              </div>
+              <h3 className="text-[#1d1d1f] font-bold text-xl mb-1">Volumen Máximo</h3>
+              <p className="text-[#86868b] text-sm">30 x 30 x 30 cm</p>
+            </div>
+
+            <div className="bg-white/60 backdrop-blur-xl border border-white/50 shadow-sm hover:shadow-md hover:bg-white/80 rounded-3xl p-6 flex flex-col items-center max-w-xs w-full transition-all">
+              <div className="w-12 h-12 bg-[#34c759]/10 rounded-xl flex items-center justify-center mb-4">
+                <Tag className="w-6 h-6 text-[#34c759]" />
+              </div>
+              <h3 className="text-[#1d1d1f] font-bold text-xl mb-1">Precio Justo</h3>
+              <p className="text-[#86868b] text-sm">Se cobra por gramo</p>
+            </div>
+          </div>
+
+          {/* Galeria de Impresion 3D */}
+          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+            {impresion3D.map((item) => (
+              <div key={item.src} className="relative aspect-square rounded-3xl overflow-hidden shadow-sm group bg-white/40 border border-white/60">
+                <img src={item.src} alt={item.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+            <div className="relative aspect-square rounded-3xl overflow-hidden shadow-sm group bg-white/40 border border-white/60 flex items-center justify-center text-center p-6">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.35em] text-[#0071e3] mb-2">Impresión 3D</p>
+                <h3 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">Diseño que toma forma</h3>
+                <p className="mt-3 text-sm text-[#86868b]">Piezas precisas, personalizadas y listas para producirse.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* PRODUCTOS */}
       <section className="py-8 md:py-12 px-4 md:px-6 bg-[#1d1d1f] relative overflow-hidden">

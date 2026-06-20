@@ -9,6 +9,7 @@ import {
   TrendingUp, BarChart3, PieChart, Activity
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 interface Order {
   id: number;
@@ -222,6 +223,8 @@ export default function OrdersDashboard() {
     return { asesor, whatsapp, directo, total: filteredOrders.length };
   }, [filteredOrders]);
 
+
+  
   // Desglose por estado de pedido
   const statusBreakdown = useMemo(() => {
     let pendiente = 0;
@@ -388,6 +391,16 @@ export default function OrdersDashboard() {
             {showAnalytics ? 'Ocultar Analíticas' : 'Ver Analíticas'}
           </button>
         </header>
+
+        <div className="mb-8 flex justify-end">
+          <Link
+            href="/admin/whatsapp"
+            className="inline-flex items-center gap-2 bg-[#25D366] text-white px-5 py-3 rounded-3xl text-[10px] font-black tracking-[0.35em] uppercase shadow-lg shadow-green-500/20 hover:scale-[1.02] transition-transform"
+          >
+            <Phone size={14} />
+            WhatsApp Masivo
+          </Link>
+        </div>
 
         {/* Métrica Cards Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
