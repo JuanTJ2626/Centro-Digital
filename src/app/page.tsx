@@ -25,17 +25,22 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useIsomorphicLayoutEffect(() => {
+    // En móviles, no ocultar elementos ni esperar a ScrollTrigger para evitar que no carguen
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return;
+    }
+
     const ctx = gsap.context(() => {
       gsap.utils.toArray('.reveal').forEach((el: any) => {
         gsap.from(el, {
-          y: 50,
+          y: 40,
           opacity: 0,
-          duration: 1.2,
-          ease: 'power4.out',
+          duration: 1,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none reverse',
+            start: 'top 90%',
+            toggleActions: 'play none none none',
           },
         });
       });
