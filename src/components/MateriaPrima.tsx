@@ -7,6 +7,10 @@ export default function MateriaPrima() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return; // Cero listeners ni transformaciones 3D en móvil
+    }
+
     const ctx = gsap.context(() => {
       const materiaCards = gsap.utils.toArray('.materia-card');
       materiaCards.forEach((card: any) => {

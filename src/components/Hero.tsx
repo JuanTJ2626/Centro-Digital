@@ -13,8 +13,11 @@ export default function Hero({ photos }: HeroProps) {
   const heroRef = useRef<HTMLDivElement>(null);
   const [particles, setParticles] = useState<{ top: string; left: string; color: string }[]>([]);
 
-  // Generate random positions only on the client to avoid hydration mismatch
+  // Generate random positions only on desktop to avoid overhead on mobile
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return;
+    }
     const colors = ['#0071e3', '#ff3b30', '#34c759', '#ffcc00'];
     const newParticles = [...Array(6)].map((_, i) => ({
       top: `${Math.random() * 100}%`,
@@ -54,81 +57,84 @@ export default function Hero({ photos }: HeroProps) {
           }, '-=0.8');
       }
 
-      // 2. Continuous Floating Photos
-      const images = gsap.utils.toArray('.hero-float');
-
-      images.forEach((img: any, i: number) => {
-        gsap.to(img, {
-          y: '+=25',
-          rotation: i % 2 === 0 ? 5 : -5,
-          duration: 3 + i * 0.5,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-          delay: i * 0.3
-        });
-      });
-
-      // 3. Floating "Ink Drops" (Particles)
-      const particleEls = gsap.utils.toArray('.hero-particle');
-      particleEls.forEach((p: any) => {
-        gsap.to(p, {
-          y: 'random(-100, 100)',
-          x: 'random(-100, 100)',
-          duration: 'random(10, 20)',
-          repeat: -1,
-          yoyo: true,
-          ease: 'none'
-        });
-      });
-
-      // Mouse Parallax
-      const handleMouseMove = (e: MouseEvent) => {
-        const { clientX, clientY } = e;
-        const x = (clientX / window.innerWidth - 0.5) * 40;
-        const y = (clientY / window.innerHeight - 0.5) * 40;
-
+      // 2. Continuous Floating Photos (desktop only)
+      if (!isMobile) {
+        const images = gsap.utils.toArray('.hero-float');
         images.forEach((img: any, i: number) => {
           gsap.to(img, {
-            x: x * (i + 1) * 0.25,
-            y: y * (i + 1) * 0.25,
-            duration: 4,
-            ease: 'power2.out'
+            y: '+=25',
+            rotation: i % 2 === 0 ? 5 : -5,
+            duration: 3 + i * 0.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: i * 0.3
           });
         });
-      };
 
-      window.addEventListener('mousemove', handleMouseMove);
-      return () => window.removeEventListener('mousemove', handleMouseMove);
+        // 3. Floating "Ink Drops" (Particles)
+        const particleEls = gsap.utils.toArray('.hero-particle');
+        particleEls.forEach((p: any) => {
+          gsap.to(p, {
+            y: 'random(-100, 100)',
+            x: 'random(-100, 100)',
+            duration: 'random(10, 20)',
+            repeat: -1,
+            yoyo: true,
+            ease: 'none'
+          });
+        });
+
+        // Mouse Parallax
+        const handleMouseMove = (e: MouseEvent) => {
+          const { clientX, clientY } = e;
+          const x = (clientX / window.innerWidth - 0.5) * 40;
+          const y = (clientY / window.innerHeight - 0.5) * 40;
+
+          images.forEach((img: any, i: number) => {
+            gsap.to(img, {
+              x: x * (i + 1) * 0.25,
+              y: y * (i + 1) * 0.25,
+              duration: 4,
+              ease: 'power2.out'
+            });
+          });
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+      }
     }, heroRef);
 
     return () => ctx.revert();
-  }, [particles]); // Re-run GSAP when particles are generated
+  }, [particles]);
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section ref={heroRef} className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center pt-24 md:pt-20 pb-12 md:pb-0 overflow-hidden">
       {/* Halftone Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 0)', backgroundSize: '24px 24px' }} />
 
-      {/* Dynamic Colored Blurs */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-500/15 blur-[180px] rounded-full pointer-events-none animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-red-500/15 blur-[180px] rounded-full pointer-events-none animate-pulse" style={{ animationDelay: '1.5s' }} />
-      <div className="absolute top-1/2 left-0 w-[450px] h-[450px] bg-green-500/10 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/4 right-0 w-[450px] h-[450px] bg-yellow-400/10 blur-[150px] rounded-full pointer-events-none" />
+      {/* Dynamic Colored Blurs (Ocultos o reducidos en móvil para alto rendimiento) */}
+      <div className="hidden md:block absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-500/15 blur-[180px] rounded-full pointer-events-none" />
+      <div className="hidden md:block absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-red-500/15 blur-[180px] rounded-full pointer-events-none" />
+      <div className="hidden md:block absolute top-1/2 left-0 w-[450px] h-[450px] bg-green-500/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="hidden md:block absolute top-1/4 right-0 w-[450px] h-[450px] bg-yellow-400/10 blur-[150px] rounded-full pointer-events-none" />
 
-      {/* Floating Ink drops (Particles) */}
-      {particles.map((p, i) => (
-        <div
-          key={i}
-          className="hero-particle absolute w-3 h-3 rounded-full opacity-20 pointer-events-none"
-          style={{
-            top: p.top,
-            left: p.left,
-            backgroundColor: p.color,
-            filter: 'blur(2px)'
-          }}
-        />
-      ))}
+      {/* Floating Ink drops (solo en desktop) */}
+      <div className="hidden md:block">
+        {particles.map((p, i) => (
+          <div
+            key={i}
+            className="hero-particle absolute w-3 h-3 rounded-full opacity-20 pointer-events-none"
+            style={{
+              top: p.top,
+              left: p.left,
+              backgroundColor: p.color,
+              filter: 'blur(2px)'
+            }}
+          />
+        ))}
+      </div>
 
       <style dangerouslySetInnerHTML={{
         __html: `

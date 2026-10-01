@@ -7,6 +7,10 @@ export default function ValorAgregado() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return; // Cero listeners ni transformaciones 3D en móvil para máximo rendimiento
+    }
+
     const ctx = gsap.context(() => {
       const valueCards = gsap.utils.toArray('.value-card');
       valueCards.forEach((card: any) => {

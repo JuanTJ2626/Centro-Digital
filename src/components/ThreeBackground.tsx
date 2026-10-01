@@ -85,6 +85,30 @@ function BrandSpheres() {
 }
 
 export default function ThreeBackground() {
+  const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const checkViewport = () => setIsDesktop(window.innerWidth >= 768);
+    checkViewport();
+    window.addEventListener('resize', checkViewport);
+    return () => window.removeEventListener('resize', checkViewport);
+  }, []);
+
+  // Fondo móvil ultra optimizado (0% WebGL, 0% CPU/GPU overhead)
+  if (!mounted || !isDesktop) {
+    return (
+      <div className="fixed inset-0 z-0 pointer-events-none bg-[#fbfbfd] overflow-hidden">
+        {/* Gradientes estáticos sutiles de alta fidelidad Apple-style */}
+        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-500/10 blur-[100px]" />
+        <div className="absolute top-1/3 -right-24 w-96 h-96 rounded-full bg-red-500/10 blur-[100px]" />
+        <div className="absolute bottom-10 left-1/4 w-80 h-80 rounded-full bg-green-500/10 blur-[100px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_0%,rgba(245,245,247,0.8)_100%)]" />
+      </div>
+    );
+  }
+
   return (
     <div className="fixed inset-0 z-0 pointer-events-none bg-[#fafafe]">
       <Canvas 
@@ -93,7 +117,8 @@ export default function ThreeBackground() {
           alpha: true, 
           antialias: true, 
           toneMapping: THREE.NoToneMapping,
-          outputColorSpace: THREE.SRGBColorSpace 
+          outputColorSpace: THREE.SRGBColorSpace,
+          powerPreference: 'high-performance'
         }}
       >
         <fog attach="fog" args={['#fafafe', 5, 35]} />
