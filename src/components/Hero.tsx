@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 import gsap from 'gsap';
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -150,6 +150,24 @@ export default function Hero({ photos }: HeroProps) {
           0% { transform: translateX(-50%); }
           100% { transform: translateX(0); }
         }
+        @keyframes whatsapp-vibrate {
+          0%, 78%, 100% { transform: translateX(0) rotate(0); }
+          80% { transform: translateX(-4px) rotate(-2deg); }
+          82% { transform: translateX(4px) rotate(2deg); }
+          84% { transform: translateX(-4px) rotate(-2deg); }
+          86% { transform: translateX(4px) rotate(2deg); }
+          88% { transform: translateX(0) rotate(0); }
+        }
+
+        .animate-whatsapp-vibrate {
+          animation: whatsapp-vibrate 2.4s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .animate-whatsapp-vibrate {
+            animation: none;
+          }
+        }
         
         .animate-slider-1 {
           animation: scroll-h 150s linear infinite;
@@ -208,16 +226,15 @@ export default function Hero({ photos }: HeroProps) {
             Ver Precios <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
           </a>
 
-          <div className="flex items-center gap-4 bg-white/40 backdrop-blur-xl px-6 py-4 rounded-full border border-white/60 shadow-sm">
-            <div className="relative">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-ping absolute inset-0" />
-              <div className="relative w-3 h-3 bg-green-500 rounded-full border-2 border-white shadow-sm" />
-            </div>
-            <div className="flex flex-col items-start leading-none">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#1d1d1f]">Status Live</span>
-              <span className="text-[11px] font-bold text-slate-500 italic mt-1">Listo para imprimir</span>
-            </div>
-          </div>
+          <a
+            href="https://wa.me/5568081606?text=Hola%20Publideas%2C%20me%20gustar%C3%ADa%20cotizar%20una%20impresi%C3%B3n."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="animate-whatsapp-vibrate px-10 py-5 bg-[#25D366] text-white rounded-full font-black text-xs md:text-sm tracking-[0.15em] uppercase hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-green-500/20 flex items-center gap-3"
+          >
+            <MessageCircle className="w-5 h-5" />
+            Cotiza por WhatsApp
+          </a>
         </div>
       </div>
 
