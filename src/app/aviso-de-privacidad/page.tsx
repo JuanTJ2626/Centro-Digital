@@ -31,7 +31,7 @@ export default function AvisoDePrivacidadPage() {
       icon: Shield,
       color: '#34c759',
       title: 'Canales de recopilacion',
-      content: `Sus datos pueden ser recopilados a traves de:\n\n• Conversacion con nuestro asesor virtual (chatbot Botpress)\n• Mensaje de WhatsApp al numero 55 6808 1606\n• Mensaje directo por Facebook o Instagram\n• Correo electronico a publideas.impresiondigital@gmail.com\n• Contacto presencial en nuestro local\n\nEl uso del chatbot implica que la conversacion puede ser almacenada en los servidores de Botpress (https://botpress.com) para mejorar el servicio. Consulte la politica de privacidad de Botpress en su sitio oficial.`,
+      content: `Sus datos pueden ser recopilados a traves de:\n\n• Mensaje de WhatsApp al numero 55 6808 1606\n• Mensaje directo por Facebook o Instagram\n• Correo electronico a publideas.impresiondigital@gmail.com\n• Contacto presencial en nuestro local`,
     },
     {
       icon: Lock,
@@ -115,7 +115,6 @@ export default function AvisoDePrivacidadPage() {
                 <ul className="space-y-2 ml-4">
                   {[
                     'Cookies tecnicas: necesarias para el funcionamiento del sitio (no requieren consentimiento).',
-                    'Chatbot Botpress: el widget de chat puede almacenar datos de sesion en localStorage para recordar la conversacion.',
                     'No utilizamos cookies de publicidad de terceros ni compartimos sus datos con redes publicitarias.',
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">

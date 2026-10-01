@@ -1,37 +1,16 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { Bot, MessageCircle, FileText, Sparkles, Package, Palette } from 'lucide-react';
+import { MessageCircle, FileText, Sparkles, Package, Palette, Phone } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export default function CotizarPage() {
-  const [chatOpen, setChatOpen] = useState(false);
-
-  useEffect(() => {
-    const tryOpen = () => {
-      if (typeof window !== 'undefined' && (window as any).botpress?.open) {
-        (window as any).botpress.open();
-        setChatOpen(true);
-        return true;
-      }
-      return false;
-    };
-    if (!tryOpen()) {
-      let attempts = 0;
-      const interval = setInterval(() => {
-        attempts++;
-        if (tryOpen() || attempts > 16) clearInterval(interval);
-      }, 300);
-      return () => clearInterval(interval);
-    }
-  }, []);
-
+  const whatsappUrl = 'https://wa.me/5568081606?text=Hola%20Publideas%2C%20me%20gustar%C3%ADa%20cotizar%20una%20impresi%C3%B3n.';
   const facebookUrl = 'https://m.me/61573867649251';
 
   const steps = [
-    { num: '01', icon: FileText, title: 'Cuéntale qué necesitas', desc: 'El asesor te pregunta qué quieres imprimir: volantes, tarjetas, lonas, etiquetas…', color: '#7c3aed', bg: '#f3f0ff' },
-    { num: '02', icon: Palette, title: 'Te sugiere material y acabado', desc: 'Couché, Bond, Opalina, Vinyl. Mate o brillante. Gramaje ideal según tu uso.', color: '#0071e3', bg: '#e8f0fb' },
-    { num: '03', icon: Package, title: 'Registra tu pedido', desc: 'El bot captura todos los detalles: cantidad, formato, archivo y fecha de entrega.', color: '#34c759', bg: '#e6f8ec' },
+    { num: '01', icon: FileText, title: 'Cuéntanos qué necesitas', desc: 'Indícanos qué quieres imprimir: volantes, tarjetas, lonas, etiquetas…', color: '#7c3aed', bg: '#f3f0ff' },
+    { num: '02', icon: Palette, title: 'Te sugerimos material y acabado', desc: 'Couché, Bond, Opalina, Vinyl. Mate o brillante. Gramaje ideal según tu uso.', color: '#0071e3', bg: '#e8f0fb' },
+    { num: '03', icon: Package, title: 'Registramos tu pedido', desc: 'Capturamos todos los detalles: cantidad, formato, archivo y fecha de entrega.', color: '#34c759', bg: '#e6f8ec' },
     { num: '04', icon: Sparkles, title: 'Producción inmediata', desc: 'Pedido antes de las 12:00 → entrega mismo día. Después → día siguiente.', color: '#d97706', bg: '#fef3e2' },
   ];
 
@@ -48,69 +27,78 @@ export default function CotizarPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-[#7c3aed] rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/30">
-                    <Bot className="w-5 h-5 text-white" />
+                  <div className="w-10 h-10 bg-[#25D366] rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                    <Phone className="w-5 h-5 text-white" />
                   </div>
-                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#a78bfa]">Asesor Virtual</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#25D366]">Atención Inmediata</span>
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tighter italic text-white leading-[0.95] mb-6">
                   COTIZA TU<br />
-                  <span className="text-[#7c3aed]">IMPRESIÓN.</span>
+                  <span className="text-[#0071e3]">IMPRESIÓN.</span>
                 </h1>
 
                 <p className="text-white/50 text-base md:text-lg font-medium italic leading-relaxed mb-8 max-w-md">
-                  El asesor ya está listo para ayudarte. Cuéntale qué necesitas imprimir y te guía con el mejor material, formato y precio.
+                  Estamos listos para atenderte y darte la mejor cotización personalizada para tu proyecto.
                 </p>
 
-                <div className={`inline-flex items-center gap-3 px-5 py-3 rounded-full border mb-8 transition-all duration-500 ${chatOpen ? 'border-[#34c759]/40 bg-[#34c759]/10' : 'border-white/10 bg-white/5'}`}>
-                  <span className={`w-2.5 h-2.5 rounded-full ${chatOpen ? 'bg-[#34c759] animate-pulse' : 'bg-white/30'}`} />
-                  <span className={`text-xs font-black uppercase tracking-widest ${chatOpen ? 'text-[#34c759]' : 'text-white/40'}`}>
-                    {chatOpen ? 'Chat abierto — escríbenos' : 'Cargando asesor...'}
-                  </span>
+                <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] text-white rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-green-500/20"
+                  >
+                    <Phone className="w-4 h-4" />
+                    Cotizar por WhatsApp
+                  </a>
+                  <a
+                    href={facebookUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#1877F2]/20 border border-[#1877F2]/40 text-white rounded-full font-black text-sm uppercase tracking-widest hover:bg-[#1877F2]/30 hover:scale-105 active:scale-95 transition-all"
+                  >
+                    <MessageCircle className="w-4 h-4 text-[#60a5fa]" />
+                    Messenger
+                  </a>
                 </div>
 
                 <p className="text-white/30 text-xs font-medium italic">
-                  Busca el ícono del asesor en la esquina inferior derecha de la pantalla.
+                  Respuesta inmediata en horario laboral: 8:30 a.m. – 6:00 p.m.
                 </p>
               </div>
 
               <div className="bg-white/5 border border-white/10 rounded-[3rem] p-10 flex flex-col items-center gap-6 text-center backdrop-blur-sm">
                 <div className="relative">
-                  <div className="w-32 h-32 bg-gradient-to-br from-[#7c3aed] to-[#0071e3] rounded-[2.5rem] flex items-center justify-center shadow-2xl shadow-violet-500/30">
-                    <Bot className="w-16 h-16 text-white" />
+                  <div className="w-32 h-32 bg-gradient-to-br from-[#25D366] to-[#0071e3] rounded-[2.5rem] flex items-center justify-center shadow-2xl shadow-green-500/30">
+                    <Phone className="w-16 h-16 text-white" />
                   </div>
-                  <div className="absolute inset-0 rounded-[2.5rem] border-2 border-[#7c3aed]/30 animate-ping" style={{ animationDuration: '2s' }} />
-                  <div className="absolute -inset-3 rounded-[2.5rem] border border-[#7c3aed]/15 animate-ping" style={{ animationDuration: '2.5s' }} />
+                  <div className="absolute inset-0 rounded-[2.5rem] border-2 border-[#25D366]/30 animate-ping" style={{ animationDuration: '2s' }} />
+                  <div className="absolute -inset-3 rounded-[2.5rem] border border-[#25D366]/15 animate-ping" style={{ animationDuration: '2.5s' }} />
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-bold italic text-white mb-2">Asesor Publideas</h3>
+                  <h3 className="text-2xl font-bold italic text-white mb-2">Publideas Impresión</h3>
                   <p className="text-white/40 text-sm font-medium italic">Impresión digital CMYK · CDMX</p>
                 </div>
 
                 <div className="w-full space-y-3 text-left">
-                  <div className="bg-[#7c3aed]/20 border border-[#7c3aed]/30 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
-                    <p className="text-white/80 text-sm font-medium">¡Hola! 👋 Soy el asesor de Publideas. ¿Qué necesitas imprimir hoy?</p>
+                  <div className="bg-white/10 border border-white/15 rounded-2xl rounded-tl-sm px-4 py-3">
+                    <p className="text-white/90 text-sm font-medium">¡Hola! 👋 Escríbenos directamente para cotizar cualquier material, formato o tiraje en minutos.</p>
                   </div>
-                  <div className="bg-[#7c3aed]/20 border border-[#7c3aed]/30 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
-                    <p className="text-white/80 text-sm font-medium">Puedo sugerirte el material ideal, calcular el costo y registrar tu pedido 🖨️</p>
-                  </div>
-                  <div className="flex justify-end">
-                    <div className="bg-white/10 border border-white/10 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
-                      <p className="text-white/40 text-sm italic">Escríbeme en el chat →</p>
-                    </div>
+                  <div className="bg-white/10 border border-white/15 rounded-2xl rounded-tl-sm px-4 py-3">
+                    <p className="text-white/90 text-sm font-medium">Te asesoramos con papeles, acabados y tiempos de entrega express mismo día 🖨️</p>
                   </div>
                 </div>
 
                 <a
-                  href={facebookUrl}
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-[#1877F2]/20 border border-[#1877F2]/30 text-white rounded-2xl font-black text-sm hover:bg-[#1877F2]/30 transition-colors"
+                  className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-[#25D366] text-white rounded-2xl font-black text-sm hover:brightness-110 transition-all shadow-lg shadow-green-500/20"
                 >
-                  <MessageCircle className="w-5 h-5 text-[#60a5fa]" />
-                  También por Facebook Messenger
+                  <Phone className="w-5 h-5 text-white" />
+                  Iniciar cotización por WhatsApp
                 </a>
               </div>
             </div>
