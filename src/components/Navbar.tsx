@@ -23,8 +23,8 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Precios", href: "#precios" },
-    { name: "Acabados", href: "#acabados" },
-    { name: "Contacto", href: "#contacto" },
+    { name: "Productos", href: "#productos" },
+    { name: "Dónde ubicarnos", href: "#contacto" },
   ];
 
   return (
@@ -43,24 +43,40 @@ export default function Navbar() {
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-10 text-[11px] font-black text-[#1d1d1f]/60 uppercase tracking-[0.2em]">
+          <div className="hidden md:flex items-center gap-8 text-[11px] font-black text-[#1d1d1f]/70 uppercase tracking-[0.18em]">
             {navLinks.map((link) => (
               <a key={link.name} href={link.href} className="hover:text-[#0071e3] transition-colors">
                 {link.name}
               </a>
             ))}
-            <a href="/cotizar" className="px-8 py-3 bg-[#1d1d1f] text-white rounded-full hover:scale-110 active:scale-95 transition-all text-[10px] font-black shadow-lg shadow-black/10">
+            <a
+              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full hover:scale-110 active:scale-95 transition-all text-[11px] font-black shadow-lg shadow-green-500/25 tracking-wider"
+            >
               COTIZAR
             </a>
           </div>
 
-          {/* Mobile Toggle */}
-          <button
-            className="md:hidden w-12 h-12 flex items-center justify-center rounded-2xl bg-white shadow-sm border border-slate-100 text-[#1d1d1f]"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Right Actions: Botón Cotizar + Toggle Menú */}
+          <div className="md:hidden flex items-center gap-2">
+            <a
+              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full text-[10px] font-black uppercase tracking-wider shadow-md shadow-green-500/20 active:scale-95 transition-all"
+            >
+              COTIZAR
+            </a>
+            <button
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm border border-slate-100 text-[#1d1d1f]"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Abrir menú"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -74,7 +90,7 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className={`text-5xl font-black italic tracking-tighter transition-all duration-700 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+              className={`text-4xl font-black italic tracking-tighter transition-all duration-700 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               {link.name}
@@ -83,18 +99,20 @@ export default function Navbar() {
 
           <div className={`transition-all duration-700 delay-400 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <a
-              href="/cotizar"
+              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setIsOpen(false)}
-              className="inline-flex items-center gap-4 px-12 py-8 bg-[#0071e3] text-white rounded-[2rem] text-2xl font-bold shadow-2xl shadow-blue-500/30"
+              className="inline-flex items-center gap-4 px-10 py-6 bg-[#25D366] text-white rounded-[2rem] text-xl font-black shadow-2xl shadow-green-500/30"
             >
               <MessageSquare className="w-6 h-6" />
-              COTIZAR YA
+              COTIZAR POR WHATSAPP
             </a>
           </div>
 
           {/* Footer of mobile menu */}
-          <div className="mt-12">
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 italic">Publideas — SLP</span>
+          <div className="mt-8">
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 italic">Publideas — CDMX</span>
           </div>
         </div>
       </div>

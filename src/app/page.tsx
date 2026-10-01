@@ -6,7 +6,7 @@ import {
   ArrowRight, FileText, Layers, Clock, Phone,
   Package, Scissors, Printer, Zap, CheckCircle,
   BookOpen, CreditCard, Tag, BookMarked, LayoutGrid,
-  Mail, Clipboard, Image as ImageIcon
+  Mail, Clipboard, Image as ImageIcon, Calendar, Sparkles, FileCheck
 } from 'lucide-react';
 
 import ThreeBackground from '@/components/ThreeBackground';
@@ -61,24 +61,18 @@ export default function Home() {
   ];
 
   const productos = [
-    { Icon: FileText, label: 'Impresión en papel', color: '#0071e3' },
-    { Icon: Tag, label: 'Adhesivos', color: '#ff3b30' },
-    { Icon: ImageIcon, label: 'Posters', color: '#34c759' },
-    { Icon: Package, label: 'Maquila', color: '#ffcc00' },
-    { Icon: CreditCard, label: 'Tarjetas', color: '#0071e3' },
-    { Icon: LayoutGrid, label: 'Trípticos', color: '#ff3b30' },
-    { Icon: BookOpen, label: 'Dípticos', color: '#34c759' },
-    { Icon: FileText, label: 'Constancias', color: '#ffcc00' },
-    { Icon: BookMarked, label: 'Manuales', color: '#0071e3' },
-    { Icon: Clipboard, label: 'Blocs', color: '#ff3b30' },
-    { Icon: FileText, label: 'Certificados', color: '#34c759' },
-    { Icon: Tag, label: 'Etiquetas', color: '#ffcc00' },
-    { Icon: Mail, label: 'Postales', color: '#0071e3' },
-  ];
-
-  const impresion3D = [
-    { src: '/img/impresion 3d1.png', alt: 'Impresión 3D 1' },
-    { src: '/img/impresion 3d2.png', alt: 'Impresión 3D 2' },
+    { Icon: BookOpen, label: 'Libros', color: '#0071e3', desc: 'Edición pasta suave y dura, tirajes cortos y medianos', badge: 'Destacado' },
+    { Icon: BookMarked, label: 'Anuarios', color: '#7c3aed', desc: 'Escolares, corporativos e institucionales a todo color', badge: 'Popular' },
+    { Icon: Calendar, label: 'Calendarios', color: '#ff9500', desc: 'De escritorio, pared, bolsillo y formato personalizado', badge: 'Temporada' },
+    { Icon: Sparkles, label: 'Stickers & Calcomanías', color: '#34c759', desc: 'Vinil mate, brillante, papel adhesivo y medio corte', badge: 'Top Ventas' },
+    { Icon: CreditCard, label: 'Tarjetas de Presentación', color: '#0071e3', desc: 'Couché 300g, laminado mate y barniz a registro' },
+    { Icon: ImageIcon, label: 'Posters y Carteles', color: '#ff3b30', desc: 'Tabloide rebasado en couché y sulfatada con alta nitidez' },
+    { Icon: LayoutGrid, label: 'Trípticos y Dípticos', color: '#0071e3', desc: 'Folletería publicitaria con dobleces precisos' },
+    { Icon: FileText, label: 'Constancias y Diplomas', color: '#ffcc00', desc: 'Opalina y sulfatada con máxima nitidez tipográfica' },
+    { Icon: Clipboard, label: 'Comprobantes y Blocs', color: '#ff3b30', desc: 'Blocs de notas, notas de remisión y papel membretado' },
+    { Icon: Tag, label: 'Etiquetas para Producto', color: '#ff9500', desc: 'Para empaques, botellas, tarros y cajas comerciales' },
+    { Icon: Mail, label: 'Postales y Flyers', color: '#34c759', desc: 'Volantes publicitarios promocionales de alto tiraje' },
+    { Icon: FileCheck, label: 'Manuales y Catálogos', color: '#0071e3', desc: 'Grapados o encuadernados para empresas y escuelas' },
   ];
 
   return (
@@ -87,104 +81,97 @@ export default function Home() {
       <Navbar />
 
       <Hero photos={[
-        'WhatsApp Image 2026-04-21 at 12.43.29 PM.jpeg',
-        'WhatsApp Image 2026-04-21 at 12.43.29 PM (1).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.09 PM.jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.09 PM (1).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.09 PM (2).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.10 PM.jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.10 PM (1).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.10 PM (2).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.10 PM (3).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.10 PM (4).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.10 PM (5).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.10 PM (6).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.11 PM.jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.11 PM (1).jpeg',
+        'WhatsApp Image 2026-09-30 at 10.47.12 PM.jpeg',
         'WhatsApp Image 2026-04-21 at 12.43.31 PM.jpeg',
-        'WhatsApp Image 2026-04-21 at 12.43.31 PM (1).jpeg',
         'WhatsApp Image 2026-04-21 at 12.43.32 PM.jpeg',
         'Image to PDF 20260509 15.12.58_1.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_2.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_3.jpg.jpeg',
         'Image to PDF 20260509 15.12.58_4.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_5.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_6.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_7.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_8.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_9.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_10.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_11.jpg.jpeg',
-        'Image to PDF 20260509 15.12.58_12.jpg.jpeg',
       ]} />
 
-      {/* NUEVO PRODUCTO IMPRESION 3D */}
-      <section className="py-16 md:py-24 px-4 md:px-6 relative overflow-hidden bg-transparent text-center flex flex-col justify-center items-center z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0071e3]/10 blur-[150px] rounded-full pointer-events-none" />
-        
-        <div className="relative z-10 reveal max-w-5xl mx-auto">
-          <span className="inline-block py-1 px-4 rounded-full border border-[#0071e3]/30 bg-[#0071e3]/10 text-[#0071e3] text-[10px] font-black uppercase tracking-[0.4em] mb-6 backdrop-blur-md">
-            Nuevo Servicio
-          </span>
-          <h2 className="text-5xl md:text-8xl lg:text-9xl font-bold tracking-tighter italic text-[#1d1d1f] leading-[0.9]">
-            IMPRESIÓN<br/>3D.
-          </h2>
-          <p className="mt-8 text-lg md:text-xl text-[#86868b] max-w-2xl mx-auto italic font-medium">
-            Da vida a tus ideas con nuestra nueva tecnología de impresión 3D.
-          </p>
+      {/* SECCIÓN PRODUCTOS DESTACADOS & CATÁLOGO (TRANSPARENTE / GLASSMORPHISM) */}
+      <section id="productos" className="py-16 md:py-24 px-4 md:px-6 bg-transparent relative overflow-hidden text-[#1d1d1f] z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#0071e3]/8 blur-[160px] rounded-full pointer-events-none" />
 
-          <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-6">
-            <div className="bg-white/60 backdrop-blur-xl border border-white/50 shadow-sm hover:shadow-md hover:bg-white/80 rounded-3xl p-6 flex flex-col items-center max-w-xs w-full transition-all">
-              <div className="w-12 h-12 bg-[#0071e3]/10 rounded-xl flex items-center justify-center mb-4">
-                <Package className="w-6 h-6 text-[#0071e3]" />
-              </div>
-              <h3 className="text-[#1d1d1f] font-bold text-xl mb-1">Volumen Máximo</h3>
-              <p className="text-[#86868b] text-sm">30 x 30 x 30 cm</p>
-            </div>
-
-            <div className="bg-white/60 backdrop-blur-xl border border-white/50 shadow-sm hover:shadow-md hover:bg-white/80 rounded-3xl p-6 flex flex-col items-center max-w-xs w-full transition-all">
-              <div className="w-12 h-12 bg-[#34c759]/10 rounded-xl flex items-center justify-center mb-4">
-                <Tag className="w-6 h-6 text-[#34c759]" />
-              </div>
-              <h3 className="text-[#1d1d1f] font-bold text-xl mb-1">Precio Justo</h3>
-              <p className="text-[#86868b] text-sm">Se cobra por gramo</p>
-            </div>
-          </div>
-
-          {/* Galeria de Impresion 3D */}
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
-            {impresion3D.map((item) => (
-              <div key={item.src} className="relative aspect-square rounded-3xl overflow-hidden shadow-sm group bg-white/40 border border-white/60">
-                <img src={item.src} alt={item.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-            ))}
-            <div className="relative aspect-square rounded-3xl overflow-hidden shadow-sm group bg-white/40 border border-white/60 flex items-center justify-center text-center p-6">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.35em] text-[#0071e3] mb-2">Impresión 3D</p>
-                <h3 className="text-2xl font-bold tracking-tight text-[#1d1d1f]">Diseño que toma forma</h3>
-                <p className="mt-3 text-sm text-[#86868b]">Piezas precisas, personalizadas y listas para producirse.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTOS */}
-      <section className="py-8 md:py-12 px-4 md:px-6 bg-[#1d1d1f] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 0)', backgroundSize: '28px 28px' }} />
-        <div className="absolute top-0 left-1/3 w-96 h-96 bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6 md:mb-8">
+          <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#ffcc00]">Que imprimimos</span>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic leading-[0.95] mt-2 text-white">
-                CUALQUIER<br />PRODUCTO.
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur-md border border-white/80 shadow-sm text-[10px] font-black uppercase tracking-[0.35em] text-[#0071e3] mb-4">
+                <span>Catálogo Integral</span>
+              </div>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter italic leading-[0.95] text-[#1d1d1f]">
+                PRODUCTOS DE <br />
+                <span className="text-[#0071e3]">IMPRESIÓN DIGITAL.</span>
               </h2>
             </div>
-            <p className="text-white/40 text-sm italic max-w-xs md:text-right leading-relaxed">
-              Si tu producto no esta en la lista, contactanos.<br />Si se puede imprimir, lo hacemos.
-            </p>
+            <div className="max-w-md">
+              <p className="text-[#1d1d1f]/75 text-sm md:text-base italic leading-relaxed font-medium">
+                Fabricamos proyectos editoriales, publicitarios y de empaque con máxima fidelidad de color: <strong>libros, anuarios escolares, calendarios comerciales y stickers troquelados</strong> listos para entrega inmediata.
+              </p>
+            </div>
           </div>
-          <div className="reveal grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            {productos.map(({ Icon, label, color }) => (
+
+          {/* Grid de Productos con fondo translúcido / Apple-glass */}
+          <div className="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+            {productos.map(({ Icon, label, color, desc, badge }) => (
               <div
                 key={label}
-                className="group flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/[0.08] rounded-2xl px-4 py-4 transition-all cursor-default"
+                className="group relative bg-white/60 hover:bg-white/90 backdrop-blur-xl border border-white/70 hover:border-white rounded-[2rem] p-7 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 shadow-sm hover:shadow-xl hover:shadow-black/5"
               >
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: `${color}22` }}>
-                  <Icon className="w-4 h-4" style={{ color }} />
+                <div>
+                  <div className="flex items-center justify-between gap-3 mb-5">
+                    <div
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm"
+                      style={{ backgroundColor: `${color}18`, border: `1px solid ${color}35` }}
+                    >
+                      <Icon className="w-6 h-6" style={{ color }} />
+                    </div>
+                    {badge && (
+                      <span
+                        className="text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full text-white shadow-sm"
+                        style={{ backgroundColor: color }}
+                      >
+                        {badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="text-xl font-bold italic tracking-tight text-[#1d1d1f] mb-2 group-hover:text-[#0071e3] transition-colors">
+                    {label}
+                  </h3>
+                  <p className="text-[#1d1d1f]/65 text-xs md:text-sm font-medium italic leading-relaxed">
+                    {desc}
+                  </p>
                 </div>
-                <span className="text-white/80 font-bold text-sm leading-snug">{label}</span>
               </div>
             ))}
+          </div>
+
+          {/* Banner de llamada rápida con fondo translúcido dark glass */}
+          <div className="reveal mt-12 bg-[#111113]/90 backdrop-blur-2xl border border-white/15 rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-black/15 text-white">
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#34c759] block mb-1">¿Tienes un proyecto especial o formato a medida?</span>
+              <h3 className="text-2xl md:text-3xl font-bold italic tracking-tight text-white">¿No ves lo que buscas? Si se puede imprimir, lo producimos.</h3>
+            </div>
+            <a
+              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20producto%20especial."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 px-8 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-green-500/25"
+            >
+              Consultar con un Asesor
+            </a>
           </div>
         </div>
       </section>
@@ -193,12 +180,12 @@ export default function Home() {
       <section id="precios" className="py-10 md:py-14 px-4 md:px-6 bg-[#f5f5f7]">
         <div className="max-w-7xl mx-auto">
           <div className="reveal mb-6 md:mb-8">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Catalogo</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Lista de Precios</span>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic leading-[0.95] mt-2">
-              PRECIOS POR PIEZA.
+              PRECIOS DE IMPRESIÓN DIGITAL EN CDMX.
             </h2>
             <p className="text-[#86868b] text-base italic mt-3">
-              Precios base para impresion Simplex (4x0). Impresion Duplex (4x4) al doble de precio.
+              Precios transparentes por pieza para impresión Simplex (4x0). Impresión Duplex (4x4) al doble de precio.
             </p>
             <div className="flex gap-1 mt-5">
               <div className="w-12 h-1 bg-[#0071e3]" />
@@ -290,9 +277,9 @@ export default function Home() {
       <section className="py-10 md:py-14 px-4 md:px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="reveal mb-6 md:mb-8">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Especificaciones</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Especificaciones Técnicas</span>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic leading-[0.95] mt-2">
-              MEDIDAS & FORMATOS.
+              FORMATOS Y MEDIDAS DE IMPRESIÓN DIGITAL.
             </h2>
             <div className="flex gap-1 mt-5">
               <div className="w-12 h-1 bg-[#0071e3]" />
@@ -365,151 +352,6 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-xs text-[#86868b] italic">Compatible con CorelDRAW y Adobe Illustrator / Photoshop.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ACABADOS + MAQUILA */}
-      <section id="acabados" className="py-10 md:py-14 px-4 md:px-6 bg-[#f5f5f7]">
-        <div className="max-w-7xl mx-auto">
-          <div className="reveal mb-6 md:mb-8">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Extras</span>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic leading-[0.95] mt-2">
-              ACABADOS & MAQUILA.
-            </h2>
-            <div className="flex gap-1 mt-5">
-              <div className="w-12 h-1 bg-[#0071e3]" />
-              <div className="w-12 h-1 bg-[#ff3b30]" />
-              <div className="w-12 h-1 bg-[#34c759]" />
-              <div className="w-12 h-1 bg-[#ffcc00]" />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="reveal bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm">
-              <div className="flex items-center gap-3 mb-7">
-                <div className="w-11 h-11 bg-[#ff3b30] rounded-xl flex items-center justify-center">
-                  <Scissors className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-black italic tracking-tight text-[#1d1d1f]">Acabados</h3>
-                  <p className="text-xs text-[#86868b] italic">Sobre el precio base por pieza</p>
-                </div>
-              </div>
-              <ul className="space-y-2">
-                {[
-                  { label: 'Laminado Mate', extra: '+$3.50 / lado', desc: 'Acabado suave y elegante', accent: true },
-                  { label: 'Laminado Brillante', extra: '+$3.50 / lado', desc: 'Colores mas vibrantes', accent: true },
-                  { label: 'Medio Corte', extra: 'Consultar', desc: 'Para etiquetas troqueladas', accent: false },
-                  { label: 'Guillotina', extra: 'Consultar', desc: 'Cortes rectos precisos', accent: false },
-                ].map((row) => (
-                  <li key={row.label} className="flex items-center gap-4 bg-[#f5f5f7] rounded-2xl px-4 py-3">
-                    <div className={`w-2 h-2 rounded-full shrink-0 ${row.accent ? 'bg-[#0071e3]' : 'bg-slate-300'}`} />
-                    <div className="flex-1 min-w-0">
-                      <span className="font-bold text-sm text-[#1d1d1f] block">{row.label}</span>
-                      <span className="text-[10px] text-[#86868b] italic">{row.desc}</span>
-                    </div>
-                    <span className={`text-sm font-black whitespace-nowrap ${row.extra.startsWith('+') ? 'text-[#0071e3]' : 'text-[#86868b]'}`}>
-                      {row.extra}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div
-              className="reveal relative rounded-[2rem] overflow-hidden p-8 flex flex-col"
-              style={{ background: 'linear-gradient(145deg, #0d1b3e 0%, #001a6e 100%)' }}
-            >
-              <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-              <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#0071e3]/30 blur-[70px] rounded-full pointer-events-none" />
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-11 h-11 bg-[#ffcc00] rounded-xl flex items-center justify-center">
-                    <Zap className="w-5 h-5 text-[#1d1d1f]" />
-                  </div>
-                  <h3 className="text-2xl font-black italic tracking-tight text-white">Servicio de Maquila</h3>
-                </div>
-                <div className="flex items-baseline gap-2 mb-2">
-                  {/* <span className="text-[10px] font-black uppercase tracking-widest text-blue-300/60">Desde</span> */}
-                  <span className="text-5xl font-black text-white tracking-tighter ml-1">$5.00</span>
-                </div>
-                <div className="mb-4 inline-block bg-[#0071e3]/20 border border-[#0071e3]/40 rounded-full px-3 py-1">
-                  <span className="text-[11px] font-black text-blue-300 uppercase tracking-widest">A partir de 100 piezas</span>
-                </div>
-                <p className="text-white/50 text-sm italic mb-4">El costo varia segun:</p>
-                <ul className="space-y-2 mb-6">
-                  {['Material utilizado', 'Grosor', 'Complejidad del trabajo'].map((v) => (
-                    <li key={v} className="flex items-center gap-2 text-sm text-white/70 font-medium">
-                      <CheckCircle className="w-4 h-4 text-[#ffcc00] shrink-0" />
-                      {v}
-                    </li>
-                  ))}
-                </ul>
-                <a href="/cotizar" className="mt-auto inline-flex items-center gap-2 px-6 py-3 bg-white text-[#1d1d1f] rounded-full font-black text-xs uppercase tracking-widest hover:scale-105 transition-all self-start">
-                  Cotizar maquila <ArrowRight className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TIEMPOS DE ENTREGA */}
-      <section className="py-10 md:py-16 px-4 md:px-6 bg-[#111113] relative overflow-hidden">
-        <div className="absolute right-0 inset-y-0 flex items-center pointer-events-none select-none overflow-hidden">
-          <span className="text-[240px] md:text-[380px] font-black tracking-tighter text-white/[0.025] italic leading-none pr-6">24h</span>
-        </div>
-        <div className="absolute top-0 left-0 w-80 h-80 bg-yellow-500/5 blur-[120px] rounded-full pointer-events-none" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="mb-8">
-            <div className="inline-flex items-center gap-3 bg-[#ffcc00]/10 border border-[#ffcc00]/20 rounded-full px-5 py-2 mb-6">
-              <Clock className="w-4 h-4 text-[#ffcc00]" />
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#ffcc00]">Tiempos de Entrega</span>
-            </div>
-            <h2 className="text-5xl md:text-8xl font-bold tracking-tighter italic text-white leading-[0.95]">
-              ENTREGAS <span className="text-[#ffcc00]">RAPIDAS.</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-            <div className="bg-[#0f2d1a] border border-[#34c759]/30 rounded-[2.5rem] p-8 md:p-10 flex flex-col">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#34c759] block mb-5">Pedido antes de</span>
-              <div className="flex items-baseline gap-1 mb-5">
-                <span className="text-[76px] font-black text-white italic leading-none">12</span>
-                <span className="text-3xl font-black text-white/40 pb-1">pm</span>
-              </div>
-              <div className="h-px bg-white/10 mb-5" />
-              <span className="text-2xl font-black text-white italic">Entrega mismo dia</span>
-              <div className="mt-auto pt-6">
-                <div className="inline-flex items-center px-4 h-9 bg-[#34c759] rounded-xl text-white font-black text-[10px] uppercase tracking-widest">Normal</div>
-              </div>
-            </div>
-            <div className="bg-[#061829] border border-[#0071e3]/30 rounded-[2.5rem] p-8 md:p-10 flex flex-col">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#60a5fa] block mb-5">Pedido despues de</span>
-              <div className="flex items-baseline gap-1 mb-5">
-                <span className="text-[76px] font-black text-white italic leading-none">12</span>
-                <span className="text-3xl font-black text-white/40 pb-1">pm</span>
-              </div>
-              <div className="h-px bg-white/10 mb-5" />
-              <span className="text-2xl font-black text-white italic">Dia siguiente</span>
-              <div className="mt-auto pt-6">
-                <div className="inline-flex items-center px-4 h-9 bg-[#0071e3] rounded-xl text-white font-black text-[10px] uppercase tracking-widest">Express</div>
-              </div>
-            </div>
-            <div className="bg-[#1e1600] border border-[#ffcc00]/25 rounded-[2.5rem] p-8 md:p-10 flex flex-col">
-              <div className="flex items-center gap-2 mb-5">
-                <Phone className="w-4 h-4 text-[#ffcc00]" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-[#ffcc00]">Horario</span>
-              </div>
-              <div className="flex items-baseline gap-1 mb-5">
-                <span className="text-[66px] font-black text-white italic leading-none">8:30</span>
-              </div>
-              <div className="h-px bg-white/10 mb-5" />
-              <span className="text-xl font-black text-white/80 italic">a.m. - 6:00 p.m.</span>
-              <div className="mt-auto pt-6">
-                <a href="tel:+5568081606" className="text-sm font-bold text-[#ffcc00]/60 hover:text-[#ffcc00] transition-colors">55 6808 1606</a>
-              </div>
             </div>
           </div>
         </div>
