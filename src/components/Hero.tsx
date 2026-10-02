@@ -32,30 +32,7 @@ export default function Hero({ photos }: HeroProps) {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     const ctx = gsap.context(() => {
-      // 1. Text Entrance (solo en desktop para no tapar ni demorar la visualización en móvil)
-      if (!isMobile) {
-        const tl = gsap.timeline();
-        tl.from('.hero-title span', {
-            y: 120,
-            rotateX: -30,
-            opacity: 0,
-            duration: 1.8,
-            stagger: 0.15,
-            ease: 'expo.out'
-          })
-          .from('.hero-p', {
-            opacity: 0,
-            y: 40,
-            duration: 1.2,
-            ease: 'power3.out'
-          }, '-=1.2')
-          .from('.hero-btns', {
-            opacity: 0,
-            scale: 0.9,
-            duration: 1,
-            ease: 'power4.out'
-          }, '-=0.8');
-      }
+      // 1. Text Entrance - Eliminado para máxima optimización y visualización inmediata
 
       // 2. Continuous Floating Photos (desktop only)
       if (!isMobile) {

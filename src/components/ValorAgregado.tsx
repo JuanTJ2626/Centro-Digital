@@ -57,7 +57,7 @@ export default function ValorAgregado() {
   return (
     <section className="py-24 md:py-40 px-4 md:px-6 bg-[#f5f5f7]" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
-        <div className="reveal mb-16 md:mb-24 px-2 text-center md:text-left flex flex-col items-center md:items-start">
+        <div className="mb-16 md:mb-24 px-2 text-center md:text-left flex flex-col items-center md:items-start">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-10 h-10 bg-[#0071e3] rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
               <Layers className="w-5 h-5 text-white" />
@@ -86,7 +86,7 @@ export default function ValorAgregado() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
           {features.map((f, idx) => (
-            <div key={idx} className="value-card reveal relative overflow-hidden min-h-[420px] md:min-h-[480px] p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] bg-white border border-white shadow-[0_30px_70px_rgba(0,0,0,0.03)] transition-all group" style={{ perspective: '2000px' }}>
+            <div key={idx} className="value-card relative overflow-hidden min-h-[420px] md:min-h-[480px] p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] bg-white border border-white shadow-[0_30px_70px_rgba(0,0,0,0.03)] transition-all group" style={{ perspective: '2000px' }}>
               <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-700" style={{ backgroundColor: f.accent }} />
               <div className="gloss-effect absolute w-[300px] md:w-[400px] h-[300px] md:h-[400px] bg-gradient-to-br from-white to-transparent blur-[80px] md:blur-[100px] rounded-full pointer-events-none opacity-0 mix-blend-overlay z-20" style={{ transform: 'translate(-50%, -50%)' }} />
               
@@ -127,7 +127,7 @@ export default function ValorAgregado() {
           ))}
         </div>
 
-        <div className="reveal mt-10 md:mt-12 bg-white/50 backdrop-blur-sm border border-white p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] shadow-sm flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10">
+        <div className="mt-10 md:mt-12 bg-white/50 backdrop-blur-sm border border-white p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] shadow-sm flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10">
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 text-center md:text-left">
              <div className="w-14 h-14 md:w-16 md:h-16 bg-[#1d1d1f] rounded-[1.5rem] md:rounded-[1.8rem] flex items-center justify-center shadow-2xl shrink-0">
                 <Scissors className="w-6 h-6 md:w-8 md:h-8 text-white" />

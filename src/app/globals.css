@@ -24,20 +24,7 @@ body {
   color: white;
 }
 
-/* Animations handled by GSAP */
-.reveal,
-.gsap-reveal {
-  will-change: transform, opacity;
-}
 
-@media (max-width: 767px) {
-  .reveal,
-  .gsap-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    visibility: visible !important;
-  }
-}
 
 @utility text-premium {
   background: linear-gradient(to right, #0071e3, #ff3b30, #34c759, #ffcc00);

@@ -1,9 +1,5 @@
 'use client';
-import { useEffect, useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import {
-  FileText, BookOpen, CreditCard, Tag, BookMarked, LayoutGrid,
+import { FileText, BookOpen, CreditCard, Tag, BookMarked, LayoutGrid,
   Mail, Clipboard, Image as ImageIcon, Calendar, Sparkles, FileCheck
 } from 'lucide-react';
 
@@ -13,38 +9,7 @@ import Hero from '@/components/Hero';
 import Contacto from '@/components/Contacto';
 import Footer from '@/components/Footer';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
-
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useIsomorphicLayoutEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray('.reveal').forEach((el: any) => {
-        gsap.from(el, {
-          y: 40,
-          opacity: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-          },
-        });
-      });
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
-
   const productos = [
     { Icon: BookOpen, label: 'Libros', color: '#0071e3', desc: 'Edición pasta suave y dura, tirajes cortos y medianos', badge: 'Destacado' },
     { Icon: BookMarked, label: 'Anuarios', color: '#7c3aed', desc: 'Escolares, corporativos e institucionales a todo color', badge: 'Popular' },
@@ -61,7 +26,7 @@ export default function Home() {
   ];
 
   return (
-    <main ref={containerRef} className="relative min-h-screen bg-[#fbfbfd] text-[#1d1d1f] font-sans selection:bg-[#0071e3] selection:text-white overflow-x-hidden">
+    <main className="relative min-h-screen bg-[#fbfbfd] text-[#1d1d1f] font-sans selection:bg-[#0071e3] selection:text-white overflow-x-hidden">
       <ThreeBackground />
       <Navbar />
 
@@ -90,7 +55,7 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#0071e3]/8 blur-[160px] rounded-full pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/70 backdrop-blur-md border border-white/80 shadow-sm text-[10px] font-black uppercase tracking-[0.35em] text-[#0071e3] mb-3">
                 <span>Catálogo Integral</span>
@@ -108,7 +73,7 @@ export default function Home() {
           </div>
 
           {/* Grid de Productos con fondo translúcido / Apple-glass */}
-          <div className="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5">
             {productos.map(({ Icon, label, color, desc, badge }) => (
               <div
                 key={label}
@@ -144,7 +109,7 @@ export default function Home() {
           </div>
 
           {/* Banner de llamada rápida con fondo translúcido dark glass */}
-          <div className="reveal mt-6 md:mt-8 bg-[#111113]/90 backdrop-blur-2xl border border-white/15 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl shadow-black/15 text-white">
+          <div className="mt-6 md:mt-8 bg-[#111113]/90 backdrop-blur-2xl border border-white/15 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl shadow-black/15 text-white">
             <div>
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#34c759] block mb-1">¿Tienes un proyecto especial o formato a medida?</span>
               <h3 className="text-2xl md:text-3xl font-bold italic tracking-tight text-white">¿No ves lo que buscas? Si se puede imprimir, lo producimos.</h3>

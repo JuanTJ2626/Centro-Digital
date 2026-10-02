@@ -38,7 +38,7 @@ export default function MateriaPrima() {
   return (
     <section id="services" ref={sectionRef} className="py-24 md:py-40 px-4 md:px-6 bg-[#f5f5f7]">
       <div className="max-w-7xl mx-auto">
-        <div className="reveal mb-16 md:mb-20 px-2 text-center md:text-left flex flex-col md:items-start items-center">
+        <div className="mb-16 md:mb-20 px-2 text-center md:text-left flex flex-col md:items-start items-center">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-10 h-10 bg-[#0071e3] rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
               <Box className="w-5 h-5 text-white" />
@@ -69,7 +69,7 @@ export default function MateriaPrima() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           
           {/* Card 1: Couché */}
-          <div className="reveal materia-card lg:col-span-2 rounded-[2.5rem] md:rounded-[3.5rem] bg-white p-8 md:p-12 flex flex-col justify-between shadow-2xl relative overflow-hidden group border border-slate-100 min-h-[420px]">
+          <div className="materia-card lg:col-span-2 rounded-[2.5rem] md:rounded-[3.5rem] bg-white p-8 md:p-12 flex flex-col justify-between shadow-2xl relative overflow-hidden group border border-slate-100 min-h-[420px]">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50/50 rounded-full blur-[100px] -mr-48 -mt-48 transition-colors group-hover:bg-blue-100/50" />
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-start gap-8 mb-10">
               <div>
@@ -98,7 +98,7 @@ export default function MateriaPrima() {
           </div>
 
           {/* Card 2: Adhesivos */}
-          <div className="reveal materia-card rounded-[2.5rem] md:rounded-[3.5rem] bg-[#1d1d1f] p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden min-h-[400px]">
+          <div className="materia-card rounded-[2.5rem] md:rounded-[3.5rem] bg-[#1d1d1f] p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden min-h-[400px]">
             <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 to-transparent transition-opacity group-hover:opacity-40" />
             <div className="relative z-10 mb-8">
               <StickyNote className="w-10 h-10 text-[#ff3b30] mb-8 shadow-3xl" />
@@ -122,7 +122,7 @@ export default function MateriaPrima() {
           </div>
 
           {/* Card 3: Bond, Sulfatada, Opalina, Vinyl */}
-          <div className="reveal materia-card rounded-[2.5rem] md:rounded-[3.5rem] bg-gradient-to-br from-slate-50 to-slate-100 p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden border border-slate-100 min-h-[400px]">
+          <div className="materia-card rounded-[2.5rem] md:rounded-[3.5rem] bg-gradient-to-br from-slate-50 to-slate-100 p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden border border-slate-100 min-h-[400px]">
             <div className="relative z-10 mb-8">
               <ScrollText className="w-10 h-10 text-slate-500 mb-8" />
               <h3 className="text-3xl md:text-4xl font-bold tracking-tighter italic text-[#1d1d1f] mb-4 uppercase">Otros Sustratos</h3>
@@ -145,7 +145,7 @@ export default function MateriaPrima() {
           </div>
 
           {/* Card 4: Banners */}
-          <div className="reveal materia-card lg:col-span-2 rounded-[2.5rem] md:rounded-[3.5rem] bg-white p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden border border-slate-100 min-h-[360px]">
+          <div className="materia-card lg:col-span-2 rounded-[2.5rem] md:rounded-[3.5rem] bg-white p-8 md:p-12 flex flex-col justify-between shadow-2xl relative group overflow-hidden border border-slate-100 min-h-[360px]">
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-50/30 rounded-full blur-[100px] -mr-32 -mt-32 transition-colors group-hover:bg-green-50/50" />
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
               <div>
@@ -169,7 +169,7 @@ export default function MateriaPrima() {
           </div>
 
           {/* CTA Card */}
-          <div className="reveal materia-card rounded-[2.5rem] md:rounded-[3.5rem] bg-[#0071e3] p-8 md:p-12 flex flex-col justify-between shadow-2xl min-h-[360px]">
+          <div className="materia-card rounded-[2.5rem] md:rounded-[3.5rem] bg-[#0071e3] p-8 md:p-12 flex flex-col justify-between shadow-2xl min-h-[360px]">
             <div>
               <Zap className="w-10 h-10 text-white/30 mb-8 fill-current" />
               <h3 className="text-3xl md:text-4xl font-bold tracking-tighter italic text-white mb-4 uppercase">Ver todo el catálogo</h3>
