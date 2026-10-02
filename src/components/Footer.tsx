@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="absolute top-0 left-1/3 w-[500px] h-[300px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
 
       {/* ── CTA SUPERIOR NORMAL & EQUILIBRADO ──────────── */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-12 md:pt-16 pb-10 relative z-10 border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-3 md:pt-6 pb-4 md:pb-6 relative z-10 border-b border-white/10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-gradient-to-r from-white/[0.04] to-white/[0.02] border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-xl">
           <div className="max-w-2xl">
             <span className="text-[10px] font-black uppercase tracking-[0.35em] text-[#0071e3] block mb-2">
@@ -61,9 +61,6 @@ export default function Footer() {
           <div>
             <h3 className="text-xs font-black uppercase tracking-[0.25em] text-white/40 mb-4">Navegación</h3>
             <ul className="space-y-2.5 text-xs font-semibold text-white/70">
-              <li>
-                <a href="#precios" className="hover:text-[#0071e3] transition-colors">Precios por Pieza</a>
-              </li>
               <li>
                 <a href="#productos" className="hover:text-[#0071e3] transition-colors">Catálogo de Productos</a>
               </li>

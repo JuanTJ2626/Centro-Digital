@@ -22,7 +22,6 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Precios", href: "#precios" },
     { name: "Productos", href: "#productos" },
     { name: "Dónde ubicarnos", href: "#contacto" },
   ];

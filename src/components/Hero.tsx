@@ -110,7 +110,7 @@ export default function Hero({ photos }: HeroProps) {
   }, [particles]);
 
   return (
-    <section ref={heroRef} className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center pt-24 md:pt-20 pb-12 md:pb-0 overflow-hidden">
+    <section ref={heroRef} className="relative min-h-[auto] md:min-h-screen flex items-center justify-center pt-20 md:pt-20 pb-8 md:pb-0 overflow-hidden">
       {/* Halftone Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 0)', backgroundSize: '24px 24px' }} />
 
@@ -215,58 +215,57 @@ export default function Hero({ photos }: HeroProps) {
       </div>
 
       {/* CONTENIDO PRINCIPAL ADAPTADO Y NÍTIDO EN MÓVIL Y DESKTOP */}
-      <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 relative z-10 hero-content py-8 md:py-0">
-        <h1 className="hero-title text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.98] sm:leading-[0.95] mb-6 md:mb-8 flex flex-col items-center">
+      <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 relative z-10 hero-content py-4 md:py-0">
+        {/* Badge superior compacto en móvil */}
+
+        <h1 className="hero-title text-2xl sm:text-4xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.05] sm:leading-[0.95] mb-2 sm:mb-4 md:mb-8 flex flex-col items-center">
           <span className="block overflow-hidden"><span className="block italic text-[#1d1d1f]">PUBLIDEAS</span></span>
           <span className="block overflow-hidden"><span className="block text-premium italic uppercase">Impresión Digital.</span></span>
         </h1>
 
-        <p className="hero-p text-base sm:text-xl md:text-2xl text-[#1d1d1f]/75 max-w-2xl sm:max-w-3xl mx-auto font-medium leading-relaxed mb-8 md:mb-12 italic">
-          Especialistas en impresión digital CMYK de alta resolución: <strong className="text-[#1d1d1f] font-bold">libros, anuarios, calendarios, stickers, posters y tarjetas</strong>. Entrega express en Ciudad de México.
+        <p className="hero-p text-xs sm:text-base md:text-2xl text-[#1d1d1f]/75 max-w-sm sm:max-w-2xl md:max-w-3xl mx-auto font-medium leading-relaxed mb-4 sm:mb-6 md:mb-12 italic">
+          Especialistas en impresión digital CMYK de alta resolución: <strong className="text-[#1d1d1f] font-bold">libros, anuarios, stickers, posters y folletería</strong>. Entrega express en CDMX.
         </p>
 
-        {/* Carrusel móvil deslizante con todas las fotos de productos */}
-        <div className="md:hidden w-full mb-8">
-          <div className="flex items-center justify-between px-2 mb-2">
-            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#0071e3]">Productos Impresos ({photos.length})</span>
-            <span className="text-[10px] text-[#1d1d1f]/50 font-bold uppercase tracking-wider">Desliza →</span>
+        {/* Carrusel móvil deslizante con fotos más compactas */}
+        <div className="md:hidden w-full mb-4">
+          <div className="flex items-center justify-between px-2 mb-1.5">
+            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#0071e3]">Muestras reales</span>
+            <span className="text-[9px] text-[#1d1d1f]/50 font-bold uppercase tracking-wider">Desliza →</span>
           </div>
-          <div className="flex gap-3 overflow-x-auto pb-3 pt-1 px-1 snap-x snap-mandatory scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex gap-2 overflow-x-auto pb-2 pt-1 px-1 snap-x snap-mandatory scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {photos.map((img, i) => (
               <div
                 key={i}
-                className="w-36 h-48 shrink-0 rounded-2xl overflow-hidden shadow-lg border-[3px] border-white snap-center relative ring-1 ring-black/5 bg-slate-100 group"
+                className="w-24 h-32 shrink-0 rounded-xl overflow-hidden shadow-md border-2 border-white snap-center relative ring-1 ring-black/5 bg-slate-100 group"
               >
                 <img
                   src={`/${img}`}
                   className="w-full h-full object-cover"
                   loading="lazy"
-                  alt={`Muestra de impresión ${i + 1}`}
+                  alt={`Muestra ${i + 1}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                <span className="absolute bottom-2 left-2 text-[9px] font-black text-white/90 uppercase tracking-widest px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-sm">
-                  #{i + 1}
-                </span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="hero-btns flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md sm:max-w-none mx-auto">
+        <div className="hero-btns flex flex-col sm:flex-row gap-2.5 sm:gap-4 justify-center items-center w-full max-w-xs sm:max-w-none mx-auto">
           <a
-            href="#precios"
-            className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-[#1d1d1f] hover:bg-black text-white rounded-full font-black text-xs sm:text-sm tracking-[0.18em] uppercase hover:scale-105 active:scale-95 transition-all shadow-xl shadow-black/15 flex items-center justify-center gap-3 group"
+            href="#productos"
+            className="w-full sm:w-auto px-5 sm:px-10 py-3 sm:py-5 bg-[#1d1d1f] hover:bg-black text-white rounded-full font-black text-[11px] sm:text-sm tracking-[0.15em] uppercase hover:scale-105 active:scale-95 transition-all shadow-lg shadow-black/10 flex items-center justify-center gap-2 group"
           >
-            Ver Precios <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            Ver Productos <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </a>
 
           <a
             href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20mi%20proyecto%20de%20impresi%C3%B3n%20ahora%20mismo."
             target="_blank"
             rel="noopener noreferrer"
-            className="animate-whatsapp-vibrate w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-xs sm:text-sm tracking-[0.12em] uppercase hover:scale-105 active:scale-95 transition-all shadow-xl shadow-green-500/25 flex items-center justify-center gap-3"
+            className="animate-whatsapp-vibrate w-full sm:w-auto px-5 sm:px-10 py-3 sm:py-5 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-[11px] sm:text-sm tracking-[0.1em] uppercase hover:scale-105 active:scale-95 transition-all shadow-lg shadow-green-500/25 flex items-center justify-center gap-2"
           >
-            <MessageCircle className="w-5 h-5 shrink-0" />
+            <MessageCircle className="w-4 h-4 shrink-0" />
             ¡Cotiza por WhatsApp!
           </a>
         </div>

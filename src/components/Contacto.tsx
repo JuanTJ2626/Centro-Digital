@@ -9,32 +9,32 @@ export default function Contacto() {
   const wa247Url = "https://wa.me/528342091016?text=Hola%20Publideas%2C%20me%20gustar%C3%ADa%20atenci%C3%B3n%20para%20un%20pedido.";
 
   return (
-    <section id="contacto" className="pt-8 pb-14 md:pt-10 md:pb-20 px-4 md:px-6 bg-[#f5f5f7]">
+    <section id="contacto" className="pt-0 pb-4 md:pt-1 md:pb-6 px-4 md:px-6 bg-[#f5f5f7]">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="mb-10 md:mb-14">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-10 h-10 bg-[#0071e3] rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-              <MapPin className="w-5 h-5 text-white" />
+        <div className="mb-4 md:mb-5 pt-3 md:pt-4">
+          <div className="flex items-center gap-2 mb-1.5">
+            <div className="w-7 h-7 md:w-9 md:h-9 bg-[#0071e3] rounded-xl flex items-center justify-center shadow-sm">
+              <MapPin className="w-3.5 h-3.5 md:w-4 md:h-4 text-white" />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#0071e3]">Encuéntranos</span>
+            <span className="text-[9px] font-black uppercase tracking-[0.35em] text-[#0071e3]">Encuéntranos</span>
           </div>
-          <h2 className="text-4xl md:text-7xl font-bold tracking-tighter italic leading-[0.95] mb-4">
+          <h2 className="text-2xl md:text-5xl font-bold tracking-tighter italic leading-none mb-2">
             UBICACIÓN{' '}
             <span className="text-[#0071e3]">{'&'} CONTACTO.</span>
           </h2>
-          <div className="flex gap-1 mt-6">
-            <div className="w-12 h-1 bg-[#0071e3]" />
-            <div className="w-12 h-1 bg-[#ff3b30]" />
-            <div className="w-12 h-1 bg-[#34c759]" />
-            <div className="w-12 h-1 bg-[#ffcc00]" />
+          <div className="flex gap-1 mt-2">
+            <div className="w-10 h-0.5 bg-[#0071e3]" />
+            <div className="w-10 h-0.5 bg-[#ff3b30]" />
+            <div className="w-10 h-0.5 bg-[#34c759]" />
+            <div className="w-10 h-0.5 bg-[#ffcc00]" />
           </div>
         </div>
 
         {/* GOOGLE MAPS CARD & BANNER */}
-        <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-200/80 bg-white mb-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px]">
+        <div className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-lg border border-slate-200/80 bg-white mb-3 md:mb-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[400px]">
             {/* Left Info Overlay / Column */}
             <div className="lg:col-span-5 p-8 md:p-10 bg-[#111113] text-white flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-[#0071e3]/20 blur-[100px] rounded-full pointer-events-none" />
