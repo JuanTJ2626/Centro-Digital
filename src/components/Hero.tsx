@@ -228,22 +228,29 @@ export default function Hero({ photos }: HeroProps) {
           </div>
         </div>
 
-        <div className="hero-btns flex flex-col sm:flex-row gap-2.5 sm:gap-4 justify-center items-center w-full max-w-xs sm:max-w-none mx-auto">
+        <div className="hero-btns flex flex-col items-center w-full max-w-[280px] sm:max-w-md mx-auto mt-2">
+          {/* Botón Primario: WhatsApp */}
+          <div className="w-full relative mb-4 sm:mb-6">
+            <a
+              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20vengo%20de%20la%20web%20y%20quiero%20cotizar%20mi%20proyecto%20de%20impresi%C3%B3n."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="animate-whatsapp-vibrate w-full px-6 py-4 sm:py-5 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-sm sm:text-base tracking-widest uppercase hover:scale-[1.02] active:scale-95 transition-all shadow-[0_8px_30px_rgb(37,211,102,0.3)] flex items-center justify-center gap-3"
+            >
+              <MessageCircle className="w-5 h-5 shrink-0" />
+              Cotizar Rápido ⚡
+            </a>
+            <span className="block text-center text-[#1d1d1f]/60 text-[11px] sm:text-xs font-semibold mt-3">
+              🟢 Respondemos en menos de 5 minutos
+            </span>
+          </div>
+
+          {/* Botón Secundario: Ver Productos (Menos prominente) */}
           <a
             href="#productos"
-            className="w-full sm:w-auto px-5 sm:px-10 py-3 sm:py-5 bg-[#1d1d1f] hover:bg-black text-white rounded-full font-black text-[11px] sm:text-sm tracking-[0.15em] uppercase hover:scale-105 active:scale-95 transition-all shadow-lg shadow-black/10 flex items-center justify-center gap-2 group"
+            className="text-[#1d1d1f]/60 hover:text-[#0071e3] text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-1 group transition-colors"
           >
-            Ver Productos <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </a>
-
-          <a
-            href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20mi%20proyecto%20de%20impresi%C3%B3n%20ahora%20mismo."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="animate-whatsapp-vibrate w-full sm:w-auto px-5 sm:px-10 py-3 sm:py-5 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-[11px] sm:text-sm tracking-[0.1em] uppercase hover:scale-105 active:scale-95 transition-all shadow-lg shadow-green-500/25 flex items-center justify-center gap-2"
-          >
-            <MessageCircle className="w-4 h-4 shrink-0" />
-            ¡Cotiza por WhatsApp!
+            Ver catálogo de productos <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
       </div>
