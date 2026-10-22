@@ -18,7 +18,7 @@ function get(url) {
 
 async function test() {
   try {
-    const url = 'https://script.google.com/macros/s/AKfycbyaoKezbC1bxMz6K5kAhygzBS7aKk9JNYA2QGn2bsS9Bqt2tfoYZAY0diS4EDJAuwlZ/exec';
+    const url = 'https://script.google.com/macros/s/AKfycbxSl07lvaHH1hxxB3NwiHTT5KNbMumGyUh0xgz8yjSXfEvkkjfb73gZiLafseMu2w4A/exec';
     const data = await get(url);
     
     console.log("Searching all fields for keywords...");

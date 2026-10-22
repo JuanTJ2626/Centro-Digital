@@ -1,5 +1,6 @@
 'use client';
 import { MapPin, Phone, Mail, Clock, ArrowRight, MessageCircle } from 'lucide-react';
+import { trackWhatsAppClick } from '@/utils/trackWhatsApp';
 
 export default function Contacto() {
   const mapsSearchUrl = "https://www.google.com/maps/search/?api=1&query=Manuel+Caballero+131,+La+Obrera,+Cuauhtémoc,+06800+Ciudad+de+México,+CDMX";
@@ -149,6 +150,11 @@ export default function Contacto() {
                 href={waLocalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick({
+                  buttonName: 'Contacto: WhatsApp Local (55 6808 1606)',
+                  targetNumber: '55 6808 1606',
+                  message: 'Hola Publideas, me gustaría cotizar una impresión.'
+                })}
                 className="text-base font-bold text-[#1d1d1f] hover:text-[#25D366] transition-colors block"
               >
                 55 6808 1606
@@ -157,6 +163,11 @@ export default function Contacto() {
                 href={waLocalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick({
+                  buttonName: 'Contacto: WhatsApp Local (55 6808 1606)',
+                  targetNumber: '55 6808 1606',
+                  message: 'Hola Publideas, me gustaría cotizar una impresión.'
+                })}
                 className="mt-2 inline-flex items-center gap-1.5 text-[#25D366] text-[11px] font-black uppercase tracking-wider hover:underline"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
@@ -176,6 +187,11 @@ export default function Contacto() {
                 href={wa247Url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick({
+                  buttonName: 'Contacto: WhatsApp 24/7 (834 209 1016)',
+                  targetNumber: '834 209 1016',
+                  message: 'Hola Publideas, me gustaría atención para un pedido.'
+                })}
                 className="text-base font-bold text-[#1d1d1f] hover:text-[#128C7E] transition-colors block"
               >
                 834 209 1016
@@ -184,6 +200,11 @@ export default function Contacto() {
                 href={wa247Url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick({
+                  buttonName: 'Contacto: WhatsApp 24/7 (834 209 1016)',
+                  targetNumber: '834 209 1016',
+                  message: 'Hola Publideas, me gustaría atención para un pedido.'
+                })}
                 className="mt-2 inline-flex items-center gap-1.5 text-[#128C7E] text-[11px] font-black uppercase tracking-wider hover:underline"
               >
                 <MessageCircle className="w-3.5 h-3.5" />

@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { trackWhatsAppClick } from '@/utils/trackWhatsApp';
 
 export default function WhatsAppFloating() {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -11,10 +12,10 @@ export default function WhatsAppFloating() {
       setShowTooltip(true);
     }, 3000);
     
-    // Ocultarlo después de 10 segundos para no molestar, pero dejar que se muestre en hover
+    // Ocultarlo después de 6 segundos en móvil/pantalla para no obstruir la lectura
     const hideTimer = setTimeout(() => {
       setShowTooltip(false);
-    }, 10000);
+    }, 7000);
 
     return () => {
       clearTimeout(timer);
@@ -23,10 +24,13 @@ export default function WhatsAppFloating() {
   }, []);
 
   return (
-    <aside aria-label="Contacto por WhatsApp" className="fixed bottom-6 right-6 z-[999] flex items-end sm:items-center flex-col sm:flex-row group">
+    <aside aria-label="Contacto por WhatsApp" className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[999] flex items-end sm:items-center flex-col sm:flex-row group pb-[env(safe-area-inset-bottom,0px)] pr-[env(safe-area-inset-right,0px)]">
       {/* Tooltip visible en móvil y desktop con animación */}
-      <div className={`mb-3 sm:mb-0 sm:mr-4 relative transition-all duration-500 ease-out origin-bottom-right sm:origin-right ${showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0 pointer-events-none group-hover:scale-100 group-hover:opacity-100 group-hover:pointer-events-auto'}`}>
-        <div className="bg-white text-[#1d1d1f] text-sm font-bold rounded-2xl p-3 shadow-xl border border-gray-100 max-w-[200px] hover:shadow-2xl transition-shadow cursor-default">
+      <div 
+        onClick={() => setShowTooltip(false)}
+        className={`mb-3 sm:mb-0 sm:mr-4 relative transition-all duration-500 ease-out origin-bottom-right sm:origin-right cursor-pointer ${showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0 pointer-events-none group-hover:scale-100 group-hover:opacity-100 group-hover:pointer-events-auto'}`}
+      >
+        <div className="bg-white text-[#1d1d1f] text-sm font-bold rounded-2xl p-3 shadow-xl border border-gray-100 max-w-[200px] hover:shadow-2xl transition-shadow">
           <p className="mb-1 text-base">¡Hola! 👋</p>
           <p className="text-xs font-medium text-gray-600 leading-tight">¿Te ayudo a cotizar tu proyecto? Respondemos rápido.</p>
         </div>
@@ -34,12 +38,17 @@ export default function WhatsAppFloating() {
         <div className="absolute -bottom-2 right-4 sm:-right-2 sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto w-4 h-4 bg-white rotate-45 border-r border-b border-gray-100 sm:border-b-0 sm:border-l sm:-rotate-45"></div>
       </div>
 
-      {/* Botón burbuja */}
+      {/* Botón flotante WhatsApp */}
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contactar por WhatsApp al 834 209 1016"
+        onClick={() => trackWhatsAppClick({
+          buttonName: 'Botón Flotante WhatsApp',
+          targetNumber: '834 209 1016',
+          message: 'Hola Publideas, vengo de la web y quiero cotizar un proyecto de impresión.'
+        })}
         className="w-14 h-14 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(37,211,102,0.4)] hover:scale-110 active:scale-95 transition-all duration-300 relative shrink-0"
       >
         <span className="absolute -inset-1 rounded-full bg-[#25D366]/40 animate-ping pointer-events-none" style={{ animationDuration: '3s' }} />

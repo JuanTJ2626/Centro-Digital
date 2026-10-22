@@ -1,10 +1,17 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Outfit } from 'next/font/google';
 import './globals.css';
 
 import WhatsAppFloating from '@/components/WhatsAppFloating';
 
 const outfit = Outfit({ subsets: ['latin'] });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#fbfbfd',
+};
 
 export const metadata: Metadata = {
   title: 'Publideas | Imprenta Digital en CDMX | Libros, Anuarios, Calendarios y Stickers',
@@ -21,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className="scroll-smooth">
-      <body className={`${outfit.className} bg-[#0f1115] text-[#f0f0f2] antialiased relative`}>
+      <body className={`${outfit.className} bg-[#fbfbfd] text-[#1d1d1f] antialiased relative min-h-screen`}>
         {children}
         <WhatsAppFloating />
       </body>

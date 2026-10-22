@@ -3,11 +3,11 @@ import { FileText, BookOpen, CreditCard, Tag, BookMarked, LayoutGrid,
   Mail, Clipboard, Image as ImageIcon, Calendar, Sparkles, FileCheck
 } from 'lucide-react';
 
-import ThreeBackground from '@/components/ThreeBackground';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Contacto from '@/components/Contacto';
 import Footer from '@/components/Footer';
+import { trackWhatsAppClick } from '@/utils/trackWhatsApp';
 
 export default function Home() {
   const productos = [
@@ -27,7 +27,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-[#fbfbfd] text-[#1d1d1f] font-sans selection:bg-[#0071e3] selection:text-white overflow-x-hidden">
-      <ThreeBackground />
       <Navbar />
 
       <Hero photos={[
@@ -50,10 +49,8 @@ export default function Home() {
         'Image to PDF 20260509 15.12.58_4.jpg.jpeg',
       ]} />
 
-      {/* SECCIÓN PRODUCTOS DESTACADOS & CATÁLOGO (TRANSPARENTE / GLASSMORPHISM) */}
-      <section id="productos" className="pt-6 pb-4 md:pt-12 md:pb-8 px-4 md:px-6 bg-transparent relative overflow-hidden text-[#1d1d1f] z-10">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#0071e3]/8 blur-[160px] rounded-full pointer-events-none" />
-
+      {/* SECCIÓN PRODUCTOS DESTACADOS & CATÁLOGO */}
+      <section id="productos" className="pt-6 pb-4 md:pt-12 md:pb-8 px-4 md:px-6 bg-transparent relative text-[#1d1d1f] z-10">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
             <div>
@@ -77,15 +74,15 @@ export default function Home() {
             {productos.map(({ Icon, label, color, desc, badge }) => (
               <div
                 key={label}
-                className="group relative bg-white/60 hover:bg-white/90 backdrop-blur-xl border border-white/70 hover:border-white rounded-[2rem] p-7 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 shadow-sm hover:shadow-xl hover:shadow-black/5"
+                className="group relative bg-white/60 hover:bg-white/90 backdrop-blur-xl border border-white/70 hover:border-white rounded-[2rem] p-5 sm:p-7 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 shadow-sm hover:shadow-xl hover:shadow-black/5"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-3 mb-5">
+                  <div className="flex items-center justify-between gap-3 mb-4 sm:mb-5">
                     <div
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm"
+                      className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm"
                       style={{ backgroundColor: `${color}18`, border: `1px solid ${color}35` }}
                     >
-                      <Icon className="w-6 h-6" style={{ color }} />
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color }} />
                     </div>
                     {badge && (
                       <span
@@ -97,10 +94,10 @@ export default function Home() {
                     )}
                   </div>
 
-                  <h3 className="text-xl font-bold italic tracking-tight text-[#1d1d1f] mb-2 group-hover:text-[#0071e3] transition-colors">
+                  <h3 className="text-lg sm:text-xl font-bold italic tracking-tight text-[#1d1d1f] mb-2 group-hover:text-[#0071e3] transition-colors">
                     {label}
                   </h3>
-                  <p className="text-[#1d1d1f]/65 text-xs md:text-sm font-medium italic leading-relaxed">
+                  <p className="text-[#1d1d1f]/65 text-xs sm:text-sm font-medium italic leading-relaxed">
                     {desc}
                   </p>
                 </div>
@@ -112,13 +109,18 @@ export default function Home() {
           <div className="mt-6 md:mt-8 bg-[#111113]/90 backdrop-blur-2xl border border-white/15 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl shadow-black/15 text-white">
             <div>
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#34c759] block mb-1">¿Tienes un proyecto especial o formato a medida?</span>
-              <h3 className="text-2xl md:text-3xl font-bold italic tracking-tight text-white">¿No ves lo que buscas? Si se puede imprimir, lo producimos.</h3>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold italic tracking-tight text-white">¿No ves lo que buscas? Si se puede imprimir, lo producimos.</h3>
             </div>
             <a
               href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20producto%20especial."
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 px-8 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-green-500/25"
+              onClick={() => trackWhatsAppClick({
+                buttonName: 'Catálogo: Consultar con un Asesor',
+                targetNumber: '834 209 1016',
+                message: 'Hola Publideas, quiero cotizar un producto especial.'
+              })}
+              className="w-full sm:w-auto text-center shrink-0 px-8 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-green-500/25"
             >
               Consultar con un Asesor
             </a>

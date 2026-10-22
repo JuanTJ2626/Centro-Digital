@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Menu, X, MessageSquare } from 'lucide-react';
+import { trackWhatsAppClick } from '@/utils/trackWhatsApp';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,6 +53,11 @@ export default function Navbar() {
               href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick({
+                buttonName: 'Navbar Desktop: Cotizar',
+                targetNumber: '834 209 1016',
+                message: 'Hola Publideas, quiero cotizar un proyecto de impresión.'
+              })}
               className="px-8 py-3 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full hover:scale-110 active:scale-95 transition-all text-[11px] font-black shadow-lg shadow-green-500/25 tracking-wider"
             >
               COTIZAR
@@ -64,12 +70,17 @@ export default function Navbar() {
               href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full text-[10px] font-black uppercase tracking-wider shadow-md shadow-green-500/20 active:scale-95 transition-all"
+              onClick={() => trackWhatsAppClick({
+                buttonName: 'Navbar Móvil: Cotizar',
+                targetNumber: '834 209 1016',
+                message: 'Hola Publideas, quiero cotizar un proyecto de impresión.'
+              })}
+              className="px-4 py-2.5 min-h-[44px] flex items-center bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full text-[10px] font-black uppercase tracking-wider shadow-md shadow-green-500/20 active:scale-95 transition-all"
             >
               COTIZAR
             </a>
             <button
-              className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm border border-slate-100 text-[#1d1d1f]"
+              className="w-11 h-11 flex items-center justify-center rounded-xl bg-white shadow-sm border border-slate-100 text-[#1d1d1f] active:scale-95 transition-all"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Abrir menú"
             >
@@ -81,9 +92,9 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 z-[90] md:hidden transition-all duration-700 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-white/95 backdrop-blur-3xl" />
+        <div className="absolute inset-0 bg-white/95 backdrop-blur-3xl" onClick={() => setIsOpen(false)} />
 
-        <div className="relative h-full flex flex-col justify-center px-10 gap-12">
+        <div className="relative h-full flex flex-col justify-center px-10 gap-10 z-10">
           {navLinks.map((link, i) => (
             <a
               key={link.name}
@@ -96,21 +107,28 @@ export default function Navbar() {
             </a>
           ))}
 
-          <div className={`transition-all duration-700 delay-400 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className={`transition-all duration-700 delay-300 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <a
               href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setIsOpen(false)}
-              className="inline-flex items-center gap-4 px-10 py-6 bg-[#25D366] text-white rounded-[2rem] text-xl font-black shadow-2xl shadow-green-500/30"
+              onClick={() => {
+                trackWhatsAppClick({
+                  buttonName: 'Navbar Menú: Cotizar por WhatsApp',
+                  targetNumber: '834 209 1016',
+                  message: 'Hola Publideas, quiero cotizar un proyecto de impresión.'
+                });
+                setIsOpen(false);
+              }}
+              className="inline-flex items-center gap-3 px-8 py-5 bg-[#25D366] text-white rounded-[2rem] text-lg font-black shadow-2xl shadow-green-500/30 w-full justify-center active:scale-95 transition-all"
             >
-              <MessageSquare className="w-6 h-6" />
+              <MessageSquare className="w-5 h-5" />
               COTIZAR POR WHATSAPP
             </a>
           </div>
 
           {/* Footer of mobile menu */}
-          <div className="mt-8">
+          <div className="mt-4">
             <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 italic">Publideas — CDMX</span>
           </div>
         </div>

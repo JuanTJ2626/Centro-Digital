@@ -1,7 +1,8 @@
 'use client';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import gsap from 'gsap';
+import { trackWhatsAppClick } from '@/utils/trackWhatsApp';
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
@@ -11,30 +12,13 @@ interface HeroProps {
 
 export default function Hero({ photos }: HeroProps) {
   const heroRef = useRef<HTMLDivElement>(null);
-  const [particles, setParticles] = useState<{ top: string; left: string; color: string }[]>([]);
-
-  // Generate random positions only on desktop to avoid overhead on mobile
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      return;
-    }
-    const colors = ['#0071e3', '#ff3b30', '#34c759', '#ffcc00'];
-    const newParticles = [...Array(6)].map((_, i) => ({
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      color: colors[i % 4]
-    }));
-    setParticles(newParticles);
-  }, []);
 
   useIsomorphicLayoutEffect(() => {
-    // En móviles, mostrar el texto de inmediato sin animación de entrada que pueda ocultarlo
+    // En móviles, omitir animaciones pesadas de GSAP para máximo rendimiento
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     const ctx = gsap.context(() => {
-      // 1. Text Entrance - Eliminado para máxima optimización y visualización inmediata
-
-      // 2. Continuous Floating Photos (desktop only)
+      // 1. Continuous Floating Photos (desktop only)
       if (!isMobile) {
         const images = gsap.utils.toArray('.hero-float');
         images.forEach((img: any, i: number) => {
@@ -46,19 +30,6 @@ export default function Hero({ photos }: HeroProps) {
             yoyo: true,
             ease: 'sine.inOut',
             delay: i * 0.3
-          });
-        });
-
-        // 3. Floating "Ink Drops" (Particles)
-        const particleEls = gsap.utils.toArray('.hero-particle');
-        particleEls.forEach((p: any) => {
-          gsap.to(p, {
-            y: 'random(-100, 100)',
-            x: 'random(-100, 100)',
-            duration: 'random(10, 20)',
-            repeat: -1,
-            yoyo: true,
-            ease: 'none'
           });
         });
 
@@ -84,34 +55,12 @@ export default function Hero({ photos }: HeroProps) {
     }, heroRef);
 
     return () => ctx.revert();
-  }, [particles]);
+  }, []);
 
   return (
     <section ref={heroRef} className="relative min-h-[auto] md:min-h-screen flex items-center justify-center pt-20 md:pt-20 pb-8 md:pb-0 overflow-hidden">
       {/* Halftone Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 0)', backgroundSize: '24px 24px' }} />
-
-      {/* Dynamic Colored Blurs (Ocultos o reducidos en móvil para alto rendimiento) */}
-      <div className="hidden md:block absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-500/15 blur-[180px] rounded-full pointer-events-none" />
-      <div className="hidden md:block absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-red-500/15 blur-[180px] rounded-full pointer-events-none" />
-      <div className="hidden md:block absolute top-1/2 left-0 w-[450px] h-[450px] bg-green-500/10 blur-[150px] rounded-full pointer-events-none" />
-      <div className="hidden md:block absolute top-1/4 right-0 w-[450px] h-[450px] bg-yellow-400/10 blur-[150px] rounded-full pointer-events-none" />
-
-      {/* Floating Ink drops (solo en desktop) */}
-      <div className="hidden md:block">
-        {particles.map((p, i) => (
-          <div
-            key={i}
-            className="hero-particle absolute w-3 h-3 rounded-full opacity-20 pointer-events-none"
-            style={{
-              top: p.top,
-              left: p.left,
-              backgroundColor: p.color,
-              filter: 'blur(2px)'
-            }}
-          />
-        ))}
-      </div>
 
       <style dangerouslySetInnerHTML={{
         __html: `
@@ -172,7 +121,7 @@ export default function Hero({ photos }: HeroProps) {
         <div className="animate-slider-1 flex flex-col gap-6 md:w-full pt-6">
           {[...photos, ...photos, ...photos].map((img, i) => (
             <div key={i} className="relative md:w-full aspect-[3/4] rounded-2xl shadow-2xl border-[3px] border-white overflow-hidden pointer-events-auto shrink-0 ring-1 ring-black/5 hover:shadow-blue-500/30 transition-all duration-500">
-              <img src={`/${img}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" alt="work" />
+              <img src={`/${img}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" alt="work" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
             </div>
           ))}
@@ -184,7 +133,7 @@ export default function Hero({ photos }: HeroProps) {
         <div className="animate-slider-2 flex flex-col gap-6 md:w-full pt-6">
           {[...photos].reverse().concat([...photos].reverse()).concat([...photos].reverse()).map((img, i) => (
             <div key={`r-${i}`} className="relative md:w-full aspect-[3/4] rounded-2xl shadow-2xl border-[3px] border-white overflow-hidden pointer-events-auto shrink-0 ring-1 ring-black/5 hover:shadow-blue-500/30 transition-all duration-500">
-              <img src={`/${img}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" alt="work" />
+              <img src={`/${img}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" alt="work" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
             </div>
           ))}
@@ -193,9 +142,7 @@ export default function Hero({ photos }: HeroProps) {
 
       {/* CONTENIDO PRINCIPAL ADAPTADO Y NÍTIDO EN MÓVIL Y DESKTOP */}
       <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 relative z-10 hero-content py-4 md:py-0">
-        {/* Badge superior compacto en móvil */}
-
-        <h1 className="hero-title text-2xl sm:text-4xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.05] sm:leading-[0.95] mb-2 sm:mb-4 md:mb-8 flex flex-col items-center">
+        <h1 className="hero-title text-3xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.05] sm:leading-[0.95] mb-2 sm:mb-4 md:mb-8 flex flex-col items-center">
           <span className="block overflow-hidden"><span className="block italic text-[#1d1d1f]">PUBLIDEAS</span></span>
           <span className="block overflow-hidden"><span className="block text-premium italic uppercase">Impresión Digital.</span></span>
         </h1>
@@ -220,6 +167,7 @@ export default function Hero({ photos }: HeroProps) {
                   src={`/${img}`}
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  decoding="async"
                   alt={`Muestra ${i + 1}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -235,6 +183,11 @@ export default function Hero({ photos }: HeroProps) {
               href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20vengo%20de%20la%20web%20y%20quiero%20cotizar%20mi%20proyecto%20de%20impresi%C3%B3n."
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick({
+                buttonName: 'Hero: Cotizar Rápido',
+                targetNumber: '834 209 1016',
+                message: 'Hola Publideas, vengo de la web y quiero cotizar mi proyecto de impresión.'
+              })}
               className="animate-whatsapp-vibrate w-full px-6 py-4 sm:py-5 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-sm sm:text-base tracking-widest uppercase hover:scale-[1.02] active:scale-95 transition-all shadow-[0_8px_30px_rgb(37,211,102,0.3)] flex items-center justify-center gap-3"
             >
               <MessageCircle className="w-5 h-5 shrink-0" />

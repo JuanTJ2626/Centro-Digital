@@ -1,34 +1,37 @@
 'use client';
 import { ArrowRight, Phone, Mail, Clock, MapPin } from 'lucide-react';
+import { trackWhatsAppClick } from '@/utils/trackWhatsApp';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer id="quote" className="bg-[#111113] text-white border-t border-white/10 relative overflow-hidden">
-      {/* Sutil resplandor de fondo */}
-      <div className="absolute top-0 left-1/3 w-[500px] h-[300px] bg-blue-600/10 blur-[130px] rounded-full pointer-events-none" />
-
       {/* ── CTA SUPERIOR NORMAL & EQUILIBRADO ──────────── */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 pt-3 md:pt-6 pb-4 md:pb-6 relative z-10 border-b border-white/10">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-gradient-to-r from-white/[0.04] to-white/[0.02] border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-xl">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-gradient-to-r from-white/[0.04] to-white/[0.02] border border-white/10 rounded-[2rem] p-6 sm:p-8 md:p-10 shadow-xl">
           <div className="max-w-2xl">
             <span className="text-[10px] font-black uppercase tracking-[0.35em] text-[#0071e3] block mb-2">
               Cotización Express Inmediata
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight italic text-white leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight italic text-white leading-tight">
               ¿Listo para imprimir tu proyecto?
             </h2>
-            <p className="text-white/60 text-sm md:text-base italic mt-2">
+            <p className="text-white/60 text-xs sm:text-sm md:text-base italic mt-2">
               Envíanos tus archivos o requisitos y te respondemos en minutos con la mejor tarifa y tiempo de entrega.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+          <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto">
             <a
               href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-green-500/20 text-center flex items-center justify-center gap-2"
+              onClick={() => trackWhatsAppClick({
+                buttonName: 'Footer: Cotización Express (834 209 1016)',
+                targetNumber: '834 209 1016',
+                message: 'Hola Publideas, quiero cotizar un proyecto de impresión.'
+              })}
+              className="w-full sm:w-auto px-8 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-green-500/20 text-center flex items-center justify-center gap-2 active:scale-95"
             >
               Cotizar por WhatsApp <ArrowRight className="w-3.5 h-3.5" />
             </a>
@@ -72,6 +75,11 @@ export default function Footer() {
                   href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto."
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick({
+                    buttonName: 'Footer: Enlace Catálogo (834 209 1016)',
+                    targetNumber: '834 209 1016',
+                    message: 'Hola Publideas, quiero cotizar un proyecto.'
+                  })}
                   className="hover:text-[#25D366] transition-colors"
                 >
                   Cotizar por WhatsApp
@@ -115,6 +123,11 @@ export default function Footer() {
                   href="https://wa.me/525568081606?text=Hola%20Publideas%2C%20me%20gustar%C3%ADa%20cotizar%20una%20impresi%C3%B3n."
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick({
+                    buttonName: 'Footer: WhatsApp Local (55 6808 1606)',
+                    targetNumber: '55 6808 1606',
+                    message: 'Hola Publideas, me gustaría cotizar una impresión.'
+                  })}
                   className="hover:text-white transition-colors"
                 >
                   WhatsApp Local: 55 6808 1606
@@ -126,6 +139,11 @@ export default function Footer() {
                   href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto."
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick({
+                    buttonName: 'Footer: WhatsApp 24/7 (834 209 1016)',
+                    targetNumber: '834 209 1016',
+                    message: 'Hola Publideas, quiero cotizar un proyecto.'
+                  })}
                   className="hover:text-white transition-colors font-bold text-white/90"
                 >
                   WhatsApp 24/7: 834 209 1016
