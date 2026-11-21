@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Menu, X, MessageSquare } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { trackWhatsAppClick } from '@/utils/trackWhatsApp';
 
 export default function Navbar() {
@@ -9,130 +9,146 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolledTotal = (winScroll / height) * 100;
-
-      const progressBar = document.getElementById('scroll-progress');
-      if (progressBar) progressBar.style.width = scrolledTotal + '%';
+      setScrolled(window.scrollY > 35);
     };
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: "Productos", href: "#productos" },
-    { name: "Dónde ubicarnos", href: "#contacto" },
+    { name: "Soluciones", href: "#catalogo" },
+    { name: "Taller & Entregas", href: "#contacto" },
   ];
+
+  const handleWhatsApp = (buttonName: string) => {
+    trackWhatsAppClick({
+      buttonName,
+      targetNumber: '834 209 1016',
+      message: 'Hola Publideas, requiero cotización ejecutiva para producción de impresión.'
+    });
+  };
 
   return (
     <>
-      <nav className={`fixed w-full z-[100] px-4 md:px-6 py-4 flex justify-center transition-all duration-500 ${scrolled ? 'top-0' : 'top-2'}`}>
-        <div className={`w-full max-w-5xl transition-all duration-500 ${scrolled ? 'rounded-none md:rounded-full bg-white/80' : 'rounded-[2rem] bg-white/40'} apple-glass py-3 px-6 md:px-8 flex justify-between items-center shadow-2xl shadow-black/[0.03] border border-white/40 relative overflow-hidden`}>
-          {/* Scroll Progress Line */}
-          <div className="absolute bottom-0 left-0 h-1 line-cmyk transition-all duration-200" style={{ width: '0%', opacity: scrolled ? 1 : 0 }} id="scroll-progress" />
-
-          <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <img src="/logo mejorado.png" alt="Logo" className="h-10 md:h-12 w-10 md:w-12 rounded-full aspect-square object-cover border border-white/20 shadow-sm" />
+      <header
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 flex justify-center px-3 sm:px-6 pointer-events-none ${
+          scrolled ? 'top-3 sm:top-4' : 'top-0'
+        }`}
+      >
+        <div
+          className={`w-full pointer-events-auto transition-all duration-300 flex items-center justify-between ${
+            scrolled
+              ? 'max-w-4xl bg-white/95 backdrop-blur-xl shadow-xl shadow-slate-900/5 border border-slate-200/90 rounded-full px-4 sm:px-6 py-2.5'
+              : 'max-w-7xl bg-[#fbfbfd]/90 backdrop-blur-md border-b border-slate-200/70 py-3.5 px-3 sm:px-4'
+          }`}
+        >
+          {/* Logo y Marca */}
+          <a href="/" className="flex items-center gap-2.5 sm:gap-3 group">
+            <div className="relative shrink-0">
+              <img
+                src="/logo mejorado.png"
+                alt="Publideas Impresión Digital"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-slate-200/80 shadow-xs transition-transform group-hover:scale-105"
+              />
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#25D366] border-2 border-white" />
+            </div>
             <div className="flex flex-col">
-              <span className="text-xl md:text-2xl font-black tracking-tighter leading-none text-[#1d1d1f]">PUBLIDEAS</span>
-              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#0071e3]">Impresión Digital</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-base sm:text-lg font-black tracking-tight text-slate-900 leading-none">PUBLIDEAS</span>
+                <div className="flex gap-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ff3b30]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#34c759]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ffcc00]" />
+                </div>
+              </div>
+              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">
+                Centro de Impresión CDMX
+              </span>
             </div>
           </a>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8 text-[11px] font-black text-[#1d1d1f]/70 uppercase tracking-[0.18em]">
+          {/* Menú Desktop */}
+          <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-slate-600 uppercase tracking-wider">
             {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="hover:text-[#0071e3] transition-colors">
+              <a
+                key={link.name}
+                href={link.href}
+                className="hover:text-[#0071e3] transition-colors py-1"
+              >
                 {link.name}
               </a>
             ))}
-            <a
-              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackWhatsAppClick({
-                buttonName: 'Navbar Desktop: Cotizar',
-                targetNumber: '834 209 1016',
-                message: 'Hola Publideas, quiero cotizar un proyecto de impresión.'
-              })}
-              className="px-8 py-3 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full hover:scale-110 active:scale-95 transition-all text-[11px] font-black shadow-lg shadow-green-500/25 tracking-wider"
-            >
-              COTIZAR
-            </a>
-          </div>
+          </nav>
 
-          {/* Mobile Right Actions: Botón Cotizar + Toggle Menú */}
-          <div className="md:hidden flex items-center gap-2">
+          {/* Botón Comprar / Cotizar en WhatsApp */}
+          <div className="flex items-center gap-2">
             <a
-              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
+              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20requiero%20cotizaci%C3%B3n%20ejecutiva%20para%20producci%C3%B3n%20de%20impresi%C3%B3n."
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackWhatsAppClick({
-                buttonName: 'Navbar Móvil: Cotizar',
-                targetNumber: '834 209 1016',
-                message: 'Hola Publideas, quiero cotizar un proyecto de impresión.'
-              })}
-              className="px-4 py-2.5 min-h-[44px] flex items-center bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full text-[10px] font-black uppercase tracking-wider shadow-md shadow-green-500/20 active:scale-95 transition-all"
+              onClick={() => handleWhatsApp('Navbar: Cotizar WhatsApp')}
+              className="flex items-center gap-1.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-extrabold text-[11px] sm:text-xs uppercase tracking-wider shadow-md shadow-green-500/20 active:scale-95 transition-all"
             >
-              COTIZAR
+              <MessageCircle className="w-4 h-4 fill-white" />
+              <span>Cotizar en 1 Clic</span>
             </a>
+
+            {/* Toggle Menú Móvil */}
             <button
-              className="w-11 h-11 flex items-center justify-center rounded-xl bg-white shadow-sm border border-slate-100 text-[#1d1d1f] active:scale-95 transition-all"
               onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 active:scale-95 transition-all"
               aria-label="Abrir menú"
             >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
-      </nav>
+      </header>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-[90] md:hidden transition-all duration-700 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-white/95 backdrop-blur-3xl" onClick={() => setIsOpen(false)} />
+      {/* Espaciador para evitar saltos de contenido cuando el header es fixed */}
+      <div className="h-16 sm:h-20 w-full" />
 
-        <div className="relative h-full flex flex-col justify-center px-10 gap-10 z-10">
-          {navLinks.map((link, i) => (
+      {/* Menú Desplegable Móvil */}
+      {isOpen && (
+        <div className="fixed inset-0 top-[60px] z-40 bg-white/95 backdrop-blur-2xl md:hidden px-6 py-8 flex flex-col justify-between">
+          <div className="flex flex-col gap-6">
+            <div className="flex items-center gap-2 text-xs font-black uppercase text-slate-400 tracking-widest border-b border-slate-100 pb-3">
+              <span>Navegación Ejecutiva</span>
+            </div>
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="text-2xl font-black text-slate-900 active:text-[#0071e3] transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+
+          <div className="pt-6 border-t border-slate-100 flex flex-col gap-3">
             <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className={`text-4xl font-black italic tracking-tighter transition-all duration-700 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
-              {link.name}
-            </a>
-          ))}
-
-          <div className={`transition-all duration-700 delay-300 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <a
-              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n."
+              href="https://wa.me/528342091016?text=Hola%20Publideas%2C%20requiero%20cotizaci%C3%B3n%20ejecutiva%20para%20producci%C3%B3n%20de%20impresi%C3%B3n."
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
-                trackWhatsAppClick({
-                  buttonName: 'Navbar Menú: Cotizar por WhatsApp',
-                  targetNumber: '834 209 1016',
-                  message: 'Hola Publideas, quiero cotizar un proyecto de impresión.'
-                });
+                handleWhatsApp('Navbar Móvil Desplegable: Cotizar');
                 setIsOpen(false);
               }}
-              className="inline-flex items-center gap-3 px-8 py-5 bg-[#25D366] text-white rounded-[2rem] text-lg font-black shadow-2xl shadow-green-500/30 w-full justify-center active:scale-95 transition-all"
+              className="w-full py-4 rounded-2xl bg-[#25D366] text-white font-black text-center text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-green-500/25 active:scale-95 transition-all"
             >
-              <MessageSquare className="w-5 h-5" />
-              COTIZAR POR WHATSAPP
+              <MessageCircle className="w-5 h-5 fill-white" />
+              Cotizar Proyecto por WhatsApp
             </a>
-          </div>
-
-          {/* Footer of mobile menu */}
-          <div className="mt-4">
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 italic">Publideas — CDMX</span>
+            <p className="text-center text-[11px] font-medium text-slate-400">
+              Manuel Caballero 131, La Obrera, CDMX • Entrega en 24h
+            </p>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

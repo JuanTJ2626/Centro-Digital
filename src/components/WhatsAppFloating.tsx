@@ -7,15 +7,14 @@ export default function WhatsAppFloating() {
   const whatsappUrl = "https://wa.me/528342091016?text=Hola%20Publideas%2C%20vengo%20de%20la%20web%20y%20quiero%20cotizar%20un%20proyecto%20de%20impresi%C3%B3n.";
 
   useEffect(() => {
-    // Mostrar el tooltip automáticamente después de 3 segundos
+    // Mostrar tooltip después de 2.5 segundos
     const timer = setTimeout(() => {
       setShowTooltip(true);
-    }, 3000);
-    
-    // Ocultarlo después de 6 segundos en móvil/pantalla para no obstruir la lectura
+    }, 2500);
+
     const hideTimer = setTimeout(() => {
       setShowTooltip(false);
-    }, 7000);
+    }, 8000);
 
     return () => {
       clearTimeout(timer);
@@ -24,18 +23,27 @@ export default function WhatsAppFloating() {
   }, []);
 
   return (
-    <aside aria-label="Contacto por WhatsApp" className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[999] flex items-end sm:items-center flex-col sm:flex-row group pb-[env(safe-area-inset-bottom,0px)] pr-[env(safe-area-inset-right,0px)]">
-      {/* Tooltip visible en móvil y desktop con animación */}
-      <div 
+    <aside
+      aria-label="Contacto por WhatsApp"
+      className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 flex items-end sm:items-center flex-col sm:flex-row group"
+    >
+      {/* Tooltip estilizado */}
+      <div
         onClick={() => setShowTooltip(false)}
-        className={`mb-3 sm:mb-0 sm:mr-4 relative transition-all duration-500 ease-out origin-bottom-right sm:origin-right cursor-pointer ${showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0 pointer-events-none group-hover:scale-100 group-hover:opacity-100 group-hover:pointer-events-auto'}`}
+        className={`mb-2 sm:mb-0 sm:mr-3.5 relative transition-all duration-300 ease-out origin-bottom-right sm:origin-right cursor-pointer ${
+          showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0 pointer-events-none group-hover:scale-100 group-hover:opacity-100 group-hover:pointer-events-auto'
+        }`}
       >
-        <div className="bg-white text-[#1d1d1f] text-sm font-bold rounded-2xl p-3 shadow-xl border border-gray-100 max-w-[200px] hover:shadow-2xl transition-shadow">
-          <p className="mb-1 text-base">¡Hola! 👋</p>
-          <p className="text-xs font-medium text-gray-600 leading-tight">¿Te ayudo a cotizar tu proyecto? Respondemos rápido.</p>
+        <div className="bg-white text-slate-800 text-xs font-semibold rounded-2xl p-3 shadow-xl border border-slate-100 max-w-[210px]">
+          <div className="flex items-center gap-1.5 mb-1 text-[11px] font-black uppercase text-[#25D366]">
+            <span className="w-2 h-2 rounded-full bg-[#25D366] animate-ping" />
+            En línea ahora
+          </div>
+          <p className="text-[11px] leading-snug text-slate-600">
+            ¿Cotizamos tu impresión? Da clic y te respondemos en menos de 5 min.
+          </p>
         </div>
-        {/* Triángulo del tooltip */}
-        <div className="absolute -bottom-2 right-4 sm:-right-2 sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto w-4 h-4 bg-white rotate-45 border-r border-b border-gray-100 sm:border-b-0 sm:border-l sm:-rotate-45"></div>
+        <div className="absolute -bottom-1.5 right-4 sm:-right-1.5 sm:top-1/2 sm:-translate-y-1/2 sm:bottom-auto w-3 h-3 bg-white rotate-45 border-r border-b border-slate-100 sm:border-b-0 sm:border-l sm:-rotate-45" />
       </div>
 
       {/* Botón flotante WhatsApp */}
@@ -43,19 +51,18 @@ export default function WhatsAppFloating() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Contactar por WhatsApp al 834 209 1016"
+        aria-label="Comprar ahora por WhatsApp"
         onClick={() => trackWhatsAppClick({
           buttonName: 'Botón Flotante WhatsApp',
           targetNumber: '834 209 1016',
           message: 'Hola Publideas, vengo de la web y quiero cotizar un proyecto de impresión.'
         })}
-        className="w-14 h-14 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(37,211,102,0.4)] hover:scale-110 active:scale-95 transition-all duration-300 relative shrink-0"
+        className="w-13 h-13 sm:w-14 sm:h-14 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full flex items-center justify-center shadow-[0_8px_25px_rgba(37,211,102,0.45)] hover:scale-110 active:scale-95 transition-all duration-300 relative shrink-0 ring-4 ring-white"
       >
-        <span className="absolute -inset-1 rounded-full bg-[#25D366]/40 animate-ping pointer-events-none" style={{ animationDuration: '3s' }} />
-        {/* Logo oficial de WhatsApp en SVG */}
+        <span className="absolute -inset-1 rounded-full bg-[#25D366]/30 animate-ping pointer-events-none" style={{ animationDuration: '3s' }} />
         <svg
           viewBox="0 0 24 24"
-          className="w-8 h-8 fill-white relative z-10"
+          className="w-7 h-7 sm:w-8 sm:h-8 fill-white relative z-10"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >

@@ -1,100 +1,86 @@
 'use client';
-import { MapPin, Phone, Mail, Clock, ArrowRight, MessageCircle } from 'lucide-react';
+import { MapPin, Clock, MessageCircle, ArrowRight, ExternalLink } from 'lucide-react';
 import { trackWhatsAppClick } from '@/utils/trackWhatsApp';
 
 export default function Contacto() {
   const mapsSearchUrl = "https://www.google.com/maps/search/?api=1&query=Manuel+Caballero+131,+La+Obrera,+Cuauhtémoc,+06800+Ciudad+de+México,+CDMX";
   const mapsEmbedUrl = "https://maps.google.com/maps?q=Manuel%20Caballero%20131,%20La%20Obrera,%20Cuauht%C3%A9moc,%2006800%20Ciudad%20de%20M%C3%A9xico,%20CDMX&t=&z=16&ie=UTF8&iwloc=&output=embed";
 
-  const waLocalUrl = "https://wa.me/525568081606?text=Hola%20Publideas%2C%20me%20gustar%C3%ADa%20cotizar%20una%20impresi%C3%B3n.";
+  const waLocalUrl = "https://wa.me/525568081606?text=Hola%20Publideas%2C%20me%20gustar%C3%ADa%20cotizar%20o%20comprar%20una%20impresi%C3%B3n.";
   const wa247Url = "https://wa.me/528342091016?text=Hola%20Publideas%2C%20me%20gustar%C3%ADa%20atenci%C3%B3n%20para%20un%20pedido.";
 
   return (
-    <section id="contacto" className="pt-0 pb-4 md:pt-1 md:pb-6 px-4 md:px-6 bg-[#f5f5f7]">
+    <section id="contacto" className="py-12 sm:py-16 px-4 sm:px-6 bg-[#fbfbfd]">
       <div className="max-w-7xl mx-auto">
-
-        {/* Header */}
-        <div className="mb-4 md:mb-5 pt-3 md:pt-4">
-          <div className="flex items-center gap-2 mb-1.5">
-            <div className="w-7 h-7 md:w-9 md:h-9 bg-[#0071e3] rounded-xl flex items-center justify-center shadow-sm">
-              <MapPin className="w-3.5 h-3.5 md:w-4 md:h-4 text-white" />
-            </div>
-            <span className="text-[9px] font-black uppercase tracking-[0.35em] text-[#0071e3]">Encuéntranos</span>
+        
+        {/* Encabezado limpio */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-black uppercase tracking-widest text-slate-700 mb-3 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-[#34c759]" />
+            Visítanos o Escríbenos
           </div>
-          <h2 className="text-2xl md:text-5xl font-bold tracking-tighter italic leading-none mb-2">
-            UBICACIÓN{' '}
-            <span className="text-[#0071e3]">{'&'} CONTACTO.</span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight mb-2">
+            Ubicación del Taller y WhatsApp.
           </h2>
-          <div className="flex gap-1 mt-2">
-            <div className="w-10 h-0.5 bg-[#0071e3]" />
-            <div className="w-10 h-0.5 bg-[#ff3b30]" />
-            <div className="w-10 h-0.5 bg-[#34c759]" />
-            <div className="w-10 h-0.5 bg-[#ffcc00]" />
-          </div>
+          <p className="text-xs sm:text-sm text-slate-500 font-medium">
+            Estamos en el corazón gráfico de la Ciudad de México para entregas rápidas y atención en mostrador.
+          </p>
         </div>
 
-        {/* GOOGLE MAPS CARD & BANNER */}
-        <div className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-lg border border-slate-200/80 bg-white mb-3 md:mb-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[400px]">
-            {/* Left Info Overlay / Column */}
-            <div className="lg:col-span-5 p-8 md:p-10 bg-[#111113] text-white flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-[#0071e3]/20 blur-[100px] rounded-full pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#ff3b30]/15 blur-[90px] rounded-full pointer-events-none" />
-
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="w-3 h-3 rounded-full bg-[#0071e3]" />
-                  <div className="w-3 h-3 rounded-full bg-[#ff3b30]" />
-                  <div className="w-3 h-3 rounded-full bg-[#34c759]" />
-                  <div className="w-3 h-3 rounded-full bg-[#ffcc00]" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50 ml-2">Dirección Principal</span>
+        {/* Tarjeta Principal de Mapa y Dirección */}
+        <div className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_4px_25px_rgba(0,0,0,0.04)] overflow-hidden mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12">
+            
+            {/* Columna Izquierda: Información */}
+            <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-1.5 mb-4">
+                  <span className="w-2 h-2 rounded-full bg-[#0071e3]" />
+                  <span className="w-2 h-2 rounded-full bg-[#ff3b30]" />
+                  <span className="w-2 h-2 rounded-full bg-[#34c759]" />
+                  <span className="w-2 h-2 rounded-full bg-[#ffcc00]" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1.5">
+                    Taller Publideas
+                  </span>
                 </div>
 
-                <h3 className="text-3xl md:text-4xl font-black tracking-tighter italic leading-tight text-white mb-4">
-                  Manuel Caballero 131,<br />
-                  <span className="text-[#0071e3]">La Obrera, CDMX</span>
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
+                  Manuel Caballero 131
                 </h3>
-
-                <p className="text-white/70 text-sm font-medium leading-relaxed mb-4">
-                  Cuauhtémoc, C.P. 06800, Ciudad de México.
+                <p className="text-sm font-semibold text-slate-700 mb-1">
+                  Col. La Obrera, Alcaldía Cuauhtémoc, C.P. 06800, CDMX.
+                </p>
+                <p className="text-xs text-slate-500 font-medium mb-5">
+                  A 3 calles de Calzada de Tlalpan. Metro más cercano: <strong>Metro Chabacano</strong> (Líneas 2, 8 y 9) y cerca de Metro Lázaro Cárdenas.
                 </p>
 
-                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 border border-white/15 text-xs text-white/90 font-medium mb-4">
-                  <MapPin className="w-4 h-4 text-[#ff3b30] shrink-0" />
-                  <span>A menos de 5 min de Metro Chabacano y cerca de Metro Lázaro Cárdenas</span>
-                </div>
-
-                {/* Horarios en la tarjeta de ubicación */}
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 mb-6">
-                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#ffcc00] mb-2">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span>Horarios de Atención:</span>
+                {/* Horarios */}
+                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 mb-6">
+                  <div className="flex items-center gap-2 text-xs font-black uppercase text-slate-800 tracking-wider mb-2">
+                    <Clock className="w-4 h-4 text-[#0071e3]" />
+                    <span>Horario de Atención:</span>
                   </div>
-                  <p className="text-sm font-semibold text-white">
-                    Lunes a Viernes: <span className="font-normal text-white/80">8:00 AM a 6:00 PM</span>
-                  </p>
-                  <p className="text-sm font-semibold text-white mt-0.5">
-                    Sábados: <span className="font-normal text-white/80">9:00 AM a 2:00 PM</span>
-                  </p>
+                  <div className="text-xs text-slate-600 space-y-1">
+                    <p><strong className="text-slate-900">Lunes a Viernes:</strong> 8:00 AM – 6:00 PM</p>
+                    <p><strong className="text-slate-900">Sábados:</strong> 9:00 AM – 2:00 PM</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="relative z-10 pt-4 border-t border-white/10">
-                <a
-                  href={mapsSearchUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center gap-3 w-full sm:w-auto px-7 py-4 bg-[#0071e3] text-white rounded-full font-black text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-xl shadow-blue-500/25"
-                >
-                  <MapPin className="w-4 h-4" />
-                  Cómo llegar (Ruta en Google Maps)
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
+              <a
+                href={mapsSearchUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 px-6 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all text-center"
+              >
+                <MapPin className="w-4 h-4 text-[#ff3b30]" />
+                <span>Cómo llegar (Ruta en Google Maps)</span>
+                <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+              </a>
             </div>
 
-            {/* Right Interactive Google Map */}
-            <div className="lg:col-span-7 h-[360px] lg:h-auto min-h-[360px] relative bg-slate-100">
+            {/* Columna Derecha: Mapa embebido */}
+            <div className="lg:col-span-7 h-[300px] lg:h-auto min-h-[300px] relative bg-slate-100">
               <iframe
                 title="Ubicación Google Maps Publideas"
                 src={mapsEmbedUrl}
@@ -104,114 +90,87 @@ export default function Contacto() {
                 allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full min-h-[360px]"
+                className="w-full h-full min-h-[300px]"
               />
             </div>
           </div>
         </div>
 
-        {/* CONTACT & SCHEDULE ROW */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Address Card */}
-          <div className="bg-white rounded-[2rem] p-6 flex items-start gap-4 border border-slate-200/70 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-11 h-11 bg-[#0071e3] rounded-xl flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
-              <MapPin className="w-5 h-5 text-white" />
+        {/* Canales de Contacto Directo en WhatsApp */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          {/* WhatsApp Cotizaciones 24/7 */}
+          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+            <div className="flex items-start gap-3.5 mb-4">
+              <div className="w-11 h-11 rounded-2xl bg-green-50 flex items-center justify-center shrink-0 border border-green-100">
+                <MessageCircle className="w-6 h-6 text-[#25D366]" />
+              </div>
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#25D366] block">
+                  Canal Principal
+                </span>
+                <h4 className="text-lg font-black text-slate-900">
+                  WhatsApp Cotizaciones 24/7
+                </h4>
+                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                  834 209 1016 • Atención inmediata y presupuestos por archivo.
+                </p>
+              </div>
             </div>
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#86868b] block mb-1">Ubicación</span>
-              <p className="text-sm font-bold text-[#1d1d1f] leading-snug">Manuel Caballero 131</p>
-              <p className="text-xs text-[#86868b] mt-0.5">La Obrera, Cuauhtémoc, CDMX</p>
-              <p className="text-[11px] text-[#0071e3] font-semibold mt-1">Cerca de Metro Chabacano y Lázaro Cárdenas</p>
-            </div>
+
+            <a
+              href={wa247Url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick({
+                buttonName: 'Contacto: WhatsApp 24/7 (834 209 1016)',
+                targetNumber: '834 209 1016',
+                message: 'Hola Publideas, me gustaría atención para un pedido.'
+              })}
+              className="w-full py-3 px-4 bg-[#25D366] hover:bg-[#20ba59] active:scale-95 text-white rounded-2xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-green-500/20 transition-all"
+            >
+              <MessageCircle className="w-4 h-4 fill-white" />
+              <span>Escribir al 834 209 1016</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
 
-          {/* Hours Card */}
-          <div className="bg-white rounded-[2rem] p-6 flex items-start gap-4 border border-slate-200/70 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-11 h-11 bg-[#ffcc00] rounded-xl flex items-center justify-center shrink-0 shadow-md shadow-amber-500/20">
-              <Clock className="w-5 h-5 text-[#1d1d1f]" />
+          {/* WhatsApp Local Taller CDMX */}
+          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+            <div className="flex items-start gap-3.5 mb-4">
+              <div className="w-11 h-11 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
+                <MessageCircle className="w-6 h-6 text-[#0071e3]" />
+              </div>
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#0071e3] block">
+                  Mostrador Local CDMX
+                </span>
+                <h4 className="text-lg font-black text-slate-900">
+                  WhatsApp Taller Local
+                </h4>
+                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                  55 6808 1606 • Entregas personales y recolección en mostrador.
+                </p>
+              </div>
             </div>
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#86868b] block mb-1">Horarios de Atención</span>
-              <p className="text-xs font-bold text-[#1d1d1f] leading-snug">Lunes a Viernes:</p>
-              <p className="text-xs text-[#86868b] font-medium mb-1">8:00 AM a 6:00 PM</p>
-              <p className="text-xs font-bold text-[#1d1d1f] leading-snug">Sábados:</p>
-              <p className="text-xs text-[#86868b] font-medium">9:00 AM a 2:00 PM</p>
-            </div>
+
+            <a
+              href={waLocalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick({
+                buttonName: 'Contacto: WhatsApp Local (55 6808 1606)',
+                targetNumber: '55 6808 1606',
+                message: 'Hola Publideas, me gustaría cotizar una impresión.'
+              })}
+              className="w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 active:scale-95 text-white rounded-2xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Escribir al 55 6808 1606</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
 
-          {/* WhatsApp Local Card */}
-          <div className="bg-white rounded-[2rem] p-6 flex items-start gap-4 border border-slate-200/70 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-11 h-11 bg-[#25D366] rounded-xl flex items-center justify-center shrink-0 shadow-md shadow-green-500/20">
-              <MessageCircle className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex-1">
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#86868b] block mb-1">WhatsApp Local</span>
-              <a
-                href={waLocalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick({
-                  buttonName: 'Contacto: WhatsApp Local (55 6808 1606)',
-                  targetNumber: '55 6808 1606',
-                  message: 'Hola Publideas, me gustaría cotizar una impresión.'
-                })}
-                className="text-base font-bold text-[#1d1d1f] hover:text-[#25D366] transition-colors block"
-              >
-                55 6808 1606
-              </a>
-              <a
-                href={waLocalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick({
-                  buttonName: 'Contacto: WhatsApp Local (55 6808 1606)',
-                  targetNumber: '55 6808 1606',
-                  message: 'Hola Publideas, me gustaría cotizar una impresión.'
-                })}
-                className="mt-2 inline-flex items-center gap-1.5 text-[#25D366] text-[11px] font-black uppercase tracking-wider hover:underline"
-              >
-                <MessageCircle className="w-3.5 h-3.5" />
-                Escribir al WhatsApp local →
-              </a>
-            </div>
-          </div>
-
-          {/* WhatsApp Atención & Cotizaciones 8342091016 */}
-          <div className="bg-white rounded-[2rem] p-6 flex items-start gap-4 border border-slate-200/70 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-11 h-11 bg-[#128C7E] rounded-xl flex items-center justify-center shrink-0 shadow-md shadow-teal-500/20">
-              <MessageCircle className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex-1">
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#86868b] block mb-1">WhatsApp Cotizaciones 24/7</span>
-              <a
-                href={wa247Url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick({
-                  buttonName: 'Contacto: WhatsApp 24/7 (834 209 1016)',
-                  targetNumber: '834 209 1016',
-                  message: 'Hola Publideas, me gustaría atención para un pedido.'
-                })}
-                className="text-base font-bold text-[#1d1d1f] hover:text-[#128C7E] transition-colors block"
-              >
-                834 209 1016
-              </a>
-              <a
-                href={wa247Url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick({
-                  buttonName: 'Contacto: WhatsApp 24/7 (834 209 1016)',
-                  targetNumber: '834 209 1016',
-                  message: 'Hola Publideas, me gustaría atención para un pedido.'
-                })}
-                className="mt-2 inline-flex items-center gap-1.5 text-[#128C7E] text-[11px] font-black uppercase tracking-wider hover:underline"
-              >
-                <MessageCircle className="w-3.5 h-3.5" />
-                Cotizar por WhatsApp 24/7 →
-              </a>
-            </div>
-          </div>
         </div>
 
       </div>

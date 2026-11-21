@@ -1,21 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Outfit } from 'next/font/google';
 import './globals.css';
 
 import WhatsAppFloating from '@/components/WhatsAppFloating';
-
-const outfit = Outfit({ subsets: ['latin'] });
+import MobileBottomBar from '@/components/MobileBottomBar';
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#fbfbfd',
+  themeColor: '#ffffff',
 };
 
 export const metadata: Metadata = {
-  title: 'Publideas | Imprenta Digital en CDMX | Libros, Anuarios, Calendarios y Stickers',
-  description: 'Centro de impresión digital CMYK en CDMX (Col. La Obrera). Imprimimos libros, anuarios, calendarios, stickers, tarjetas, posters y catálogos en couché, bond y adhesivo. Entrega express mismo día.',
+  title: 'Publideas | Impresión Digital en CDMX | Libros, Anuarios, Stickers y Catálogo',
+  description: 'Imprenta digital en CDMX (Col. La Obrera). Libros, anuarios escolares, calendarios, stickers con medio corte, tabloides y lonas. Compra directa y cotizaciones por WhatsApp en minutos.',
   icons: {
     icon: '/logo mejorado.png',
   }
@@ -28,9 +26,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className="scroll-smooth">
-      <body className={`${outfit.className} bg-[#fbfbfd] text-[#1d1d1f] antialiased relative min-h-screen`}>
+      <body className="bg-[#fbfbfd] text-[#0f172a] antialiased relative min-h-screen pb-16 sm:pb-0">
         {children}
         <WhatsAppFloating />
+        <MobileBottomBar />
       </body>
     </html>
   );
